@@ -1,0 +1,206 @@
+/*
+ * DonorsChoose Button — ported from donorschoose-web
+ * Source: web/war/scss/base/form-elements/_buttons.scss
+ * Design tokens resolved from web/war/scss/modules (see :root below).
+ */
+
+@import './fonts.css';
+
+/*
+ * NOTE: DonorsChoose components size in rem and assume 1rem = 16px
+ * (the root font-size is pinned to 16px in src/index.css). If this
+ * stylesheet is ever used outside this app, ensure html { font-size: 16px }.
+ */
+:root {
+  --dc-blue-link: #0062fd;
+  --dc-blue-link-hover: #0058e3; /* darken($blue-link, 5%) */
+  --dc-white: #fff;
+  --dc-white-overlay: rgba(255, 255, 255, 0.8);
+  --dc-white-overlay-stroke: rgba(255, 255, 255, 0.5);
+  --dc-grey: #414142;
+  --dc-grey-stroke: rgba(65, 65, 66, 0.2);
+  --dc-grey-stroke-strong: rgba(65, 65, 66, 0.4); /* opacify($grey-stroke, .2) */
+  --dc-black: #212121;
+  --dc-red-error: #cd2929;
+  --dc-font-headline: "sharp-sans", Montserrat, Verdana, sans-serif;
+  --dc-font-body: "Roboto", Helvetica, Arial, sans-serif;
+  --dc-font-size-button: 1.125rem;
+  --dc-font-size-discreet: 0.875rem;
+  --dc-border-radius-button: 2rem;
+  --dc-transition: all 0.15s cubic-bezier(0.2, 0, 0.04, 1);
+}
+
+/* ---- Shared base (.button-primary + .button-secondary) ---- */
+.dc-button {
+  background: var(--dc-blue-link);
+  color: var(--dc-white);
+  -webkit-appearance: none;
+  display: inline-block;
+  font-size: var(--dc-font-size-button);
+  padding: 0 2em;
+  height: 50px;
+  line-height: 50px;
+  cursor: pointer;
+  vertical-align: top;
+  outline: 0;
+  white-space: nowrap;
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  border: 1px solid var(--dc-blue-link);
+  border-radius: var(--dc-border-radius-button);
+  transition: var(--dc-transition);
+}
+
+/* ---- Primary ---- */
+.dc-button--primary:hover,
+.dc-button--primary:focus,
+.dc-button--primary:active,
+.dc-button--primary.dc-button--loading {
+  text-decoration: none;
+  background: var(--dc-blue-link-hover);
+  color: var(--dc-white);
+}
+
+/* ---- Secondary ---- */
+.dc-button--secondary {
+  background: transparent;
+  border: 1px solid var(--dc-grey-stroke);
+  color: var(--dc-grey);
+  padding: 0 1.25em;
+}
+
+.dc-button--secondary:hover,
+.dc-button--secondary:focus {
+  background: rgba(65, 65, 66, 0.025);
+  text-decoration: none;
+  color: var(--dc-black);
+  border-color: var(--dc-grey-stroke-strong);
+}
+
+.dc-button--secondary:active,
+.dc-button--secondary.dc-button--loading {
+  background-color: rgba(65, 65, 66, 0.05);
+  text-decoration: none;
+  border-color: var(--dc-grey-stroke-strong);
+}
+
+/* ---- Secondary: warning tone ---- */
+.dc-button--warning {
+  color: var(--dc-red-error);
+  border-color: rgba(205, 41, 41, 0.5);
+}
+
+.dc-button--warning:hover,
+.dc-button--warning:focus {
+  border-color: var(--dc-red-error);
+  background: var(--dc-red-error);
+  color: var(--dc-white);
+}
+
+/* ---- Secondary: overlay (on dark/photo backgrounds) ---- */
+.dc-button--overlay {
+  border-color: var(--dc-white-overlay-stroke);
+  color: var(--dc-white);
+}
+
+.dc-button--overlay:hover,
+.dc-button--overlay:focus {
+  border-color: var(--dc-white-overlay);
+  color: var(--dc-white);
+  background: transparent;
+}
+
+.dc-button--overlay:active {
+  background-color: rgba(33, 33, 33, 0.3);
+}
+
+/* ---- Size: small ---- */
+.dc-button--small {
+  height: 40px;
+  line-height: 38px;
+  font-size: var(--dc-font-size-discreet);
+}
+
+/* ---- Full width ---- */
+/* Fills the container but never grows past 550px; stays centered. */
+.dc-button--full-width {
+  display: block;
+  width: 100%;
+  max-width: 550px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* ---- Disabled ---- */
+.dc-button.dc-button--disabled,
+.dc-button:disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+/* ---- Loading indicator ---- */
+.dc-button--loading .dc-button__spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.5em;
+  vertical-align: -0.125em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: dc-button-spin 0.6s linear infinite;
+}
+
+@keyframes dc-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- Icon support ---- */
+/* When an icon is present, use flex so the icon and label align + gap evenly. */
+.dc-button--icon-left,
+.dc-button--icon-right {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.dc-button--full-width.dc-button--icon-left,
+.dc-button--full-width.dc-button--icon-right {
+  display: flex;
+}
+
+.dc-button__icon {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+}
+
+/* Icon glyph sizing (SCSS: $icon-size-button 1.5rem). Inherits button color. */
+.dc-button__icon > svg,
+.dc-button__icon > img {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: currentColor;
+}
+
+.dc-button--small .dc-button__icon > svg,
+.dc-button--small .dc-button__icon > img {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* Mobile: buttons go full-width block (breakpoint-mobile-width: max-width 46em) */
+@media screen and (max-width: 46em) {
+  .dc-button {
+    height: auto;
+    line-height: 1.2;
+    padding: 0.75em 1em;
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}

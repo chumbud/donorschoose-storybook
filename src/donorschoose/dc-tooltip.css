@@ -1,0 +1,143 @@
+/*
+ * DonorsChoose Tooltip.
+ *
+ * The legacy tooltips in donorschoose-web are image-sprite based; this is a
+ * modern rebuild on DC tokens — dark or brand-blue bubble, Sharp Sans label,
+ * --dc-ease motion, and a mobile bottom-sheet at the 46em breakpoint (mirrors
+ * the site's `.toast` pattern).
+ */
+
+.dc-tooltip {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+/* ---- Bubble ---- */
+.dc-tooltip__bubble {
+  position: absolute;
+  z-index: 101;
+  max-width: 240px;
+  width: max-content;
+  padding: 0.5rem 0.75rem;
+  background: var(--dc-black);
+  color: var(--dc-white);
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-font-size-discreet); /* 0.875rem */
+  line-height: 1.4;
+  text-align: center;
+  border-radius: var(--dc-radius-inner); /* 6px */
+  box-shadow: 0 4px 14px rgba(33, 33, 33, 0.22);
+
+  /* Hidden resting state */
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(var(--dc-tt-tx, 0), var(--dc-tt-ty, 0)) scale(0.96);
+  transition:
+    opacity var(--dc-duration-fast) var(--dc-ease),
+    transform var(--dc-duration-fast) var(--dc-ease),
+    visibility 0s linear var(--dc-duration-fast);
+  pointer-events: none;
+}
+
+/* Brand-blue variant */
+.dc-tooltip--blue .dc-tooltip__bubble {
+  background: var(--dc-blue);
+}
+
+/* ---- Arrow ---- */
+.dc-tooltip__bubble::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+  transform: rotate(45deg);
+}
+
+/* ---- Placements (resting offset baked into the transform) ---- */
+.dc-tooltip--top .dc-tooltip__bubble {
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 8px;
+  --dc-tt-tx: -50%;
+  --dc-tt-ty: 4px;
+}
+.dc-tooltip--top .dc-tooltip__bubble::after {
+  top: 100%;
+  left: 50%;
+  margin: -4px 0 0 -4px;
+}
+
+.dc-tooltip--bottom .dc-tooltip__bubble {
+  top: 100%;
+  left: 50%;
+  margin-top: 8px;
+  --dc-tt-tx: -50%;
+  --dc-tt-ty: -4px;
+}
+.dc-tooltip--bottom .dc-tooltip__bubble::after {
+  bottom: 100%;
+  left: 50%;
+  margin: 0 0 -4px -4px;
+}
+
+.dc-tooltip--left .dc-tooltip__bubble {
+  right: 100%;
+  top: 50%;
+  margin-right: 8px;
+  --dc-tt-tx: 4px;
+  --dc-tt-ty: -50%;
+}
+.dc-tooltip--left .dc-tooltip__bubble::after {
+  left: 100%;
+  top: 50%;
+  margin: -4px 0 0 -4px;
+}
+
+.dc-tooltip--right .dc-tooltip__bubble {
+  left: 100%;
+  top: 50%;
+  margin-left: 8px;
+  --dc-tt-tx: -4px;
+  --dc-tt-ty: -50%;
+}
+.dc-tooltip--right .dc-tooltip__bubble::after {
+  right: 100%;
+  top: 50%;
+  margin: -4px -4px 0 0;
+}
+
+/* ---- Visible: hover, keyboard focus, or forced open ---- */
+.dc-tooltip:hover .dc-tooltip__bubble,
+.dc-tooltip:focus-within .dc-tooltip__bubble,
+.dc-tooltip.is-open .dc-tooltip__bubble {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(var(--dc-tt-tx, 0), var(--dc-tt-ty, 0)) scale(1);
+  transition:
+    opacity var(--dc-duration-fast) var(--dc-ease),
+    transform var(--dc-duration-fast) var(--dc-ease);
+}
+
+/* ---- Mobile: bottom sheet (SCSS breakpoint 46em / .toast pattern) ---- */
+@media screen and (max-width: 46em) {
+  .dc-tooltip--mobile-sheet .dc-tooltip__bubble {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    top: auto;
+    margin: 0;
+    max-width: none;
+    width: auto;
+    padding: 1rem 1.25rem;
+    font-size: var(--dc-font-size-body);
+    border-radius: var(--dc-radius-standard); /* 1rem */
+    --dc-tt-tx: 0;
+    --dc-tt-ty: 8px;
+  }
+  .dc-tooltip--mobile-sheet .dc-tooltip__bubble::after {
+    display: none;
+  }
+}

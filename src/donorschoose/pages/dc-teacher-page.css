@@ -1,0 +1,173 @@
+/* DonorsChoose teacher profile / "Donate to {teacher}'s classroom" page. */
+.dc-tp {
+  font-family: var(--dc-font-body);
+  color: var(--dc-black);
+  background: var(--dc-white);
+}
+
+/* Purple hero: profile (left) + give widget (right) */
+.dc-tp__hero {
+  background: var(--dc-blue);
+  color: var(--dc-white);
+  padding: 3rem 1.5rem;
+}
+.dc-tp__hero-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 460px;
+  gap: 2.5rem;
+  align-items: center;
+}
+.dc-tp__profile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.dc-tp__avatar {
+  margin-bottom: 0.75rem;
+}
+.dc-tp__name {
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-xxlarge);
+  color: var(--dc-white);
+  margin: 0;
+}
+.dc-tp__meta {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+.dc-tp__meta li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: var(--dc-font-size-discreet);
+}
+.dc-tp__meta a {
+  color: rgba(255, 255, 255, 0.9);
+}
+.dc-tp__meta .dc-icon {
+  fill: rgba(255, 255, 255, 0.8);
+}
+
+/* Section shells */
+.dc-tp__section {
+  padding: 3rem 1.5rem;
+}
+.dc-tp__section-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.dc-tp__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-tiny);
+  color: var(--dc-grey);
+  margin: 0 0 0.5rem;
+}
+.dc-tp__section h2 {
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-xxlarge);
+  color: var(--dc-black);
+  margin: 0 0 1rem;
+}
+
+/* Trust band */
+.dc-tp__trust {
+  background: var(--dc-vlgrey);
+  text-align: center;
+}
+.dc-tp__trust p {
+  max-width: 560px;
+  margin: 0 auto 1rem;
+  line-height: 1.5;
+}
+.dc-tp__trust a {
+  color: var(--dc-blue-link);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* About: text + photo */
+.dc-tp__about-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 2.5rem;
+  align-items: start;
+}
+.dc-tp__about-grid p {
+  line-height: 1.6;
+  margin: 0 0 1.25rem;
+}
+.dc-tp__photo {
+  height: 200px;
+  border-radius: var(--dc-radius-inner);
+  background: var(--dc-vlgrey) center/cover;
+  border: 1px solid var(--dc-grey-stroke);
+}
+
+/* How funds are used (light blue) */
+.dc-tp__funds {
+  background: #ecf3ff;
+}
+.dc-tp__funds p {
+  max-width: 620px;
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+}
+.dc-tp__reqlabel {
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-discreet);
+  margin: 0 0 0.75rem;
+}
+.dc-tp__request {
+  background: var(--dc-white);
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-standard);
+  padding: 1.25rem;
+  max-width: 380px;
+}
+.dc-tp__request h3 {
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-body);
+  margin: 0 0 0.5rem;
+}
+.dc-tp__request p {
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-black);
+  line-height: 1.4;
+  margin: 0 0 0.75rem;
+}
+.dc-tp__request .dc-project-card__progress {
+  margin: 0;
+}
+
+/* Pass it on (share) */
+.dc-tp__pass {
+  text-align: center;
+}
+.dc-tp__pass p {
+  max-width: 520px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.5;
+}
+.dc-tp__pass .dc-share {
+  justify-content: center;
+}
+
+@media screen and (max-width: 46em) {
+  .dc-tp__hero-inner,
+  .dc-tp__about-grid {
+    grid-template-columns: 1fr;
+  }
+}

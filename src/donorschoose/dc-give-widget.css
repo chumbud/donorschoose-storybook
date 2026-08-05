@@ -1,0 +1,109 @@
+/* DonorsChoose Give Widget — donation module (amounts, frequency, CTA). */
+.dc-give {
+  box-sizing: border-box;
+  max-width: 460px;
+  background: var(--dc-white);
+  border-radius: var(--dc-radius-standard);
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--dc-font-body);
+  box-shadow: 0 10px 30px rgba(33, 33, 33, 0.12);
+}
+.dc-give__title {
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  color: var(--dc-black);
+  font-size: var(--dc-font-size-xxlarge);
+  line-height: 1.1;
+  margin: 0 0 0.5rem;
+}
+.dc-give__subtitle {
+  color: var(--dc-grey);
+  font-size: var(--dc-font-size-large);
+  line-height: 1.3;
+  margin: 0 0 1.5rem;
+}
+
+/* Frequency toggle */
+.dc-give__freq {
+  display: flex;
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-button);
+  padding: 3px;
+  margin-bottom: 1rem;
+}
+.dc-give__freq button {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: none;
+  background: transparent;
+  border-radius: var(--dc-radius-button);
+  padding: 0.75rem 1rem;
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-large);
+  color: var(--dc-black);
+  cursor: pointer;
+  transition: background var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-give__freq button[aria-pressed='true'] {
+  background: rgba(0, 98, 253, 0.1);
+  box-shadow: inset 0 0 0 1px var(--dc-blue-link);
+}
+.dc-give__freq .dc-icon {
+  fill: var(--dc-blue-link);
+}
+
+/* Amount presets */
+.dc-give__amounts {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.dc-give__amount {
+  flex: 1;
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-button);
+  background: var(--dc-white);
+  padding: 0.85rem 0.5rem;
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-large);
+  color: var(--dc-black);
+  cursor: pointer;
+  transition: all var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-give__amount:hover {
+  border-color: var(--dc-blue-link);
+}
+.dc-give__amount.is-selected {
+  border: 2px solid var(--dc-blue-link);
+  background: rgba(0, 98, 253, 0.08);
+}
+.dc-give__another {
+  display: inline-block;
+  border: none;
+  background: none;
+  color: var(--dc-blue-link);
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-body);
+  cursor: pointer;
+  margin-bottom: 1.25rem;
+}
+.dc-give__custom {
+  margin-bottom: 1.25rem;
+}
+.dc-give__cta {
+  margin-bottom: 1rem;
+}
+.dc-give__fine {
+  color: var(--dc-grey);
+  font-size: var(--dc-font-size-discreet);
+  font-style: italic;
+  line-height: 1.4;
+  margin: 0;
+}

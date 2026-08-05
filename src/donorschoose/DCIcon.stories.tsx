@@ -1,0 +1,101 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { DCIcon, ICON_NAMES } from './DCIcon';
+
+/**
+ * **SS Junior** — the DonorsChoose icon set (149 glyphs), ported from the
+ * `icon-junior.svg` symbol sprite. Icons inherit the current text color.
+ *
+ * ```tsx
+ * <DCIcon name="heart" size={24} title="Favorite" />
+ * ```
+ */
+const meta = {
+  title: 'Components/Icons',
+  component: DCIcon,
+  parameters: { layout: 'padded' },
+  tags: ['autodocs'],
+} satisfies Meta<typeof DCIcon>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Single: Story = {
+  args: { name: 'heart', size: 32, title: 'Favorite' },
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div style={{ display: 'flex', alignItems: 'flex-end', gap: '1.5rem', color: 'var(--dc-black)' }}>
+      {[16, 24, 32, 48, 64].map((s) => (
+        <div key={s} style={{ textAlign: 'center' }}>
+          <DCIcon name="rocket" size={s} />
+          <div style={{ fontSize: 12, color: 'var(--dc-grey)', marginTop: 4 }}>{s}px</div>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+export const Colors: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '1.5rem' }}>
+      {[
+        ['var(--dc-black)', 'heart'],
+        ['var(--dc-blue-link)', 'search'],
+        ['var(--dc-green)', 'check'],
+        ['var(--dc-red-error)', 'alert'],
+        ['var(--dc-blue)', 'star'],
+      ].map(([color, name]) => (
+        <span key={name} style={{ color }}>
+          <DCIcon name={name} size={32} />
+        </span>
+      ))}
+    </div>
+  ),
+};
+
+/** The full set — hover a tile to see its name. */
+export const Gallery: Story = {
+  parameters: { layout: 'fullscreen' },
+  render: () => (
+    <div style={{ padding: '2rem', fontFamily: 'var(--dc-font-body)' }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(96px, 1fr))',
+          gap: '0.5rem',
+        }}
+      >
+        {ICON_NAMES.map((name) => (
+          <div
+            key={name}
+            title={name}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 6,
+              padding: '0.9rem 0.5rem',
+              border: '1px solid var(--dc-grey-stroke)',
+              borderRadius: 'var(--dc-radius-inner)',
+              color: 'var(--dc-black)',
+            }}
+          >
+            <DCIcon name={name} size={26} />
+            <span
+              style={{
+                fontSize: 10,
+                color: 'var(--dc-grey)',
+                textAlign: 'center',
+                wordBreak: 'break-all',
+                lineHeight: 1.2,
+              }}
+            >
+              {name}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
+};

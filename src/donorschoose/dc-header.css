@@ -1,0 +1,139 @@
+/*
+ * DonorsChoose global header — ported from genHeader.tag + _header.scss,
+ * with a customizable background (see the `color-nav` mixin): set
+ * --dc-header-bg / --dc-header-fg / --dc-header-logo to recolor it.
+ */
+.dc-header {
+  --dc-header-bg: var(--dc-white);
+  --dc-header-fg: var(--dc-grey); /* nav text */
+  --dc-header-logo: var(--dc-blue); /* logo tint */
+  --dc-header-border: var(--dc-grey-stroke);
+
+  width: 100%;
+  background: var(--dc-header-bg);
+  border-bottom: 1px solid var(--dc-header-border);
+  font-family: var(--dc-font-body);
+}
+
+.dc-header__inner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1em 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.dc-header__logo {
+  flex: none;
+  display: inline-flex;
+}
+/* Logo as a tintable mask so it recolors with the nav (color-nav behavior). */
+.dc-header__logo-mark {
+  display: block;
+  width: 101px;
+  height: 34px;
+  background-color: var(--dc-header-logo);
+  -webkit-mask: url('/donorschoose-wordmark.svg') no-repeat left center / contain;
+  mask: url('/donorschoose-wordmark.svg') no-repeat left center / contain;
+}
+
+.dc-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  flex: 1;
+  font-size: var(--dc-font-size-discreet);
+  font-weight: 500;
+}
+
+.dc-header__link {
+  color: var(--dc-header-fg);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--dc-duration-fast) var(--dc-ease);
+  cursor: pointer;
+}
+.dc-header__link:hover {
+  color: var(--dc-black);
+}
+.dc-header__link--divider {
+  border-left: 1px solid var(--dc-header-border);
+  padding-left: 1em;
+}
+
+.dc-header__spacer {
+  flex: 1;
+}
+
+.dc-header__account {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  flex: none;
+}
+.dc-header__greeting {
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-header-fg);
+}
+.dc-header__greeting strong {
+  color: var(--dc-header-fg);
+}
+
+/* ---- Colored-nav treatment (custom background) ---- */
+.dc-header--colored .dc-header__link:hover {
+  color: var(--dc-header-fg);
+}
+.dc-header--colored .dc-button--secondary {
+  color: var(--dc-header-fg) !important;
+  border-color: color-mix(in srgb, var(--dc-header-fg) 50%, transparent);
+  background: transparent;
+}
+.dc-header--colored .dc-button--secondary:hover {
+  background: color-mix(in srgb, var(--dc-header-fg) 12%, transparent);
+  border-color: var(--dc-header-fg);
+}
+
+/* Mobile bar (hidden on desktop) */
+.dc-header__mobile {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0.75em 1rem;
+}
+
+@media screen and (max-width: 46em) {
+  .dc-header__inner {
+    display: none;
+  }
+  .dc-header__mobile {
+    display: flex;
+  }
+  .dc-header.is-open .dc-header__inner {
+    display: block;
+    padding: 0;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  .dc-header.is-open .dc-header__nav {
+    display: block;
+  }
+  .dc-header.is-open .dc-header__logo {
+    display: none;
+  }
+  .dc-header.is-open .dc-header__link,
+  .dc-header.is-open .dc-header__account {
+    display: block;
+    padding: 1em;
+    border-bottom: 1px solid var(--dc-header-border);
+    color: var(--dc-header-fg);
+    font-size: var(--dc-font-size-body);
+  }
+  .dc-header.is-open .dc-header__link--divider {
+    border-left: none;
+  }
+  .dc-header.is-open .dc-header__spacer {
+    display: none;
+  }
+}

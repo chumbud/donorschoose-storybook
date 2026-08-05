@@ -1,0 +1,68 @@
+/*
+ * DonorsChoose Pagination — ported from
+ * web/war/scss/components/navigation/_pagination.scss + pagination.js.
+ * Pill-shaped page links, arrow icons for prev/next, ellipsis, current/disabled.
+ */
+.dc-pagination {
+  text-align: center;
+  margin: 1em auto;
+}
+.dc-pagination ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dc-pagination li {
+  display: inline-block;
+  font-size: var(--dc-font-size-discreet);
+  margin: 0 0.25em;
+  color: var(--dc-grey);
+}
+.dc-pagination a {
+  display: inline-block;
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-button); /* pill */
+  padding: 0.5em 1em;
+  color: var(--dc-black);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-pagination a:hover {
+  background: rgba(65, 65, 66, 0.025);
+  color: var(--dc-black);
+  border-color: var(--dc-grey-stroke-strong);
+}
+.dc-pagination .dc-pagination__icon {
+  fill: var(--dc-grey);
+  vertical-align: middle;
+  display: block;
+}
+.dc-pagination .ellipsis {
+  padding: 0 8px;
+  color: var(--dc-grey);
+}
+
+.dc-pagination li.current a {
+  color: var(--dc-grey);
+  font-weight: 700;
+  background: var(--dc-subtle-stroke);
+  border-color: var(--dc-subtle-stroke);
+  cursor: default;
+}
+.dc-pagination li.disabled a {
+  color: var(--dc-subtle-stroke);
+  border-color: var(--dc-subtle-stroke);
+  cursor: default;
+  pointer-events: none;
+}
+.dc-pagination li.disabled .dc-pagination__icon {
+  fill: var(--dc-grey-stroke);
+}
+
+@media screen and (max-width: 46em) {
+  .dc-pagination .ellipsis,
+  .dc-pagination li:not(:first-of-type, :last-of-type) {
+    display: none;
+  }
+}

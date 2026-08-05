@@ -1,0 +1,79 @@
+/* Shared layout helpers for the DonorsChoose example pages. */
+.dc-page {
+  font-family: var(--dc-font-body);
+  color: var(--dc-black);
+  background: var(--dc-white);
+  min-height: 100vh;
+}
+.dc-page__container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+.dc-page__breadcrumb {
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-grey);
+  margin-bottom: 1.25rem;
+}
+.dc-page__breadcrumb a {
+  color: var(--dc-blue-link);
+  text-decoration: none;
+}
+.dc-page__grid {
+  display: grid;
+  gap: 1.5rem;
+}
+.dc-page__two-col {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 2.5rem;
+  align-items: start;
+}
+.dc-page__hero {
+  background: var(--dc-vlgrey);
+  border-bottom: 1px solid var(--dc-grey-stroke);
+}
+.dc-page__stat {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.dc-page__stat b {
+  display: block;
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-xlarge);
+  color: var(--dc-black);
+}
+.dc-page__stat span {
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-grey);
+}
+.dc-page__sidebar {
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-standard);
+  padding: 1.5rem;
+  position: sticky;
+  top: 1.5rem;
+}
+.dc-page__toolbar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1.5rem 0;
+}
+.dc-page__filters {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+@media screen and (max-width: 46em) {
+  .dc-page__two-col {
+    grid-template-columns: 1fr;
+  }
+  .dc-page__sidebar {
+    position: static;
+  }
+}

@@ -1,0 +1,128 @@
+/*
+ * DonorsChoose Modal — ported from LightBoxWrapper.js + _overlay.scss.
+ * Scrim ($vlgrey #fafafa @ .9), white rounded dialog, and the
+ * lightbox-fade-slide choreography (scrim fades in first, dialog slides up).
+ */
+
+.dc-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  padding: 3em 1rem;
+}
+
+/* ---- Scrim / backdrop ---- */
+.dc-modal__scrim {
+  position: fixed;
+  inset: 0;
+  background: #fafafa; /* $vlgrey */
+  opacity: 0;
+  transition: opacity 0.12s var(--dc-ease);
+}
+.dc-modal.is-open .dc-modal__scrim {
+  opacity: 0.9;
+}
+/* exit: scrim lingers (delay) */
+.dc-modal.is-closing .dc-modal__scrim {
+  opacity: 0;
+  transition: opacity 0.12s 0.1s var(--dc-ease);
+}
+
+/* ---- Dialog ---- */
+.dc-modal__dialog {
+  position: relative;
+  z-index: 1001;
+  box-sizing: border-box;
+  width: 462px;
+  max-width: 100%;
+  padding: 3em 5em;
+  background: var(--dc-white);
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-standard); /* 1rem */
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  font-family: var(--dc-font-body);
+  color: var(--dc-black);
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.2s 0.1s var(--dc-ease),
+    transform 0.2s 0.1s var(--dc-ease);
+}
+.dc-modal--large .dc-modal__dialog {
+  width: 631px; /* $overlay-width-large */
+  padding: 3em 4em;
+}
+.dc-modal.is-open .dc-modal__dialog {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* exit: dialog leads out (no delay) */
+.dc-modal.is-closing .dc-modal__dialog {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.2s var(--dc-ease),
+    transform 0.2s var(--dc-ease);
+}
+
+/* ---- Close button ---- */
+.dc-modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: rgba(33, 33, 33, 0.2); /* $icon-color */
+  transition: color var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-modal__close:hover {
+  color: rgba(33, 33, 33, 0.4);
+}
+.dc-modal__close svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* ---- Content slots ---- */
+.dc-modal__title {
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-xlarge);
+  line-height: 1.2;
+  color: var(--dc-black);
+  margin: 0 0 0.75rem;
+}
+.dc-modal__body {
+  line-height: 1.4;
+}
+.dc-modal__footer {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+/* ---- Mobile: full-bleed rounded card near top (SCSS breakpoint 46em) ---- */
+@media screen and (max-width: 46em) {
+  .dc-modal {
+    padding: 2em 0;
+  }
+  .dc-modal__dialog,
+  .dc-modal--large .dc-modal__dialog {
+    width: 96%;
+    padding: 2em 1em;
+  }
+  .dc-modal__footer {
+    flex-direction: column;
+  }
+}

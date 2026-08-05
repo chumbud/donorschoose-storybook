@@ -1,0 +1,172 @@
+/*
+ * DonorsChoose form inputs — ported from web/war/scss/base/form-elements/_forms.scss.
+ * Square corners ($border-radius-static: 0), grey-stroke border, inset top
+ * highlight, blue-lighter focus border.
+ */
+
+.dc-field {
+  display: block;
+  margin-bottom: 1em;
+  font-family: var(--dc-font-body);
+  text-align: left;
+}
+
+.dc-field__label {
+  display: block;
+  font-size: var(--dc-font-size-discreet); /* .875rem */
+  margin-bottom: 0.5em;
+  cursor: pointer;
+  color: var(--dc-black);
+}
+
+.dc-field__label .dc-field__req {
+  color: var(--dc-red-error);
+  margin-left: 0.15em;
+}
+
+/* Shared control styling */
+.dc-input,
+.dc-textarea,
+.dc-select {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-static); /* 0 — square */
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-font-size-body); /* 1rem */
+  line-height: 1.4;
+  padding: 0 0.75em;
+  height: 40px;
+  outline: none;
+  background: var(--dc-white);
+  color: var(--dc-black);
+  box-shadow: inset 0 2px 0 0 #f6f6f6;
+  transition: all var(--dc-duration-fast) var(--dc-ease);
+}
+
+.dc-textarea {
+  height: auto;
+  min-height: 96px;
+  padding: 0.5em 0.75em;
+  resize: vertical;
+}
+
+.dc-input::placeholder,
+.dc-textarea::placeholder {
+  color: #999;
+}
+
+.dc-input:focus,
+.dc-textarea:focus,
+.dc-select:focus {
+  border-color: var(--dc-blue-lighter);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.035);
+}
+
+.dc-input:disabled,
+.dc-textarea:disabled,
+.dc-select:disabled {
+  background: var(--dc-vlgrey);
+  border-style: dotted;
+  box-shadow: none;
+  cursor: default;
+}
+
+/* Error state */
+.dc-field--error .dc-input,
+.dc-field--error .dc-textarea,
+.dc-field--error .dc-select {
+  border-color: #dd5f5f; /* lighten($red-error, 20%) */
+}
+.dc-field__error {
+  display: block;
+  margin-top: 0.5em;
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-red-error);
+}
+.dc-field__help {
+  display: block;
+  margin-top: 0.5em;
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-grey);
+  font-style: italic;
+}
+
+/* ---- Word counter (project-creation style) ---- */
+.dc-field__wordcount {
+  display: block;
+  margin-top: 0.4em;
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-grey);
+  font-style: italic;
+  text-align: right;
+}
+.dc-field__wordcount--min {
+  color: var(--dc-green); /* minReached */
+}
+.dc-field__wordcount--max {
+  color: var(--dc-red-error); /* maxExceeded */
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* Native select arrow */
+.dc-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23414142' d='M2 4l4 4 4-4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75em center;
+  padding-right: 2em;
+}
+
+/* Checkbox/radio styles live in dc-checkbox.css (DCCheckbox). */
+
+/* ---- Search input (icon + submit) ---- */
+.dc-search {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+.dc-search__field {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.dc-search__icon {
+  position: absolute;
+  left: 0.75em;
+  width: 18px;
+  height: 18px;
+  fill: var(--dc-grey);
+  pointer-events: none;
+}
+.dc-search .dc-input {
+  padding-left: 2.4em;
+  height: 44px;
+}
+.dc-search__submit {
+  flex: none;
+  height: 44px;
+  padding: 0 1.4em;
+  border: 1px solid var(--dc-blue-link);
+  background: var(--dc-blue-link);
+  color: var(--dc-white);
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-discreet);
+  cursor: pointer;
+  transition: background var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-search__submit:hover {
+  background: var(--dc-blue-link-hover);
+}
+
+/* Focus-visible outline (a11y) */
+.dc-input:focus-visible,
+.dc-textarea:focus-visible,
+.dc-select:focus-visible,
+.dc-search__submit:focus-visible {
+  outline: 3px solid var(--dc-purple);
+  outline-offset: 2px;
+}

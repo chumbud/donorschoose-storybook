@@ -1,0 +1,156 @@
+/* DonorsChoose Share Tools — "Give this project a boost!" share bar.
+   White outlined pills with a colored icon disc + dark label, optional grey
+   boost-card container and copy-link row. */
+
+.dc-share-box {
+  background: var(--dc-vlgrey);
+  border-radius: var(--dc-radius-standard);
+  padding: 1.5rem;
+  font-family: var(--dc-font-body);
+}
+
+/* Boost header */
+.dc-share__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.dc-share__header-text h3 {
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-xlarge);
+  color: var(--dc-black);
+  margin: 0 0 0.15rem;
+}
+.dc-share__header-text p {
+  margin: 0;
+  color: var(--dc-black);
+  font-size: var(--dc-font-size-body);
+}
+
+/* Header illustration (donor-share-image) */
+.dc-share__illo {
+  flex: none;
+  width: 64px;
+  height: auto;
+  display: block;
+}
+
+/* Buttons */
+.dc-share {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.dc-share--stacked {
+  flex-direction: column;
+  align-items: stretch;
+}
+.dc-share__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1.1rem 0.4rem 0.4rem;
+  background: var(--dc-white);
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-button);
+  color: var(--dc-black);
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-body);
+  cursor: pointer;
+  transition: border-color var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-share__btn:hover {
+  border-color: var(--dc-grey-stroke-strong);
+}
+.dc-share__disc {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex: none;
+}
+.dc-share__disc .dc-icon {
+  fill: #fff;
+}
+
+/* Icon-only variant */
+.dc-share--icons .dc-share__btn {
+  padding: 0;
+  border: none;
+  background: none;
+}
+.dc-share--icons .dc-share__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* Copy-link row */
+.dc-share__copy {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+.dc-share__copy-field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--dc-white);
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-button);
+  padding: 0.35rem 0.75rem 0.35rem 0.4rem;
+  min-width: 0;
+}
+.dc-share__copy-disc {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--dc-grey-stroke);
+  flex: none;
+}
+.dc-share__copy-disc .dc-icon {
+  fill: var(--dc-grey);
+}
+.dc-share__copy-url {
+  border: none;
+  outline: none;
+  background: none;
+  flex: 1;
+  min-width: 0;
+  color: var(--dc-grey);
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-font-size-body);
+  text-overflow: ellipsis;
+}
+.dc-share__copy-btn {
+  flex: none;
+  background: var(--dc-white);
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-button);
+  padding: 0.5rem 1.25rem;
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-body);
+  color: var(--dc-black);
+  cursor: pointer;
+}
+.dc-share__copy-btn:hover {
+  border-color: var(--dc-grey-stroke-strong);
+}
+
+@media screen and (max-width: 46em) {
+  .dc-share__copy {
+    flex-direction: column;
+  }
+}

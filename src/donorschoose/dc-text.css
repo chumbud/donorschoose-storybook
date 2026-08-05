@@ -1,0 +1,88 @@
+/*
+ * DonorsChoose text primitives — synced with
+ * web/war/scss/base/layout/_typography.scss.
+ */
+
+.dc-heading {
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--dc-black);
+  margin: 0 0 0.75rem;
+  text-wrap: pretty;
+}
+/* h1 & h2 default to the "thick" display treatment. */
+.dc-heading--1 {
+  font-size: var(--dc-font-size-xxxlarge);
+  margin-bottom: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.dc-heading--2 {
+  font-size: var(--dc-font-size-xxlarge);
+  margin-bottom: 1.25rem;
+  color: var(--dc-blue);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.dc-heading--3 {
+  font-size: var(--dc-font-size-xlarge);
+}
+.dc-heading--4 {
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-grey);
+  text-transform: uppercase;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.dc-heading--thick {
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--dc-black);
+}
+
+/* Mobile: headings step down one size (SCSS breakpoint 46em) */
+@media screen and (max-width: 46em) {
+  .dc-heading--1 {
+    font-size: var(--dc-font-size-xxlarge);
+  }
+  .dc-heading--2 {
+    font-size: var(--dc-font-size-xlarge);
+  }
+  .dc-heading--3 {
+    font-size: var(--dc-font-size-large);
+  }
+}
+
+/* ---------------- Subheader ---------------- */
+.dc-subheader {
+  color: var(--dc-grey);
+  line-height: 1.5;
+  font-family: var(--dc-font-headline);
+  font-weight: 500;
+  font-size: var(--dc-font-size-large);
+  margin: 0 0 1rem;
+}
+
+/* ---------------- Body text ---------------- */
+.dc-text {
+  font-family: var(--dc-font-body);
+  color: var(--dc-black);
+  line-height: 1.4;
+  margin: 0 0 1rem;
+}
+.dc-text--body {
+  font-size: var(--dc-font-size-body);
+}
+.dc-text--large {
+  font-size: var(--dc-font-size-large);
+}
+.dc-text--discreet {
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-grey);
+}

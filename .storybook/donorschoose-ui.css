@@ -1,0 +1,113 @@
+/*
+ * DonorsChoose look & feel for the Storybook preview canvas + docs.
+ * Imported LAST in preview.tsx so it overrides the sandbox defaults.
+ *
+ * - Forces light mode (dark mode disabled).
+ * - Applies DC body/headline fonts.
+ * - Syncs h1–h4 with web/war/scss/base/layout/_typography.scss.
+ */
+
+/* ---------- Force light mode (disable dark) ---------- */
+:root {
+  color-scheme: light !important;
+}
+
+/* Neutralize the sandbox's dark-mode overrides so the canvas stays light. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #414142;
+    --text-h: #212121;
+    --bg: #ffffff;
+    --border: rgba(65, 65, 66, 0.2);
+    --code-bg: #fafafa;
+    --accent: #0062fd;
+    --accent-bg: rgba(0, 98, 253, 0.1);
+    --accent-border: rgba(0, 98, 253, 0.5);
+    --social-bg: rgba(250, 250, 250, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  }
+}
+
+html,
+body {
+  background: var(--dc-white);
+}
+
+/* ---------- DonorsChoose typography ---------- */
+body,
+td {
+  font-family: var(--dc-font-body);
+  color: var(--dc-black);
+  line-height: 1.4;
+}
+
+/* h1–h3 share the headline face (SCSS: _typography.scss) */
+h1,
+h2,
+h3,
+.sbdocs h1,
+.sbdocs h2,
+.sbdocs h3 {
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--dc-black);
+  text-transform: none;
+  text-wrap: pretty;
+  padding: 0;
+}
+
+/* h1 & h2 default to the "thick" display treatment: weight 900, tight tracking. */
+h1,
+.sbdocs-h1 {
+  font-size: var(--dc-font-size-xxxlarge); /* 2.5rem */
+  margin: 0 0 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+h2,
+.sbdocs-h2 {
+  font-size: var(--dc-font-size-xxlarge); /* 2rem */
+  margin: 0 0 1.25rem;
+  color: var(--dc-blue); /* SCSS h2 uses $blue */
+  border-bottom: none;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+h3,
+.sbdocs-h3 {
+  font-size: var(--dc-font-size-xlarge); /* 1.5rem */
+  margin: 0 0 0.75rem;
+}
+
+h4,
+.sbdocs-h4 {
+  font-family: var(--dc-font-headline);
+  color: var(--dc-grey);
+  text-transform: uppercase;
+  font-size: var(--dc-font-size-discreet); /* .875rem */
+  line-height: 1.5;
+  margin: 0 0 0.5rem;
+  font-weight: 400;
+}
+
+/* Mobile heading sizes (SCSS breakpoint: max-width 46em) */
+@media screen and (max-width: 46em) {
+  h1,
+  .sbdocs-h1 {
+    font-size: var(--dc-font-size-xxlarge);
+  }
+  h2,
+  .sbdocs-h2 {
+    font-size: var(--dc-font-size-xlarge);
+  }
+  h3,
+  .sbdocs-h3 {
+    font-size: var(--dc-font-size-large);
+  }
+}

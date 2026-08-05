@@ -1,0 +1,335 @@
+/*
+ * DonorsChoose Project Card — ported from
+ * web/war/js/dc/common/ProjectCard.js + _projectCard.scss.
+ * States: active, almost, funded, friends-family, matched.
+ */
+
+.dc-project-card {
+  position: relative;
+  display: flex;
+  gap: 1.5rem;
+  box-sizing: border-box;
+  min-height: 145px;
+  padding: 1.6em 1.5em;
+  background: var(--dc-white);
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: calc(var(--dc-radius-standard) + 1px);
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.025);
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-font-size-body);
+  color: var(--dc-black);
+  transition:
+    border-color var(--dc-duration-fast) var(--dc-ease),
+    top var(--dc-duration-med) var(--dc-ease);
+  top: 0;
+}
+
+/* Glow overlay */
+.dc-project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--dc-radius-standard);
+  box-shadow: 0 0 0 5px rgba(0, 98, 253, 0.1);
+  opacity: 0;
+  transition: opacity var(--dc-duration-fast) var(--dc-ease);
+  pointer-events: none;
+}
+.dc-project-card:hover {
+  border-color: rgba(0, 98, 253, 0.75);
+}
+.dc-project-card:hover::after {
+  opacity: 1;
+}
+.dc-project-card:hover .dc-project-card__title {
+  color: var(--dc-blue-link);
+}
+
+/* ---- Photo ---- */
+.dc-project-card__photo {
+  flex: none;
+  width: 145px;
+  height: 145px;
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-inner); /* .375rem */
+  background-size: cover;
+  background-position: center;
+  background-color: var(--dc-vlgrey);
+}
+
+/* ---- Main column ---- */
+.dc-project-card__main {
+  flex: 1;
+  min-width: 0;
+}
+.dc-project-card__title {
+  font-family: var(--dc-font-headline);
+  font-size: var(--dc-font-size-button); /* 1.125rem */
+  font-weight: 700;
+  color: var(--dc-black);
+  line-height: 1.2;
+  margin: 0 0 0.25em;
+  transition: color var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-project-card__desc {
+  color: var(--dc-black);
+  font-size: var(--dc-font-size-discreet);
+  line-height: 1.4;
+  margin: 0 0 0.5em;
+}
+.dc-project-card__desc::before {
+  content: '\201C';
+}
+.dc-project-card__desc::after {
+  content: '\201D';
+}
+.dc-project-card__intro {
+  font-size: var(--dc-font-size-discreet);
+  margin: 0.75em 0 0;
+}
+.dc-project-card__teacher {
+  font-weight: 700;
+  color: var(--dc-black);
+}
+.dc-project-card__school {
+  color: var(--dc-grey);
+  font-style: italic;
+}
+.dc-project-card__school-sep {
+  padding: 0 4px;
+}
+
+/* ---- Badge (project type / status) ---- */
+.dc-project-card__badge {
+  position: absolute;
+  left: 8px;
+  top: -13px;
+  z-index: 2;
+  color: var(--dc-white);
+  text-transform: uppercase;
+  padding: 0.5em 0.7em;
+  font-family: var(--dc-font-headline);
+  font-size: var(--dc-font-size-tiny); /* .75rem */
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: var(--dc-blue-link);
+}
+.dc-project-card--friends-family .dc-project-card__badge {
+  background: #d81e5b; /* friends & family accent */
+}
+.dc-project-card--matched .dc-project-card__badge {
+  background: var(--dc-blue); /* #3804c1 */
+}
+
+/* ---- Funding column ---- */
+.dc-project-card__funding {
+  flex: none;
+  width: 190px;
+}
+.dc-project-card__progress {
+  display: block;
+  height: 9px;
+  background: rgba(61, 169, 243, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(61, 169, 243, 0.4);
+  border-radius: var(--dc-radius-standard);
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+.dc-project-card__progress-fill {
+  display: block;
+  height: 9px;
+  background: var(--dc-blue-lighter); /* #3da9f3 */
+  border-radius: var(--dc-radius-standard) 0 0 var(--dc-radius-standard);
+}
+/* matched → purple track + fill */
+.dc-project-card--matched .dc-project-card__progress {
+  background: rgba(56, 4, 193, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(56, 4, 193, 0.4);
+}
+.dc-project-card--matched .dc-project-card__progress-fill {
+  background: var(--dc-blue);
+}
+
+/* matched → soft conic-gradient "aura" behind the card + purple border.
+   Ported from _projectCard.scss `.matched:after` (a halo behind the white card). */
+.dc-project-card--matched {
+  border-color: rgba(56, 4, 193, 0.25);
+}
+.dc-project-card--matched .dc-project-card__match-note {
+  color: var(--dc-blue);
+  font-weight: 900;
+}
+
+/* Soft conic-gradient "aura" behind the white matched card.
+   Ported from _projectCard.scss `.matched:after`. Rendered as its own layer
+   inside a wrapper so it doesn't depend on ancestor backgrounds. */
+.dc-pc-halo-wrap {
+  position: relative;
+}
+.dc-pc-halo-wrap .dc-project-card {
+  position: relative;
+  z-index: 1;
+}
+.dc-pc-halo {
+  position: absolute;
+  z-index: 0;
+  left: -0.5rem;
+  bottom: -0.5rem;
+  width: calc(100% + 1rem);
+  height: calc(100% + 3rem);
+  border-radius: 24px;
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    #e9e3ff 8.87deg,
+    #ffcdcd 21.62deg,
+    #ffece2 43.23deg,
+    #f0f2ff 70.3deg,
+    #b5d5ff 128.42deg,
+    #e9e3ff 159.89deg,
+    #f0f2ff 189.63deg,
+    #b5d5ff 212.45deg,
+    #e2e4ff 243.19deg,
+    #ffcdcd 283.83deg,
+    #ffece2 309.72deg,
+    #e9e3ff 335.85deg,
+    #b5d5ff 350.7deg
+  );
+}
+/* funded → green fill */
+.dc-project-card--funded .dc-project-card__progress-fill {
+  background: var(--dc-green);
+}
+
+.dc-project-card__data {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.75rem;
+  color: var(--dc-grey);
+  font-size: var(--dc-font-size-discreet);
+}
+.dc-project-card__cost {
+  font-weight: 700;
+  color: var(--dc-black);
+  font-size: var(--dc-font-size-button);
+  line-height: 1.6;
+}
+.dc-project-card__cost strong {
+  font-weight: 900;
+  font-size: var(--dc-font-size-large); /* 1.25rem */
+}
+.dc-project-card__completed {
+  color: var(--dc-green);
+  font-size: var(--dc-font-size-button);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.dc-project-card__match-note {
+  color: var(--dc-blue);
+  font-weight: 700;
+}
+
+.dc-project-card__cta {
+  width: 100%;
+}
+
+/* ---- Vertical / small card (photo on top, title overlaid) ---- */
+.dc-project-card--vertical {
+  display: block;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.dc-pc-v__photo {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--dc-vlgrey);
+}
+.dc-pc-v__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0) 55%);
+}
+.dc-pc-v__bookmark {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--dc-black);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.dc-pc-v__title {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 1rem;
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: var(--dc-font-size-large);
+  line-height: 1.15;
+  color: var(--dc-white);
+}
+.dc-pc-v__body {
+  padding: 1rem 1.25rem 1.25rem;
+}
+.dc-pc-v__desc {
+  font-size: var(--dc-font-size-body);
+  line-height: 1.4;
+  color: var(--dc-black);
+  margin: 0 0 1rem;
+}
+.dc-project-card--vertical .dc-project-card__teacher,
+.dc-project-card--vertical .dc-project-card__school {
+  display: block;
+}
+.dc-pc-v__need {
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-button);
+  margin: 0.85rem 0 0.5rem;
+}
+.dc-project-card--vertical .dc-project-card__progress {
+  height: 8px;
+  margin: 0;
+}
+.dc-project-card--vertical .dc-project-card__badge {
+  top: 0.75rem;
+  right: 0.75rem;
+  left: auto;
+}
+
+/* ---- Mobile: stack columns (SCSS breakpoint 46em) ---- */
+@media screen and (max-width: 46em) {
+  .dc-project-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .dc-project-card__photo {
+    width: 100%;
+    height: 180px;
+  }
+  .dc-project-card__funding {
+    width: 100%;
+  }
+  .dc-project-card__badge {
+    position: relative;
+    left: 0;
+    top: 0;
+    align-self: flex-start;
+    margin-bottom: 0.5rem;
+  }
+}

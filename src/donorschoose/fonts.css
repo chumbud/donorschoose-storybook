@@ -1,0 +1,68 @@
+/*
+ * DonorsChoose web fonts — self-hosted.
+ *
+ * Sharp Sans (headline / display) — ported from donorschoose-web
+ *   (web/war/scss/base/fonts/_sharpsans.scss). Weights: 500, 700, 900.
+ * Roboto (body) — Google's Roboto, Apache License 2.0. Weights: 400, 500, 700.
+ *
+ * Files live in /public/fonts and are served at /fonts/* by Vite.
+ */
+
+/* ---------- Sharp Sans ---------- */
+@font-face {
+  font-family: 'sharp-sans';
+  src:
+    url('/fonts/SharpSans-Semibold.woff2') format('woff2'),
+    url('/fonts/SharpSans-Semibold.woff') format('woff'),
+    url('/fonts/SharpSans-Semibold.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'sharp-sans';
+  src:
+    url('/fonts/SharpSans-Bold.woff2') format('woff2'),
+    url('/fonts/SharpSans-Bold.woff') format('woff'),
+    url('/fonts/SharpSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'sharp-sans';
+  src:
+    url('/fonts/SharpSans-Extrabold.woff2') format('woff2'),
+    url('/fonts/SharpSans-Extrabold.woff') format('woff'),
+    url('/fonts/SharpSans-Extrabold.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Roboto ---------- */
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

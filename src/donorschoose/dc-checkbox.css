@@ -1,0 +1,30 @@
+/* DonorsChoose Checkbox / Radio. */
+.dc-check {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.5em;
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-font-size-body);
+  color: var(--dc-black);
+  cursor: pointer;
+  line-height: 1.4;
+}
+.dc-check input {
+  width: 18px;
+  height: 18px;
+  margin: 1px 0 0;
+  accent-color: var(--dc-blue-link);
+  cursor: pointer;
+  flex: none;
+}
+.dc-check input:focus-visible {
+  outline: 3px solid var(--dc-purple);
+  outline-offset: 2px;
+}
+.dc-check--disabled {
+  color: var(--dc-grey-stroke-strong);
+  cursor: default;
+}
+.dc-check--disabled input {
+  cursor: default;
+}
