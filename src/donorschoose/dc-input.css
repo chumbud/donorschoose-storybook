@@ -125,6 +125,7 @@
 .dc-search {
   display: flex;
   align-items: stretch;
+  gap: 0.5rem;
   width: 100%;
 }
 .dc-search__field {
@@ -150,6 +151,7 @@
   height: 44px;
   padding: 0 1.4em;
   border: 1px solid var(--dc-blue-link);
+  border-radius: var(--dc-radius-button); /* rounded pill, matching DCButton */
   background: var(--dc-blue-link);
   color: var(--dc-white);
   font-family: var(--dc-font-headline);
@@ -162,11 +164,18 @@
   background: var(--dc-blue-link-hover);
 }
 
-/* Focus-visible outline (a11y) */
-.dc-input:focus-visible,
-.dc-textarea:focus-visible,
-.dc-select:focus-visible,
-.dc-search__submit:focus-visible {
+/*
+ * Keyboard-only focus ring (a11y).
+ *
+ * The purple outline appears only for Tab/keyboard focus. Text inputs match
+ * :focus-visible even on mouse click, so we gate it on the keyboard modality
+ * set by installFocusModality(). A mouse click keeps just the light-blue
+ * focus border from the :focus rule above.
+ */
+html[data-focus-source='keyboard'] .dc-input:focus,
+html[data-focus-source='keyboard'] .dc-textarea:focus,
+html[data-focus-source='keyboard'] .dc-select:focus,
+html[data-focus-source='keyboard'] .dc-search__submit:focus {
   outline: 3px solid var(--dc-purple);
   outline-offset: 2px;
 }

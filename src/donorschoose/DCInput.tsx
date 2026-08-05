@@ -2,6 +2,9 @@ import type { InputHTMLAttributes, ReactNode, SelectHTMLAttributes, TextareaHTML
 import { useId, useState } from 'react';
 import './tokens.css';
 import './dc-input.css';
+import { installFocusModality } from './focus-modality';
+
+installFocusModality();
 
 /* ---------------- Field wrapper (label + help/error) ---------------- */
 interface FieldShellProps {

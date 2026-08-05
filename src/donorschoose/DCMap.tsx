@@ -75,6 +75,67 @@ export function DCMapPin({
   );
 }
 
+/* ---------------- School marker (need-level pill) ---------------- */
+/** School need levels — lower need (`first`) → higher need (`fourth`). */
+export type DCMapNeed = 'first' | 'second' | 'third' | 'fourth';
+
+export interface DCSchoolMarkerProps {
+  /** Horizontal position as a percent (0–100) of the map width. */
+  x: number;
+  /** Vertical position as a percent (0–100) of the map height. */
+  y: number;
+  /** Need level, drives the fill color (lower → higher need). Defaults to `third`. */
+  need?: DCMapNeed;
+  /** Optional request/cluster count shown next to the school icon. */
+  count?: number | string;
+  /** Highlighted/selected state. */
+  active?: boolean;
+  title?: string;
+  onClick?: () => void;
+}
+
+export function DCSchoolMarker({
+  x,
+  y,
+  need = 'third',
+  count,
+  active = false,
+  title,
+  onClick,
+}: DCSchoolMarkerProps) {
+  const style = { left: `${x}%`, top: `${y}%` } as React.CSSProperties;
+  const classes = [
+    'dc-school-marker',
+    `dc-school-marker--${need}`,
+    active && 'dc-school-marker--active',
+  ]
+    .filter(Boolean)
+    .join(' ');
+  return (
+    <button type="button" className={classes} style={style} title={title} onClick={onClick}>
+      <span className="dc-school-marker__icon" aria-hidden="true" />
+      {count != null && <span className="dc-school-marker__count">{count}</span>}
+    </button>
+  );
+}
+
+/* ---------------- Need-level legend ---------------- */
+const NEED_LEVELS: DCMapNeed[] = ['first', 'second', 'third', 'fourth'];
+
+export function DCMapNeedLegend({ className }: { className?: string }) {
+  return (
+    <div className={['dc-map__need-legend', className].filter(Boolean).join(' ')}>
+      <span className="dc-map__need-legend-label">Lower need schools</span>
+      <span className="dc-map__need-legend-scale" aria-hidden="true">
+        {NEED_LEVELS.map((level) => (
+          <span key={level} className={`dc-map__need-legend-dot dc-map__need-legend-dot--${level}`} />
+        ))}
+      </span>
+      <span className="dc-map__need-legend-label">Higher need schools</span>
+    </div>
+  );
+}
+
 /* ---------------- Popup card ---------------- */
 export interface DCMapPopupProps {
   x: number;

@@ -7,8 +7,8 @@ import '../tokens.css';
  *
  * The core DonorsChoose palette and the color + typography combinations used
  * for text on different backgrounds. The full `globalConstants.scss` color list
- * and the responsive breakpoint variables are below. Values resolved from
- * `donorschoose-web`.
+ * is below. Responsive breakpoint variables live on the Tokens → Breakpoints
+ * page. Values resolved from `donorschoose-web`.
  */
 const meta = {
   title: 'Tokens/Colors',
@@ -30,17 +30,27 @@ const mono: CSSProperties = {
 };
 
 /* [name, css token, hex, usage, scss var] */
-const swatches = [
+
+/* Primary brand palette — the eight core brand colors. */
+const primary = [
   ['Brand blue', '--dc-blue', '#3804c1', 'Headings, matched projects', '$blue'],
   ['Link blue', '--dc-blue-link', '#0062fd', 'Primary CTAs, links', '$blue-link'],
   ['Blue lighter', '--dc-blue-lighter', '#3da9f3', 'Progress fill', '$blue-lighter'],
+  ['Aqua', '--dc-blue-highlighter', '#77eeef', 'Highlights, accents', '$blue-highlighter'],
+  ['Magenta', '--dc-magenta', '#d020b8', 'Professional development', '$color-pd'],
+  ['Yellow', '--dc-yellow', '#f9d524', 'Inspire cards, trust banner', '$yellow'],
+  ['Beige', '--dc-beige', '#ede7df', 'Warm neutral backgrounds', '$darker-beige'],
+  ['White', '--dc-white', '#ffffff', 'Surfaces', '$white'],
+] as const;
+
+/* Secondary palette — supporting neutrals and status colors. */
+const secondary = [
   ['Black', '--dc-black', '#212121', 'Body & heading text', '$black'],
   ['Grey', '--dc-grey', '#414142', 'Secondary text', '$grey'],
+  ['Very light grey', '--dc-vlgrey', '#fafafa', 'Backgrounds', '$vlgrey'],
   ['Green', '--dc-green', '#6ea217', 'Success, fully funded', '$green'],
   ['Red', '--dc-red-error', '#cd2929', 'Errors, warnings', '$red-error'],
   ['Purple', '--dc-purple', '#8152ff', 'Focus outline', '$purple'],
-  ['Very light grey', '--dc-vlgrey', '#fafafa', 'Backgrounds', '$vlgrey'],
-  ['White', '--dc-white', '#ffffff', 'Surfaces', '$white'],
 ] as const;
 
 const combos = [
@@ -104,19 +114,6 @@ const ALL_COLORS: [string, string, string, string][] = [
   ['Error', '$raspberry-red', '#ED0038', '#ED0038'],
 ];
 
-const BREAKPOINTS: [string, string, string][] = [
-  ['$mobile-width-in-em', '46em', 'Mobile width as em (46em ≈ 736px)'],
-  ['$breakpoint-mobile-width', 'screen and (max-width: 46em)', 'The primary mobile breakpoint'],
-  ['$breakpoint-tablet-width', 'screen and (min-width: 46em) and (max-width: 52em)', 'Tablet range'],
-  ['$breakpoint-desktop-width', '(min-width: 46.0625em)', 'Desktop and up'],
-  ['$breakpoint-mobile-width-33', 'screen and (max-width: 33em)', 'Small phones'],
-  ['$breakpoint-mobile-overlay-large-width', 'screen and (max-width: 30em)', 'Large overlay → mobile'],
-  ['$breakpoint-mobile-device-width', 'screen and (max-device-width: 46em)', 'Mobile by device width'],
-  ['$mobile-width', 'auto', 'Mobile element width'],
-  ['$mobile-page-padding', '1em', 'Mobile page padding'],
-  ['$mobile-page-padding-rev', '-1em', 'Negative mobile page padding'],
-];
-
 const th: CSSProperties = {
   textAlign: 'left',
   fontSize: '0.75rem',
@@ -134,42 +131,54 @@ const td: CSSProperties = {
   verticalAlign: 'middle',
 };
 
+/* Swatch card grid shared by the primary and secondary palettes. */
+function SwatchGrid({ items }: { items: readonly (readonly [string, string, string, string, string])[] }) {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))',
+        gap: '1rem',
+      }}
+    >
+      {items.map(([name, token, hex, use, scss]) => (
+        <div
+          key={token}
+          style={{
+            border: '1px solid var(--dc-grey-stroke)',
+            borderRadius: 'var(--dc-radius-inner)',
+            overflow: 'hidden',
+          }}
+        >
+          <div style={{ height: 72, background: `var(${token})`, borderBottom: '1px solid var(--dc-grey-stroke)' }} />
+          <div style={{ padding: '0.6rem 0.75rem' }}>
+            <div style={{ fontFamily: 'var(--dc-font-headline)', fontWeight: 700, fontSize: '0.9rem' }}>{name}</div>
+            <div style={{ ...mono, color: 'var(--dc-grey)', marginTop: 2 }}>
+              {hex} · <span style={{ color: 'var(--dc-blue-link)' }}>{scss}</span>
+            </div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--dc-grey)', marginTop: 4 }}>{use}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export const Palette: Story = {
   render: () => (
     <div style={wrap}>
       <h1>Color &amp; type</h1>
 
-      <h2>Core palette</h2>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))',
-          gap: '1rem',
-          marginBottom: '2.5rem',
-        }}
-      >
-        {swatches.map(([name, token, hex, use, scss]) => (
-          <div
-            key={token}
-            style={{
-              border: '1px solid var(--dc-grey-stroke)',
-              borderRadius: 'var(--dc-radius-inner)',
-              overflow: 'hidden',
-            }}
-          >
-            <div style={{ height: 72, background: `var(${token})`, borderBottom: '1px solid var(--dc-grey-stroke)' }} />
-            <div style={{ padding: '0.6rem 0.75rem' }}>
-              <div style={{ fontFamily: 'var(--dc-font-headline)', fontWeight: 700, fontSize: '0.9rem' }}>{name}</div>
-              <div style={{ ...mono, color: 'var(--dc-grey)', marginTop: 2 }}>
-                {hex} · <span style={{ color: 'var(--dc-blue-link)' }}>{scss}</span>
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--dc-grey)', marginTop: 4 }}>{use}</div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <h2>Primary brand colors</h2>
+      <SwatchGrid items={primary} />
 
-      <h2>Type on color</h2>
+      <h2 style={{ marginTop: '2.5rem' }}>Secondary colors</h2>
+      <p style={{ maxWidth: 620, marginBottom: '1rem', color: 'var(--dc-grey)' }}>
+        Supporting neutrals and status colors used alongside the primary brand palette.
+      </p>
+      <SwatchGrid items={secondary} />
+
+      <h2 style={{ marginTop: '2.5rem' }}>Type on color</h2>
       <p style={{ maxWidth: 620, marginBottom: '1.25rem' }}>
         Approved text/background pairings. Headline is Sharp Sans; body is the DC body stack.
       </p>
@@ -226,31 +235,6 @@ export const Palette: Story = {
               <td style={{ ...td, ...mono, color: 'var(--dc-blue-link)' }}>{scss}</td>
               <td style={{ ...td, ...mono, color: 'var(--dc-grey)' }}>{display}</td>
               <td style={{ ...td, color: 'var(--dc-grey)' }}>{group}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {/* Breakpoints */}
-      <h2 style={{ marginTop: '3rem' }}>Breakpoints — globalConstants.scss</h2>
-      <p style={{ maxWidth: 620, marginBottom: '1rem', color: 'var(--dc-grey)' }}>
-        Responsive breakpoint variables. The primary one used across components is{' '}
-        <span style={mono}>$breakpoint-mobile-width</span> (max-width 46em ≈ 736px).
-      </p>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            <th style={th}>SCSS variable</th>
-            <th style={th}>Value</th>
-            <th style={th}>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          {BREAKPOINTS.map(([scss, value, note]) => (
-            <tr key={scss}>
-              <td style={{ ...td, ...mono, color: 'var(--dc-blue-link)' }}>{scss}</td>
-              <td style={{ ...td, ...mono, color: 'var(--dc-grey)' }}>{value}</td>
-              <td style={{ ...td, color: 'var(--dc-grey)' }}>{note}</td>
             </tr>
           ))}
         </tbody>

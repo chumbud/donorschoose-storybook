@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { DCMap, DCMapPin, DCMapPopup } from './DCMap';
+import type { DCMapNeed } from './DCMap';
+import { DCMap, DCMapPin, DCMapPopup, DCSchoolMarker, DCMapNeedLegend } from './DCMap';
 
 /**
  * Lightweight, brand-styled **map UI** for composing map layouts — a map
@@ -50,6 +51,36 @@ export const WithPopup: Story = {
           12 classroom projects need funding
         </div>
       </DCMapPopup>
+    </DCMap>
+  ),
+};
+
+/**
+ * School markers colored by need level (lower → higher need), using the
+ * `school-building.svg` icon and the need-level legend, as on the "Discover
+ * local need" map.
+ */
+const schools: { id: number; x: number; y: number; need: DCMapNeed; count?: number | string }[] = [
+  { id: 1, x: 30, y: 20, need: 'third', count: 1 },
+  { id: 2, x: 52, y: 16, need: 'fourth', count: 7 },
+  { id: 3, x: 20, y: 40, need: 'second' },
+  { id: 4, x: 44, y: 38, need: 'third', count: 11 },
+  { id: 5, x: 66, y: 30, need: 'fourth', count: 6 },
+  { id: 6, x: 74, y: 46, need: 'second', count: 3 },
+  { id: 7, x: 38, y: 58, need: 'first' },
+  { id: 8, x: 58, y: 62, need: 'fourth', count: 5 },
+  { id: 9, x: 28, y: 72, need: 'third', count: 18 },
+  { id: 10, x: 50, y: 80, need: 'second', count: 2 },
+  { id: 11, x: 70, y: 70, need: 'first', count: 1 },
+];
+
+export const SchoolMarkers: Story = {
+  render: () => (
+    <DCMap height={520}>
+      <DCMapNeedLegend />
+      {schools.map((s) => (
+        <DCSchoolMarker key={s.id} x={s.x} y={s.y} need={s.need} count={s.count} />
+      ))}
     </DCMap>
   ),
 };

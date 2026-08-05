@@ -11,6 +11,9 @@
   --dc-blue-link: #0062fd; /* interactive / link blue */
   --dc-blue-link-hover: #0058e3; /* darken($blue-link, 5%) */
   --dc-blue-lighter: #3da9f3; /* progress fill, input focus border */
+  --dc-blue-highlighter: #77eeef; /* aqua accent ($blue-highlighter) */
+  --dc-magenta: #d020b8; /* professional-development accent ($color-pd) */
+  --dc-beige: #ede7df; /* warm neutral background ($darker-beige) */
   --dc-purple: #8152ff; /* focus outline ($purple) */
   --dc-black: #212121;
   --dc-grey: #414142;
