@@ -6,6 +6,7 @@ import { DCGiveWidget } from '../DCGiveWidget';
 import { DCShareTools } from '../DCShareTools';
 import { DCButton } from '../DCButton';
 import { DCIcon } from '../DCIcon';
+import { classroomPhoto } from '../placeholderPhotos';
 
 const usd = (n: number) => `$${n.toLocaleString('en-US')}`;
 
@@ -65,7 +66,16 @@ export function DCFundPage({
             />
           </div>
 
-          <div className="dc-fund__image" role="img" aria-label="Fund classrooms" />
+          <div
+            className="dc-fund__image"
+            role="img"
+            aria-label="Fund classrooms"
+            style={{
+              backgroundImage: `url("${classroomPhoto('fund-page-classroom')}")`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          />
           <p className="dc-fund__caption">Students in a fund-supported classroom in Newark, NJ.</p>
         </div>
       </div>

@@ -15,9 +15,10 @@
 }
 .dc-pp__hero h1 {
   font-family: var(--dc-font-headline);
-  font-weight: 700;
+  font-weight: 900; /* extrabold */
+  letter-spacing: -0.02em; /* -2% */
   color: var(--dc-white);
-  font-size: var(--dc-font-size-xxlarge);
+  font-size: var(--dc-font-size-xxxlarge);
   margin: 0 0 0.75rem;
 }
 .dc-pp__hero p {

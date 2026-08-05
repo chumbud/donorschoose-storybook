@@ -44,7 +44,9 @@ export function DCProjectPage({ project = byStatus('active') }: DCProjectPagePro
 
   return (
     <div className={`dc-pp ${stateMod}`}>
-      <DCHeader />
+      {/* Header recolored to match the hero background behind the project title
+          (color-nav treatment — see DCHeader `background` prop). */}
+      <DCHeader background="var(--dc-blue)" />
 
       {/* Hero */}
       <div className="dc-pp__hero">

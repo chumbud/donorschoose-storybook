@@ -9,13 +9,12 @@ import { DCIcon } from '../DCIcon';
 import { DCPagination } from '../DCPagination';
 import { DCEssentialCard } from '../DCEssentialCard';
 import { DCMap, DCMapPin, DCMapPopup } from '../DCMap';
+import { classroomPhoto } from '../placeholderPhotos';
 
 const usd = (n: number) => `$${n.toLocaleString('en-US')}`;
 
-const thumb = (hue: number) =>
-  `data:image/svg+xml,${encodeURIComponent(
-    `<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><rect width='120' height='120' fill='hsl(${hue} 50% 60%)'/><circle cx='60' cy='46' r='20' fill='hsl(${hue} 55% 78%)'/><rect x='22' y='72' width='76' height='40' rx='8' fill='hsl(${hue} 55% 72%)'/></svg>`,
-  )}`;
+// Assorted real classroom placeholders, seeded so each result keeps a stable image.
+const thumb = (seed: number) => classroomPhoto(seed);
 
 const FILTERS = [
   { title: 'Gift the essentials', options: ['Classroom essentials'] },

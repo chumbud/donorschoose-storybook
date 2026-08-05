@@ -7,6 +7,7 @@ import { DCAvatar } from '../DCAvatar';
 import { DCIcon } from '../DCIcon';
 import { DCGiveWidget } from '../DCGiveWidget';
 import { DCShareTools } from '../DCShareTools';
+import { classroomPhoto } from '../placeholderPhotos';
 
 export interface DCTeacherPageProps {
   /** Whether a donor is signed in (affects the header + follow control). */
@@ -80,11 +81,24 @@ export function DCTeacherPage({
                 confidence. Thanks to generous donors like you, students gain the tools they need to
                 succeed in the classroom and beyond.
               </p>
-              <DCButton variant="secondary" icon={<DCIcon name="bookmark" size={16} />}>
+              <DCButton
+                variant="secondary"
+                icon={<DCIcon name="bookmark" size={16} />}
+                style={{ background: 'var(--dc-white)' }}
+              >
                 {loggedIn ? `Following ${teacher}` : `Follow ${teacher} for updates`}
               </DCButton>
             </div>
-            <div className="dc-tp__photo" role="img" aria-label="Classroom" />
+            <div
+              className="dc-tp__photo"
+              role="img"
+              aria-label="Classroom"
+              style={{
+                backgroundImage: `url("${classroomPhoto('teacher-page-classroom')}")`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            />
           </div>
         </div>
       </section>

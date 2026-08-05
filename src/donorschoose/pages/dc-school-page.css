@@ -1,0 +1,321 @@
+/*
+ * School profile page — Stuyvesant-style layout. Composes the shared
+ * dc-page.css helpers with school-specific sections: centered hero, about +
+ * info sidebar, teacher thank-you notes, empower banner, teacher grid,
+ * demographics charts, and a support/impact summary.
+ */
+
+/* ---------------- Hero ---------------- */
+.dc-sch-hero {
+  text-align: center;
+  padding: 2.5rem 1.5rem 3rem;
+}
+.dc-sch-hero__eyebrow {
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-grey);
+  margin-bottom: 0.75rem;
+}
+.dc-sch-hero__eyebrow a {
+  color: var(--dc-blue-link);
+  text-decoration: none;
+}
+.dc-sch-hero__title {
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-xxlarge);
+  margin: 0 0 1.25rem;
+}
+.dc-sch-hero__avatars {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+.dc-sch-hero__avatars > * {
+  margin-left: -0.6rem;
+  border: 3px solid var(--dc-white);
+  border-radius: 50%;
+}
+.dc-sch-hero__avatars > *:first-child {
+  margin-left: 0;
+}
+.dc-sch-hero__join {
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-grey);
+  margin-bottom: 1.5rem;
+}
+.dc-sch-hero__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+.dc-sch-hero__cta .dc-button {
+  min-width: 320px;
+}
+.dc-sch-hero__link {
+  color: var(--dc-blue-link);
+  text-decoration: none;
+  font-size: var(--dc-font-size-discreet);
+}
+
+/* ---------------- About + info sidebar ---------------- */
+.dc-sch-about {
+  padding-top: 2rem;
+}
+.dc-sch-panel {
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-standard);
+  padding: 1.5rem;
+}
+.dc-sch-panel h2 {
+  margin-top: 0;
+}
+.dc-sch-note {
+  color: var(--dc-blue-link);
+  font-size: var(--dc-font-size-discreet);
+}
+.dc-sch-info__row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0;
+  font-size: var(--dc-font-size-discreet);
+  border-top: 1px solid var(--dc-subtle-stroke);
+}
+.dc-sch-info__row:first-of-type {
+  border-top: 0;
+}
+.dc-sch-info__row .dc-icon {
+  color: var(--dc-grey);
+  flex: none;
+}
+
+/* ---------------- Teacher thank-you notes ---------------- */
+.dc-sch-notes {
+  background: var(--dc-beige, #ede7df);
+  padding: 3rem 1.5rem;
+}
+.dc-sch-notes__inner {
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+}
+.dc-sch-notes__heading {
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-large);
+  margin-bottom: 1.5rem;
+}
+.dc-sch-note-card {
+  max-width: 460px;
+  margin: 0 auto;
+  background: var(--dc-white);
+  border-radius: var(--dc-radius-standard);
+  box-shadow: 0 6px 20px rgba(33, 33, 33, 0.08);
+  padding: 1.5rem;
+  text-align: left;
+}
+.dc-sch-note-card__quote {
+  font-size: var(--dc-font-size-discreet);
+  line-height: 1.5;
+  color: var(--dc-black);
+  margin: 0 0 1rem;
+}
+.dc-sch-note-card__by {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.dc-sch-note-card__by b {
+  font-size: var(--dc-font-size-discreet);
+}
+.dc-sch-note-card__by span {
+  font-size: var(--dc-font-size-tiny);
+  color: var(--dc-grey);
+}
+
+/* ---------------- Empower banner ---------------- */
+.dc-sch-empower {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--dc-blue-link);
+  color: var(--dc-white);
+  border-radius: var(--dc-radius-standard);
+  overflow: hidden;
+  margin: 2.5rem 0;
+}
+.dc-sch-empower__body {
+  padding: 2rem;
+}
+.dc-sch-empower__body h2 {
+  font-size: var(--dc-font-size-xlarge);
+  margin: 0 0 1.25rem;
+  color: var(--dc-white);
+}
+.dc-sch-empower__media {
+  background:
+    linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.25)),
+    var(--dc-blue);
+  background-size: cover;
+  min-height: 200px;
+}
+@media screen and (max-width: 46em) {
+  .dc-sch-empower {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------- Teachers grid ---------------- */
+.dc-sch-teachers {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem 0.75rem;
+  margin: 1.5rem 0;
+}
+.dc-sch-teacher {
+  text-align: center;
+  font-size: var(--dc-font-size-tiny);
+  color: var(--dc-blue-link);
+}
+.dc-sch-teacher span {
+  display: block;
+  margin-top: 0.4rem;
+}
+@media screen and (max-width: 46em) {
+  .dc-sch-teachers {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---------------- Charts (donut + bars) ---------------- */
+.dc-sch-section-title {
+  text-align: center;
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-xlarge);
+  margin: 3rem 0 2rem;
+}
+.dc-sch-demo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+.dc-donut {
+  --size: 180px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+.dc-donut__hole {
+  width: 64%;
+  height: 64%;
+  background: var(--dc-white);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+.dc-donut__hole b {
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-xlarge);
+}
+.dc-donut__hole span {
+  font-size: var(--dc-font-size-tiny);
+  color: var(--dc-grey);
+  max-width: 8rem;
+}
+.dc-donut-caption {
+  text-align: center;
+  font-size: var(--dc-font-size-tiny);
+  color: var(--dc-grey);
+  margin-top: 0.75rem;
+}
+.dc-bars {
+  display: grid;
+  gap: 0.6rem;
+}
+.dc-bars__row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: var(--dc-font-size-tiny);
+}
+.dc-bars__track {
+  background: var(--dc-subtle-stroke);
+  border-radius: var(--dc-radius-inner);
+  height: 14px;
+  overflow: hidden;
+}
+.dc-bars__fill {
+  height: 100%;
+  background: var(--dc-blue-link);
+  border-radius: var(--dc-radius-inner);
+}
+@media screen and (max-width: 46em) {
+  .dc-sch-demo {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------- Support / impact ---------------- */
+.dc-sch-support {
+  text-align: center;
+}
+.dc-sch-raised {
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: 2.5rem;
+  margin: 0.5rem 0 0.25rem;
+}
+.dc-sch-raised-sub {
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-grey);
+  margin-bottom: 2rem;
+}
+.dc-stat-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.dc-stat-tile b {
+  display: block;
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-xxlarge);
+}
+.dc-stat-tile span {
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-grey);
+}
+@media screen and (max-width: 46em) {
+  .dc-stat-tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------------- Purple trust band ---------------- */
+.dc-sch-trust {
+  background: var(--dc-blue);
+  color: var(--dc-white);
+  text-align: center;
+  padding: 3rem 1.5rem;
+}
+.dc-sch-trust h2 {
+  color: var(--dc-white);
+  max-width: 640px;
+  margin: 0 auto 0.75rem;
+}
+.dc-sch-trust p {
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: var(--dc-font-size-discreet);
+  color: rgba(255, 255, 255, 0.85);
+}

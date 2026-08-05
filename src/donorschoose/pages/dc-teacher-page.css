@@ -108,7 +108,10 @@
   margin: 0 0 1.25rem;
 }
 .dc-tp__photo {
-  height: 200px;
+  box-sizing: border-box;
+  width: 294px;
+  height: 294px;
+  max-width: 100%;
   border-radius: var(--dc-radius-inner);
   background: var(--dc-vlgrey) center/cover;
   border: 1px solid var(--dc-grey-stroke);

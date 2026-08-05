@@ -1,13 +1,13 @@
 import type { DCProjectCardProps } from './DCProjectCard';
+import { classroomPhoto } from './placeholderPhotos';
 
 /**
  * Sample classroom projects, one per state, reused across the project-card
- * stories and the example pages. Photos are inline SVG data URIs (no network).
+ * stories and the example pages. Photos are an assortment of real classroom
+ * placeholders (see placeholderPhotos.ts), seeded so each project keeps a
+ * stable image.
  */
-const photo = (hue: number) =>
-  `data:image/svg+xml,${encodeURIComponent(
-    `<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='hsl(${hue} 52% 60%)'/><circle cx='100' cy='74' r='32' fill='hsl(${hue} 55% 78%)'/><rect x='34' y='116' width='132' height='72' rx='12' fill='hsl(${hue} 55% 72%)'/></svg>`,
-  )}`;
+const photo = (seed: number) => classroomPhoto(seed);
 
 export const projects: DCProjectCardProps[] = [
   {
