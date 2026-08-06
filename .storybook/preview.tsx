@@ -28,12 +28,12 @@ const preview: Preview = {
       wip: {
         title: '🚧 Under construction',
         styles: { backgroundColor: '#fff6da', borderColor: '#e6c34d', color: '#7a5b00' },
-        location: [BADGE_LOCATION.TOOLBAR, BADGE_LOCATION.SIDEBAR],
+        location: [BADGE_LOCATION.TOOLBAR],
       },
       deprecated: {
         title: '⚠️ Redesign coming',
         styles: { backgroundColor: '#fde4d0', borderColor: '#e8935a', color: '#8a3b12' },
-        location: [BADGE_LOCATION.TOOLBAR, BADGE_LOCATION.SIDEBAR],
+        location: [BADGE_LOCATION.TOOLBAR],
       },
     },
     // Light only — dark mode is disabled.
