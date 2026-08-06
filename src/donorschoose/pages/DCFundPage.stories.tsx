@@ -9,6 +9,7 @@ import { DCFundPage } from './DCFundPage';
  */
 const meta = {
   title: 'Pages/Fund',
+  tags: ['!autodocs'], // Pages are live previews — skip the autodocs "Docs" page
   component: DCFundPage,
   parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof DCFundPage>;

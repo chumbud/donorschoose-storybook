@@ -12,6 +12,7 @@ import './animations.css';
  */
 const meta = {
   title: 'Tokens/Animations',
+  tags: ['!autodocs'],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;
 

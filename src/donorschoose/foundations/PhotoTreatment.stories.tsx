@@ -12,6 +12,7 @@ import '../tokens.css';
  */
 const meta = {
   title: 'Brand/Photo Treatment',
+  tags: ['!autodocs'],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;
 

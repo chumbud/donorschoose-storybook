@@ -25,6 +25,8 @@
   max-width: 560px;
   margin: 0 auto;
   color: rgba(255, 255, 255, 0.9);
+  font-family: var(--dc-font-headline); /* Sharp Sans… */
+  font-weight: 500; /* …Semibold */
   font-size: var(--dc-font-size-large);
   line-height: 1.4;
 }
@@ -115,17 +117,30 @@
 /* Left column */
 .dc-pp__photo {
   position: relative;
-  height: 180px;
-  border-radius: var(--dc-radius-inner);
+  height: 250px;
+  border-radius: var(--dc-radius-standard);
   background: #d7d7d9 var(--dc-photo, none);
   background-size: cover;
   background-position: center;
-  border: 1px solid var(--dc-grey-stroke);
 }
+/* Follow — a subtle link under the teacher info (mirrors .follow-teacher). */
 .dc-pp__follow {
-  position: absolute;
-  top: 0.6rem;
-  left: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--dc-blue-link);
+  font-family: var(--dc-font-body);
+  font-weight: 700;
+  font-size: var(--dc-font-size-discreet);
+  text-decoration: none;
+}
+.dc-pp__follow:hover {
+  text-decoration: underline;
 }
 .dc-pp__avatar {
   display: flex;
@@ -149,36 +164,65 @@
   font-size: var(--dc-font-size-discreet);
   line-height: 1.4;
 }
+/* EFS / equity-focus callout — body font (Roboto), brand purple, large.
+   Ported from .equity-focus-descriptor (_teacherInfo.scss). */
 .dc-pp__impact-note {
-  color: var(--dc-blue-link);
-  font-size: var(--dc-font-size-discreet);
+  font-family: var(--dc-font-body);
+  color: var(--dc-blue);
+  font-size: var(--dc-font-size-large);
   line-height: 1.4;
-  margin: 1rem 0;
+  text-align: left;
+  border-top: 1px solid var(--dc-grey-stroke);
+  padding-top: 1.5rem;
+  margin: 1.5rem 0 0;
 }
 .dc-pp__meta {
   list-style: none;
   padding: 0;
-  margin: 1rem 0 0;
-  font-size: var(--dc-font-size-discreet);
-  color: var(--dc-grey);
+  margin: 1.25rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: left;
 }
+/* Teacher-detail stats — project/icon glyphs via ::before (per project.scss). */
 .dc-pp__meta li {
   display: flex;
-  gap: 0.5rem;
-  align-items: flex-start;
-  margin-bottom: 0.75rem;
+  gap: 8px;
+  align-items: center;
+  font-size: var(--dc-font-size-large);
+  color: var(--dc-black);
+  line-height: 1.4;
 }
-.dc-pp__meta svg {
+.dc-pp__meta li::before {
+  content: '';
   flex: none;
-  color: var(--dc-grey);
-  margin-top: 2px;
+  width: 24px;
+  height: 24px;
+  background: center/contain no-repeat;
+  opacity: 0.85;
+}
+.dc-pp__meta li.is-location::before {
+  background-image: url('/images/project/icon/pin.svg');
+}
+.dc-pp__meta li.is-econ::before {
+  background-image: url('/images/project/icon/econ.svg');
+}
+.dc-pp__meta li.is-nbf::before {
+  background-image: url('/images/project/icon/nbf.svg');
+}
+.dc-pp__meta li.is-students::before {
+  background-image: url('/images/project/icon/students.svg');
+}
+.dc-pp__meta li.is-donors::before {
+  background-image: url('/images/project/icon/donors.svg');
 }
 .dc-pp__meta a {
   color: var(--dc-blue-link);
   text-decoration: none;
 }
 .dc-pp__meta em {
-  font-style: italic;
+  font-style: normal;
 }
 
 /* Right column */
@@ -241,8 +285,21 @@
   margin: 0 0 0.75rem;
 }
 .dc-pp__story p {
+  font-size: var(--dc-font-size-large);
+  font-weight: 400;
   line-height: 1.5;
   margin: 0 0 1rem;
+}
+/* Pull quote — Sharp Sans, brand purple @ 85%, per .pull-quote/blockquote. */
+.dc-pp__pull-quote {
+  font-family: var(--dc-font-headline);
+  font-size: var(--dc-font-size-large);
+  font-weight: 400;
+  font-style: normal;
+  color: rgba(56, 4, 193, 0.85);
+  line-height: 1.6;
+  margin: 2rem 0;
+  border: none;
 }
 .dc-pp__thanks {
   color: var(--dc-blue-link);

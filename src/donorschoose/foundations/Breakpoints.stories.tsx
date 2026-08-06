@@ -11,6 +11,7 @@ import '../tokens.css';
  */
 const meta = {
   title: 'Tokens/Breakpoints',
+  tags: ['!autodocs'],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;
 

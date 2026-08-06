@@ -330,7 +330,7 @@
   color: var(--dc-white);
 }
 .dc-pc-v__body {
-  padding: 1rem 1.25rem 1.25rem;
+  padding: 1rem;
 }
 .dc-pc-v__desc {
   font-size: var(--dc-font-size-body);

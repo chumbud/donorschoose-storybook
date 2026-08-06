@@ -24,6 +24,7 @@ import { DCMap, DCMapPin, DCSchoolMarker } from '../DCMap';
  */
 const meta = {
   title: 'Tokens/Animations',
+  tags: ['!autodocs'],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;
 

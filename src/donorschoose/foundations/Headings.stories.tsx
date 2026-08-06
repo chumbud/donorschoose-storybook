@@ -12,6 +12,7 @@ import '../tokens.css';
  */
 const meta = {
   title: 'Tokens/Headings',
+  tags: ['!autodocs'],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;
 
