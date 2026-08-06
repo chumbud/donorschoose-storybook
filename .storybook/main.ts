@@ -10,7 +10,8 @@ const config: StorybookConfig = {
     "@storybook/addon-vitest",
     "@storybook/addon-a11y",
     "@storybook/addon-docs",
-    "@storybook/addon-mcp"
+    "@storybook/addon-mcp",
+    "@geometricpanda/storybook-addon-badges"
   ],
   "framework": "@storybook/react-vite",
   // Serves .storybook/assets at the server root (e.g. /donorschoose-logo.png),

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { underConstruction } from '../underConstruction';
 import { DCSearchPage } from './DCSearchPage';
 
 /**
@@ -7,9 +8,10 @@ import { DCSearchPage } from './DCSearchPage';
  */
 const meta = {
   title: 'Pages/Search',
-  tags: ['!autodocs'], // Pages are live previews — skip the autodocs "Docs" page
+  tags: ['!autodocs', 'wip'], // live previews (no Docs), marked under construction
+  decorators: [underConstruction],
   component: DCSearchPage,
-  parameters: { layout: 'fullscreen' },
+  parameters: { layout: 'fullscreen', badges: ['wip'] },
 } satisfies Meta<typeof DCSearchPage>;
 
 export default meta;

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { underConstruction } from '../underConstruction';
 import { DCAllElements } from './DCAllElements';
 
 /**
@@ -7,9 +8,10 @@ import { DCAllElements } from './DCAllElements';
  */
 const meta = {
   title: 'Pages/All Elements',
-  tags: ['!autodocs'], // Pages are live previews — skip the autodocs "Docs" page
+  tags: ['!autodocs', 'wip'], // live previews (no Docs), marked under construction
+  decorators: [underConstruction],
   component: DCAllElements,
-  parameters: { layout: 'fullscreen' },
+  parameters: { layout: 'fullscreen', badges: ['wip'] },
 } satisfies Meta<typeof DCAllElements>;
 
 export default meta;

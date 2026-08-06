@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { underConstruction } from '../underConstruction';
 import { DCFundPage } from './DCFundPage';
 
 /**
@@ -9,9 +10,10 @@ import { DCFundPage } from './DCFundPage';
  */
 const meta = {
   title: 'Pages/Fund',
-  tags: ['!autodocs'], // Pages are live previews — skip the autodocs "Docs" page
+  tags: ['!autodocs', 'wip'], // live previews (no Docs), marked under construction
+  decorators: [underConstruction],
   component: DCFundPage,
-  parameters: { layout: 'fullscreen' },
+  parameters: { layout: 'fullscreen', badges: ['wip'] },
 } satisfies Meta<typeof DCFundPage>;
 
 export default meta;

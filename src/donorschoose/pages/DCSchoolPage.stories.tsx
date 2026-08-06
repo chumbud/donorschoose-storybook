@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { underConstruction } from '../underConstruction';
 import { DCSchoolPage } from './DCSchoolPage';
 
 /**
@@ -7,9 +8,10 @@ import { DCSchoolPage } from './DCSchoolPage';
  */
 const meta = {
   title: 'Pages/School',
-  tags: ['!autodocs'], // Pages are live previews — skip the autodocs "Docs" page
+  tags: ['!autodocs', 'wip'], // live previews (no Docs), marked under construction
+  decorators: [underConstruction],
   component: DCSchoolPage,
-  parameters: { layout: 'fullscreen' },
+  parameters: { layout: 'fullscreen', badges: ['wip'] },
 } satisfies Meta<typeof DCSchoolPage>;
 
 export default meta;
