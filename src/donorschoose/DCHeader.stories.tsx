@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { DCNavBar } from './DCHeader';
+import { deprecatedSoon } from './underConstruction';
 
 /**
  * The DonorsChoose global **navigation bar** (formerly "header") — logo, primary
@@ -13,7 +14,8 @@ const meta = {
   title: 'Components/Navigation',
   component: DCNavBar,
   parameters: { layout: 'fullscreen' },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'deprecated'],
+  decorators: [deprecatedSoon],
   args: { onSignIn: fn(), onFindClassroom: fn() },
   argTypes: {
     background: { control: 'color' },

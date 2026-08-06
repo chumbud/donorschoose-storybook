@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { underConstruction } from '../underConstruction';
 import { DCProjectPage } from './DCProjectPage';
 import { byStatus } from '../mockProjects';
 
@@ -9,7 +10,8 @@ import { byStatus } from '../mockProjects';
  */
 const meta = {
   title: 'Pages/Project',
-  tags: ['!autodocs'], // Pages are live previews — skip the autodocs "Docs" page
+  tags: ['!autodocs', 'wip'], // live previews (no Docs), marked under construction
+  decorators: [underConstruction],
   component: DCProjectPage,
   parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof DCProjectPage>;

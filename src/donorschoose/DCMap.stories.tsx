@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import type { DCMapNeed } from './DCMap';
 import { DCMap, DCMapPin, DCMapPopup, DCSchoolMarker, DCMapNeedLegend } from './DCMap';
+import { underConstruction } from './underConstruction';
 
 /**
  * Lightweight, brand-styled **map UI** for composing map layouts — a map
@@ -12,7 +13,8 @@ const meta = {
   title: 'Components/Map',
   component: DCMap,
   parameters: { layout: 'padded' },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'wip'],
+  decorators: [underConstruction],
 } satisfies Meta<typeof DCMap>;
 
 export default meta;
