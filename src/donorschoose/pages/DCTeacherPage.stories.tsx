@@ -9,6 +9,7 @@ import { DCTeacherPage } from './DCTeacherPage';
  */
 const meta = {
   title: 'Pages/Teacher',
+  tags: ['!autodocs'], // Pages are live previews — skip the autodocs "Docs" page
   component: DCTeacherPage,
   parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof DCTeacherPage>;

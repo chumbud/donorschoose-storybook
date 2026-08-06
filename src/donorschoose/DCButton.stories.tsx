@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import { fn } from 'storybook/test';
 
 import { DCButton } from './DCButton';
+import { DCIcon, ICON_NAMES } from './DCIcon';
+
+/** Button props plus a synthetic `iconName` control used by the icon stories. */
+type StoryArgs = ComponentProps<typeof DCButton> & { iconName?: string };
 
 /**
  * The DonorsChoose Button, ported from `donorschoose-web`
@@ -44,28 +49,26 @@ const meta = {
       options: ['left', 'right'],
     },
     icon: { control: false },
+    // Synthetic control (icon stories only): pick a glyph from the icon library.
+    iconName: {
+      control: 'select',
+      options: ICON_NAMES,
+      description: 'Icon from the SS Junior library (icon stories only)',
+    },
   },
   args: {
     children: 'Give',
     warning: false,
     onClick: fn(),
   },
-} satisfies Meta<typeof DCButton>;
+} satisfies Meta<StoryArgs>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/* A couple of inline SVG icons for the icon stories. */
-const HeartIcon = () => (
-  <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-    <path d="M12 21s-7.5-4.6-10-9.3C.6 8.8 2 5.5 5 4.8c1.9-.4 3.7.4 4.8 2 .3.4.8.7 1.2.7s.9-.3 1.2-.7c1.1-1.6 2.9-2.4 4.8-2 3 .7 4.4 4 3 6.9C19.5 16.4 12 21 12 21z" />
-  </svg>
-);
-
-const ArrowRightIcon = () => (
-  <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-    <path d="M4 11h12.2l-4.6-4.6L13 5l7 7-7 7-1.4-1.4 4.6-4.6H4z" />
-  </svg>
+/* Render helper for the icon stories: pull the glyph from the icon library. */
+const withIcon = ({ iconName, ...args }: StoryArgs) => (
+  <DCButton {...args} icon={<DCIcon name={iconName ?? 'heart'} size={18} />} />
 );
 
 /* ---- Variants ---- */
@@ -104,19 +107,21 @@ export const FullWidth: Story = {
 export const IconLeft: Story = {
   args: {
     variant: 'primary',
-    icon: <HeartIcon />,
     iconPosition: 'left',
     children: 'Give',
+    iconName: 'heart',
   },
+  render: withIcon,
 };
 
 export const IconRight: Story = {
   args: {
     variant: 'primary',
-    icon: <ArrowRightIcon />,
     iconPosition: 'right',
     children: 'Continue',
+    iconName: 'right',
   },
+  render: withIcon,
 };
 
 /* ---- Secondary tones ---- */

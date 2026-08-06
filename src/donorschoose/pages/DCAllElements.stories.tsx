@@ -7,6 +7,7 @@ import { DCAllElements } from './DCAllElements';
  */
 const meta = {
   title: 'Pages/All Elements',
+  tags: ['!autodocs'], // Pages are live previews — skip the autodocs "Docs" page
   component: DCAllElements,
   parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof DCAllElements>;

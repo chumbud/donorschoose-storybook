@@ -1,16 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
 import '../tokens.css';
+import { DCIcon } from '../DCIcon';
 
 /**
  * # Illustrations
  *
- * Illustration & spot-art SVGs added across the site in the last two years,
- * grouped by the feature they belong to. Icon-style assets (project, map, and
- * social) live in [Components → Icons](?path=/story/components-icons--brand-icons).
+ * Every illustration & spot-art SVG added across the site in the last two years,
+ * in one grid. Each caption notes the page/component it comes from. Icon-style
+ * assets (project, map, social) live in
+ * [Components → Icons](?path=/story/components-icons--gallery).
  */
 const meta = {
   title: 'Brand/Illustrations',
+  tags: ['!autodocs'],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;
 
@@ -23,30 +26,42 @@ const urls = import.meta.glob('../assets/site-illustrations/**/*.svg', {
   eager: true,
 }) as Record<string, string>;
 
-const GROUP_LABELS: Record<string, string> = {
+/** Friendly "where it's from" label per source folder. */
+const SOURCE_LABELS: Record<string, string> = {
   about: 'About page',
   funds: 'Funds',
   illustrations: 'Optional donation & empty states',
   project: 'Project page',
   school: 'School page',
-  teacher: 'Teacher (thank-a-teacher)',
+  teacher: 'Thank-a-teacher',
   'recurring-donation': 'Recurring donation landing',
   vendor: 'Vendor landing',
-  footer: 'Footer',
   'donor-map': 'Donor map',
 };
 
-type Item = { name: string; url: string };
-const groups: Record<string, Item[]> = {};
+type Item = { name: string; url: string; source: string };
+const items: Item[] = [];
 for (const [path, url] of Object.entries(urls)) {
   const m = path.match(/site-illustrations\/([^/]+)\/(.+)\.svg$/);
   if (!m) continue;
-  const [, group, name] = m;
-  (groups[group] ||= []).push({ name, url });
+  const [, source, name] = m;
+  if (source === 'footer') continue; // footer/sponsor asset isn't an illustration
+  items.push({ name, url, source });
 }
-for (const g of Object.values(groups)) g.sort((a, b) => a.name.localeCompare(b.name));
-const groupKeys = Object.keys(groups).sort((a, b) => a.localeCompare(b));
-const totalCount = Object.values(groups).reduce((n, g) => n + g.length, 0);
+items.sort((a, b) => a.name.localeCompare(b.name));
+
+async function download(url: string, filename: string) {
+  const res = await fetch(url);
+  const blob = await res.blob();
+  const href = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = href;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(href);
+}
 
 const wrap: CSSProperties = { fontFamily: 'var(--dc-font-body)', color: 'var(--dc-black)', padding: '2.5rem' };
 const mono: CSSProperties = { fontFamily: 'ui-monospace, Consolas, monospace', fontSize: '0.72rem', color: 'var(--dc-grey)' };
@@ -54,9 +69,10 @@ const grid: CSSProperties = {
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fill, minmax(190px, 1fr))',
   gap: '1rem',
-  margin: '0.75rem 0 2rem',
+  marginTop: '1.25rem',
 };
 const card: CSSProperties = {
+  margin: 0,
   display: 'flex',
   flexDirection: 'column',
   border: '1px solid var(--dc-grey-stroke)',
@@ -74,42 +90,27 @@ const thumb: CSSProperties = {
   background: 'repeating-conic-gradient(var(--dc-vlgrey) 0% 25%, #fff 0% 50%) 50% / 20px 20px',
 };
 
-async function download(url: string, filename: string) {
-  const res = await fetch(url);
-  const blob = await res.blob();
-  const href = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = href;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(href);
-}
-
-function Card({ item, group }: { item: Item; group: string }) {
+function Card({ item }: { item: Item }) {
   return (
-    <figure style={card} className="dc-illo-card">
+    <figure style={card}>
       <div style={thumb}>
         <button
           type="button"
           className="dc-illo-dl"
-          title="Download SVG"
+          title={`Download ${item.name}.svg`}
           aria-label={`Download ${item.name}.svg`}
           onClick={() => download(item.url, `${item.name}.svg`)}
         >
-          ↓
+          <DCIcon name="download" size={16} />
         </button>
-        <img
-          src={item.url}
-          alt={item.name}
-          loading="lazy"
-          style={{ maxWidth: '100%', maxHeight: 118, objectFit: 'contain' }}
-        />
+        <img src={item.url} alt={item.name} loading="lazy" style={{ maxWidth: '100%', maxHeight: 118, objectFit: 'contain' }} />
       </div>
       <figcaption style={{ padding: '0.7rem 0.85rem 0.9rem', borderTop: '1px solid var(--dc-grey-stroke)' }}>
         <div style={{ fontFamily: 'var(--dc-font-headline)', fontWeight: 700, fontSize: '0.9rem' }}>{item.name}</div>
-        <div style={mono}>{group}/{item.name}.svg</div>
+        <div style={{ fontSize: '0.8rem', color: 'var(--dc-grey)', margin: '0.15rem 0 0.35rem' }}>
+          {SOURCE_LABELS[item.source] ?? item.source}
+        </div>
+        <div style={mono}>{item.source}/{item.name}.svg</div>
       </figcaption>
     </figure>
   );
@@ -120,32 +121,25 @@ export const Gallery: Story = {
     <div style={wrap}>
       <style>{`
         .dc-illo-dl {
-          position: absolute; top: 6px; right: 6px; width: 26px; height: 26px;
+          position: absolute; top: 6px; right: 6px; width: 28px; height: 28px;
           display: flex; align-items: center; justify-content: center;
-          border: none; border-radius: 6px; cursor: pointer; font-size: 15px;
+          border: none; border-radius: 6px; cursor: pointer;
           color: var(--dc-blue-link); background: rgba(255,255,255,0.92);
           box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-          opacity: 0; transition: opacity var(--dc-duration-fast) var(--dc-ease);
         }
-        .dc-illo-card:hover .dc-illo-dl, .dc-illo-dl:focus-visible { opacity: 1; }
+        .dc-illo-dl:hover { color: var(--dc-blue-link-hover); background: #fff; }
       `}</style>
       <h1 style={{ marginBottom: '0.25rem' }}>Illustrations</h1>
       <p style={{ fontSize: '1.05rem', color: 'var(--dc-grey)', maxWidth: 660, marginTop: 0 }}>
-        {totalCount} illustration &amp; spot-art SVGs added across the site in the last two years, grouped by
-        feature. Icon-style assets live in{' '}
-        <a href="?path=/story/components-icons--brand-icons">Components → Icons</a>.
+        {items.length} illustration &amp; spot-art SVGs added across the site in the last two years. Each
+        caption notes where it's used. Icon-style assets live in{' '}
+        <a href="?path=/story/components-icons--gallery">Components → Icons</a>.
       </p>
-      {groupKeys.map((key) => (
-        <section key={key}>
-          <h2 style={{ margin: '1.5rem 0 0' }}>{GROUP_LABELS[key] ?? key}</h2>
-          <p style={{ ...mono, margin: '0.25rem 0 0' }}>src/donorschoose/assets/site-illustrations/{key}/</p>
-          <div style={grid}>
-            {groups[key].map((item) => (
-              <Card key={item.name} item={item} group={key} />
-            ))}
-          </div>
-        </section>
-      ))}
+      <div style={grid}>
+        {items.map((item) => (
+          <Card key={`${item.source}/${item.name}`} item={item} />
+        ))}
+      </div>
     </div>
   ),
 };

@@ -16,7 +16,7 @@ const preview: Preview = {
   parameters: {
     options: {
       storySort: {
-        order: ['Tokens', 'Components', 'Pages'],
+        order: ['Brand', 'Tokens', 'Components', 'Pages'],
       },
     },
     // Light only — dark mode is disabled.

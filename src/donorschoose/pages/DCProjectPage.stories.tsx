@@ -9,6 +9,7 @@ import { byStatus } from '../mockProjects';
  */
 const meta = {
   title: 'Pages/Project',
+  tags: ['!autodocs'], // Pages are live previews — skip the autodocs "Docs" page
   component: DCProjectPage,
   parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof DCProjectPage>;

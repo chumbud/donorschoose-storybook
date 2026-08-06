@@ -12,6 +12,7 @@ import './fonts.css';
  */
 const meta = {
   title: 'Tokens/Typography',
+  tags: ['!autodocs'],
   parameters: { layout: 'padded' },
 } satisfies Meta;
 

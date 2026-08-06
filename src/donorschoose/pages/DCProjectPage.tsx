@@ -82,13 +82,7 @@ export function DCProjectPage({ project = byStatus('active') }: DCProjectPagePro
           <div
             className="dc-pp__photo"
             style={project.imageUrl ? { backgroundImage: `url("${project.imageUrl}")` } : undefined}
-          >
-            <div className="dc-pp__follow">
-              <DCButton variant="secondary" size="small" icon={<DCIcon name="flag" size={16} />}>
-                Follow project for updates
-              </DCButton>
-            </div>
-          </div>
+          />
           <div className="dc-pp__avatar">
             <DCAvatar name={project.teacher} placeholder="teacher-1" size={68} ring />
           </div>
@@ -100,30 +94,29 @@ export function DCProjectPage({ project = byStatus('active') }: DCProjectPagePro
             <br />
             Grades 6-8
           </div>
+          <button type="button" className="dc-pp__follow">
+            <DCIcon name="bookmark" size={16} />
+            Follow
+          </button>
           <p className="dc-pp__impact-note">
             This project will directly impact historically underfunded classrooms.
           </p>
           <ul className="dc-pp__meta">
-            <li>
-              <DCIcon name="location" size={18} />
+            <li className="is-location">
               <span>
                 {project.location} - <a href="#">View local requests</a>
               </span>
             </li>
-            <li>
-              <DCIcon name="users" size={18} />
+            <li className="is-econ">
               <em>More than half of students from low-income households</em>
             </li>
-            <li>
-              <DCIcon name="flag" size={18} />
+            <li className="is-nbf">
               <span>Never Before Funded</span>
             </li>
-            <li>
-              <DCIcon name="masculineuser" size={18} />
+            <li className="is-students">
               <span>150 students impacted</span>
             </li>
-            <li>
-              <DCIcon name="heart" size={18} />
+            <li className="is-donors">
               <span>{project.donors} donors</span>
             </li>
           </ul>
@@ -144,11 +137,14 @@ export function DCProjectPage({ project = byStatus('active') }: DCProjectPagePro
               they're learning. Simple supplies like paper, tape, and hot glue guns give students
               the chance to build, create, and bring their ideas to life.
             </p>
+            <p className="dc-pp__pull-quote">
+              “These materials mean my students can spend less time worrying about what they have to
+              work with — and more time creating and learning by doing.”
+            </p>
             <p>
               Whether they're making models, designing posters, or working together on a history
               project, these materials make learning more engaging and memorable. Having these
-              supplies on hand means my students can spend less time worrying about what they have to
-              work with and more time collaborating, creating, and learning by doing.
+              supplies on hand keeps my classroom curious, collaborative, and hands-on every day.
             </p>
             <p className="dc-pp__thanks">Thank you for considering.</p>
 
