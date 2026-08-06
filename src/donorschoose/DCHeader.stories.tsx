@@ -13,7 +13,7 @@ import { deprecatedSoon } from './underConstruction';
 const meta = {
   title: 'Components/Navigation',
   component: DCNavBar,
-  parameters: { layout: 'fullscreen' },
+  parameters: { layout: 'fullscreen', badges: ['deprecated'] },
   tags: ['autodocs', 'deprecated'],
   decorators: [deprecatedSoon],
   args: { onSignIn: fn(), onFindClassroom: fn() },

@@ -11,7 +11,7 @@ const meta = {
   tags: ['!autodocs', 'wip'], // live previews (no Docs), marked under construction
   decorators: [underConstruction],
   component: DCAllElements,
-  parameters: { layout: 'fullscreen' },
+  parameters: { layout: 'fullscreen', badges: ['wip'] },
 } satisfies Meta<typeof DCAllElements>;
 
 export default meta;

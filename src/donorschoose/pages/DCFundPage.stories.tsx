@@ -13,7 +13,7 @@ const meta = {
   tags: ['!autodocs', 'wip'], // live previews (no Docs), marked under construction
   decorators: [underConstruction],
   component: DCFundPage,
-  parameters: { layout: 'fullscreen' },
+  parameters: { layout: 'fullscreen', badges: ['wip'] },
 } satisfies Meta<typeof DCFundPage>;
 
 export default meta;

@@ -13,7 +13,7 @@ const meta = {
   tags: ['!autodocs', 'wip'], // live previews (no Docs), marked under construction
   decorators: [underConstruction],
   component: DCTeacherPage,
-  parameters: { layout: 'fullscreen' },
+  parameters: { layout: 'fullscreen', badges: ['wip'] },
 } satisfies Meta<typeof DCTeacherPage>;
 
 export default meta;

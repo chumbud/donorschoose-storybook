@@ -9,6 +9,7 @@ import '../src/donorschoose/fonts.css'
 // DonorsChoose look & feel + forced light mode. Imported LAST so it wins.
 import './donorschoose-ui.css'
 import theme from './theme'
+import { BADGE_LOCATION } from '@geometricpanda/storybook-addon-badges'
 
 const preview: Preview = {
   // Generate an autodocs "Docs" page for every component/page automatically.
@@ -17,6 +18,22 @@ const preview: Preview = {
     options: {
       storySort: {
         order: ['Overview', 'Brand', 'Tokens', 'Components', 'Pages'],
+      },
+    },
+    // Status badges (via @geometricpanda/storybook-addon-badges). Applied to a
+    // component's meta with `parameters: { badges: ['wip'] | ['deprecated'] }`.
+    // Note: the sidebar badge only renders for the active story (addon quirk);
+    // the toolbar badge is always visible.
+    badgesConfig: {
+      wip: {
+        title: '🚧 Under construction',
+        styles: { backgroundColor: '#fff6da', borderColor: '#e6c34d', color: '#7a5b00' },
+        location: [BADGE_LOCATION.TOOLBAR, BADGE_LOCATION.SIDEBAR],
+      },
+      deprecated: {
+        title: '⚠️ Redesign coming',
+        styles: { backgroundColor: '#fde4d0', borderColor: '#e8935a', color: '#8a3b12' },
+        location: [BADGE_LOCATION.TOOLBAR, BADGE_LOCATION.SIDEBAR],
       },
     },
     // Light only — dark mode is disabled.
