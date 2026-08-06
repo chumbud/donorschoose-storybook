@@ -37,6 +37,17 @@ export const Basic: Story = {
   ),
 };
 
+/** Pins drop in one after another with a staggered pop when the map mounts. */
+export const AnimateChildren: Story = {
+  render: () => (
+    <DCMap animateChildren>
+      {pins.map((p) => (
+        <DCMapPin key={p.id} x={p.x} y={p.y} count={p.count} title={`${p.count} projects`} />
+      ))}
+    </DCMap>
+  ),
+};
+
 export const WithPopup: Story = {
   render: () => (
     <DCMap>

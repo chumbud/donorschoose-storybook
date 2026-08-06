@@ -56,6 +56,28 @@
     #0a7a6e 10px,
     #0a7a6e 20px
   );
+  background-size: 28.28px 28.28px; /* one stripe period (20px * √2) for seamless scroll */
+  /* Fill to the raised width on load, then keep the stripes marching. */
+  transform-origin: left center;
+  animation:
+    dc-fundbar-fill 0.9s var(--dc-ease) both,
+    dc-fund-stripes 0.8s linear infinite;
+}
+@keyframes dc-fundbar-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes dc-fund-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 28.28px 0;
+  }
 }
 .dc-fund__figures {
   display: flex;

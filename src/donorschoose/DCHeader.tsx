@@ -7,12 +7,17 @@ export interface DCHeaderUser {
   name: string;
 }
 
-export interface DCHeaderProps {
+export interface DCNavBarProps {
   /** Logged-in user, if any. */
   user?: DCHeaderUser;
+  /**
+   * Tip-Top Donor state — our most engaged donors. Surfaces the
+   * "Other ways to give" link (DAFs, stock, etc.) that's hidden for everyone else.
+   */
+  tipTopDonor?: boolean;
   onSignIn?: () => void;
   onFindClassroom?: () => void;
-  /** Custom header background color (mirrors the `color-nav` mixin). */
+  /** Custom nav background color (mirrors the `color-nav` mixin). */
   background?: string;
   /** Nav text + CTA color when on a custom background. Defaults to white. */
   color?: string;
@@ -20,22 +25,24 @@ export interface DCHeaderProps {
   logoColor?: string;
 }
 
+/** Links shown to everyone. */
 const LINKS = [
   { label: 'TEACHERS: Get funded', href: '#' },
   { label: 'Partner with us', href: '#' },
   { label: 'About us', href: '#' },
-  { label: 'Other ways to give', href: '#' },
   { label: 'Help', href: '#', divider: true },
 ];
 
-export function DCHeader({
+/** The DonorsChoose global **navigation bar** (formerly "header"). */
+export function DCNavBar({
   user,
+  tipTopDonor = false,
   onSignIn,
   onFindClassroom,
   background,
   color = '#ffffff',
   logoColor,
-}: DCHeaderProps) {
+}: DCNavBarProps) {
   const [open, setOpen] = useState(false);
 
   const colored = Boolean(background);
@@ -53,6 +60,11 @@ export function DCHeader({
       <DCButton variant="secondary" size="small" onClick={onFindClassroom}>
         Find a classroom to support
       </DCButton>
+      {tipTopDonor && (
+        <a href="#" className="dc-header__link">
+          Other ways to give
+        </a>
+      )}
       {LINKS.map((l) => (
         <a
           key={l.label}
@@ -104,3 +116,10 @@ export function DCHeader({
     </header>
   );
 }
+
+/**
+ * @deprecated Renamed to {@link DCNavBar}. Kept as an alias so existing page
+ * imports keep working.
+ */
+export const DCHeader = DCNavBar;
+export type DCHeaderProps = DCNavBarProps;

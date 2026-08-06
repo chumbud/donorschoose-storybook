@@ -82,6 +82,17 @@
 .dc-pp__fundbar-fill {
   height: 100%;
   background: var(--dc-blue-link);
+  /* Grow the fill to its funded width on load (scaleX composes with any width). */
+  transform-origin: left center;
+  animation: dc-fundbar-fill 0.9s var(--dc-ease) both;
+}
+@keyframes dc-fundbar-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 .dc-pp--matched .dc-pp__fundbar-fill {
   background: var(--dc-blue);

@@ -1,16 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
-import { DCHeader } from './DCHeader';
+import { DCNavBar } from './DCHeader';
 
 /**
- * The DonorsChoose global header — logo, primary nav, the outlined "Find a
- * classroom to support" CTA, and account links. Collapses to a "Menu" drawer at
- * ≤46em. The background is customizable (mirrors the `color-nav` mixin): set
- * `background` and the nav text, CTA, and logo recolor to match.
+ * The DonorsChoose global **navigation bar** (formerly "header") — logo, primary
+ * nav, the outlined "Find a classroom to support" CTA, and account links.
+ * Collapses to a "Menu" drawer at ≤46em. The background is customizable (mirrors
+ * the `color-nav` mixin): set `background` and the nav text, CTA, and logo recolor
+ * to match.
  */
 const meta = {
-  title: 'Components/Header',
-  component: DCHeader,
+  title: 'Components/Navigation',
+  component: DCNavBar,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],
   args: { onSignIn: fn(), onFindClassroom: fn() },
@@ -19,7 +20,7 @@ const meta = {
     color: { control: 'color' },
     logoColor: { control: 'color' },
   },
-} satisfies Meta<typeof DCHeader>;
+} satisfies Meta<typeof DCNavBar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -28,6 +29,15 @@ export const LoggedOut: Story = {};
 
 export const LoggedIn: Story = {
   args: { user: { name: 'Jordan' } },
+};
+
+/**
+ * Tip-Top Donor — our most engaged donors. The nav shows/hides elements by a
+ * class set server-side on the top-level element; in this state the "Other ways
+ * to give" link (DAFs, stock, crypto, etc.) is revealed.
+ */
+export const TipTopDonor: Story = {
+  args: { user: { name: 'Jordan' }, tipTopDonor: true },
 };
 
 /** Brand-blue background with white nav + logo (color-nav treatment). */

@@ -1,5 +1,11 @@
-/* DonorsChoose Checkbox / Radio. */
+/*
+ * DonorsChoose Checkbox / Radio — ported from base/form-elements/_forms.scss
+ * (.checkbox-holder / .radio-holder). Custom 14px control: white box with an
+ * inset top highlight and a grey rotated-border tick (the box stays white when
+ * checked). Radio is a round box with a filled dot.
+ */
 .dc-check {
+  position: relative;
   display: inline-flex;
   align-items: flex-start;
   gap: 0.5em;
@@ -9,22 +15,93 @@
   cursor: pointer;
   line-height: 1.4;
 }
+
+/* Native control is hidden but stays focusable (label toggles it). */
 .dc-check input {
-  width: 18px;
-  height: 18px;
-  margin: 1px 0 0;
-  accent-color: var(--dc-blue-link);
-  cursor: pointer;
-  flex: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  opacity: 0;
 }
-.dc-check input:focus-visible {
+
+/* The box (drawn as the label's ::before so it's the first flex item). */
+.dc-check::before {
+  content: '';
+  flex: none;
+  box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  margin-top: 3px;
+  border-radius: 2px;
+  background: #fff;
+  border: 1px solid var(--dc-grey-stroke);
+  box-shadow: inset 0 2px 0 0 #f6f6f6;
+  transition: border-color var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-check:hover::before {
+  border-color: var(--dc-blue-link);
+}
+
+/* Checked tick — a rotated bottom/right border, grey, over the white box. */
+.dc-check:has(input:checked)::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  width: 3px;
+  height: 6px;
+  border: solid var(--dc-grey);
+  border-width: 0 3px 3px 0;
+  border-radius: 1px;
+  transform: rotate(33deg);
+}
+
+/* Indeterminate — a single horizontal bar. */
+.dc-check:has(input:indeterminate)::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 9px;
+  width: 8px;
+  height: 3px;
+  border: 0;
+  border-radius: 1px;
+  background: var(--dc-grey);
+  transform: none;
+}
+
+/* ---- Radio ---- */
+.dc-check--radio::before {
+  border-radius: 50%;
+}
+.dc-check--radio:has(input:checked)::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 7px;
+  width: 8px;
+  height: 8px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--dc-grey);
+  transform: none;
+}
+
+/* ---- Focus ---- */
+.dc-check:has(input:focus-visible)::before {
   outline: 3px solid var(--dc-purple);
   outline-offset: 2px;
+  border-color: var(--dc-grey-stroke-strong);
 }
+
+/* ---- Disabled ---- */
 .dc-check--disabled {
   color: var(--dc-grey-stroke-strong);
   cursor: default;
 }
-.dc-check--disabled input {
-  cursor: default;
+.dc-check--disabled::before {
+  background: var(--dc-vlgrey);
 }

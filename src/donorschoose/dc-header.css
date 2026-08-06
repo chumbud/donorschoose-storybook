@@ -8,6 +8,7 @@
   --dc-header-fg: var(--dc-grey); /* nav text */
   --dc-header-logo: var(--dc-blue); /* logo tint */
   --dc-header-border: var(--dc-grey-stroke);
+  --dc-header-height: 84px; /* global nav bar height */
 
   width: 100%;
   background: var(--dc-header-bg);
@@ -17,8 +18,10 @@
 
 .dc-header__inner {
   max-width: 980px;
+  min-height: var(--dc-header-height);
+  box-sizing: border-box;
   margin: 0 auto;
-  padding: 1em 1.5rem;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   gap: 1.25rem;
@@ -72,6 +75,7 @@
   gap: 1em;
   flex: none;
 }
+
 .dc-header__greeting {
   font-size: var(--dc-font-size-discreet);
   color: var(--dc-header-fg);

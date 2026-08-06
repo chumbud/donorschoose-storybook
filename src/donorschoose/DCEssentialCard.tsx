@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import './tokens.css';
 import './dc-essential-card.css';
 import { DCButton } from './DCButton';
@@ -25,6 +26,18 @@ export function DCEssentialCard({
   ctaLabel = 'Add to cart',
   onAdd,
 }: DCEssentialCardProps) {
+  const [added, setAdded] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  const handleAdd = () => {
+    onAdd?.();
+    setAdded(true);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setAdded(false), 1800);
+  };
+
   return (
     <div className="dc-essential">
       <div
@@ -36,8 +49,19 @@ export function DCEssentialCard({
       <div className="dc-essential__price">${price.toLocaleString('en-US')}</div>
       <div className="dc-essential__name">{name}</div>
       <div className="dc-essential__for">{forWho}</div>
-      <DCButton className="dc-essential__cta" size="small" fullWidth icon={<DCIcon name="cart" size={16} />} onClick={onAdd}>
-        {ctaLabel}
+      <DCButton
+        className="dc-essential__cta"
+        fullWidth
+        icon={
+          added ? (
+            <span key="added" className="dc-essential__cart-ic dc-essential__cart-ic--pop">
+              <DCIcon name="check" size={18} />
+            </span>
+          ) : undefined
+        }
+        onClick={handleAdd}
+      >
+        {added ? 'Added!' : ctaLabel}
       </DCButton>
     </div>
   );

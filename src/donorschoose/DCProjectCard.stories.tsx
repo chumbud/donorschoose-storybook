@@ -25,6 +25,19 @@ export const Funded: Story = { args: byStatus('funded') };
 export const FriendsAndFamily: Story = { args: byStatus('friends-family') };
 export const Matched: Story = { args: byStatus('matched') };
 
+/** Shimmering skeleton shown while data loads — horizontal and vertical. */
+export const Loading: Story = {
+  args: { ...byStatus('active'), loading: true },
+  render: (args) => (
+    <div style={{ display: 'grid', gap: '1.5rem' }}>
+      <DCProjectCard {...args} layout="horizontal" />
+      <div style={{ width: 300 }}>
+        <DCProjectCard {...args} layout="vertical" />
+      </div>
+    </div>
+  ),
+};
+
 /** Vertical/small card for "Nearby projects" grids (photo on top, title overlaid). */
 export const Vertical: Story = {
   args: { ...byStatus('active'), layout: 'vertical' },

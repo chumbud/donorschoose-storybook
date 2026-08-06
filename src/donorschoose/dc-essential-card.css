@@ -1,13 +1,17 @@
-/* DonorsChoose Essentials list card — a single classroom-basics item. */
+/*
+ * DonorsChoose Essentials list card — a single classroom-basics item.
+ * Ported to match production (essentialsLanding): left-aligned, product photo
+ * on white, big price + name, and a full-width purple "Add to cart" button.
+ */
 .dc-essential {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: stretch;
+  text-align: left;
   border: 1px solid var(--dc-grey-stroke);
   border-radius: var(--dc-radius-standard);
-  padding: 1.25rem;
+  padding: 1.5rem;
   background: var(--dc-white);
   font-family: var(--dc-font-body);
   transition: border-color var(--dc-duration-fast) var(--dc-ease);
@@ -17,9 +21,9 @@
 }
 .dc-essential__img {
   width: 100%;
-  height: 96px;
-  margin-bottom: 0.75rem;
-  background: var(--dc-vlgrey) center/contain no-repeat;
+  height: 160px;
+  margin: 0.25rem 0 1.25rem;
+  background: var(--dc-white) center/contain no-repeat;
   border-radius: var(--dc-radius-inner);
 }
 .dc-essential__price {
@@ -32,17 +36,50 @@
 .dc-essential__name {
   font-family: var(--dc-font-headline);
   font-weight: 700;
-  font-size: var(--dc-font-size-body);
+  font-size: var(--dc-font-size-large);
   color: var(--dc-black);
-  margin-top: 0.25rem;
+  margin-top: 0.35rem;
 }
 .dc-essential__for {
   color: var(--dc-grey);
-  font-size: var(--dc-font-size-discreet);
-  margin: 0.15rem 0 0.9rem;
-  line-height: 1.3;
+  font-size: var(--dc-font-size-body);
+  margin: 0.5rem 0 1.25rem;
+  line-height: 1.35;
 }
 .dc-essential__cta {
   width: 100%;
   margin-top: auto;
+}
+/* Essentials CTA is purple, not link-blue. */
+.dc-essential__cta.dc-button--primary {
+  background: var(--dc-purple);
+  border-color: var(--dc-purple);
+}
+.dc-essential__cta.dc-button--primary:hover,
+.dc-essential__cta.dc-button--primary:focus,
+.dc-essential__cta.dc-button--primary.dc-button--loading {
+  background: #6f3cf5;
+  border-color: #6f3cf5;
+}
+
+/* ---- Add-to-cart feedback ---- */
+@keyframes dc-cart-pop {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(0.8);
+  }
+  70% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.dc-essential__cart-ic {
+  display: inline-flex;
+}
+.dc-essential__cart-ic--pop {
+  animation: dc-cart-pop 0.45s var(--dc-ease);
 }

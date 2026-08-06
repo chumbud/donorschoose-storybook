@@ -2,6 +2,7 @@ import './tokens.css';
 import './dc-project-card.css';
 import { DCButton } from './DCButton';
 import { DCIcon } from './DCIcon';
+import matchStarUrl from './assets/match-offer-star.svg';
 
 export type DCProjectStatus = 'active' | 'almost' | 'funded' | 'friends-family' | 'matched';
 
@@ -21,7 +22,50 @@ export interface DCProjectCardProps {
   status?: DCProjectStatus;
   /** `horizontal` (default, list row) or `vertical` (small card for grids). */
   layout?: 'horizontal' | 'vertical';
+  /** Show the shimmering skeleton placeholder instead of content. */
+  loading?: boolean;
   onGive?: () => void;
+}
+
+/** Shimmering skeleton shown while a card's data loads (both layouts). */
+function ProjectCardSkeleton({ layout }: { layout: 'horizontal' | 'vertical' }) {
+  if (layout === 'vertical') {
+    return (
+      <article
+        className="dc-project-card dc-project-card--vertical dc-project-card--loading"
+        aria-busy="true"
+      >
+        <div className="dc-skeleton" style={{ height: 200, borderRadius: 0 }} />
+        <div className="dc-pc-v__body">
+          <div className="dc-skeleton dc-pc-sk__line" style={{ width: '95%', height: 14 }} />
+          <div className="dc-skeleton dc-pc-sk__line" style={{ width: '80%', height: 14, marginTop: 8 }} />
+          <div className="dc-skeleton dc-pc-sk__line" style={{ width: '50%', marginTop: 18 }} />
+          <div className="dc-skeleton dc-pc-sk__line" style={{ width: '65%', marginTop: 8 }} />
+          <div className="dc-skeleton" style={{ height: 8, marginTop: 18 }} />
+        </div>
+      </article>
+    );
+  }
+  return (
+    <article className="dc-project-card dc-project-card--loading" aria-busy="true">
+      <div className="dc-project-card__photo dc-skeleton" />
+      <div className="dc-project-card__main">
+        <div className="dc-skeleton dc-pc-sk__line" style={{ width: '80%', height: 18 }} />
+        <div className="dc-skeleton dc-pc-sk__line" style={{ width: '95%', marginTop: 12 }} />
+        <div className="dc-skeleton dc-pc-sk__line" style={{ width: '60%', marginTop: 8 }} />
+        <div className="dc-skeleton dc-pc-sk__line" style={{ width: '45%', marginTop: 22 }} />
+      </div>
+      <div className="dc-project-card__funding">
+        <div className="dc-skeleton" style={{ height: 9, margin: '0.5rem 0' }} />
+        <div className="dc-skeleton dc-pc-sk__line" style={{ width: '70%', height: 16, marginTop: 14 }} />
+        <div className="dc-skeleton dc-pc-sk__line" style={{ width: '50%', marginTop: 8 }} />
+        <div
+          className="dc-skeleton"
+          style={{ height: 40, marginTop: 18, borderRadius: 'var(--dc-radius-button)' }}
+        />
+      </div>
+    </article>
+  );
 }
 
 const usd = (n: number) =>
@@ -29,8 +73,20 @@ const usd = (n: number) =>
 
 const BADGE: Partial<Record<DCProjectStatus, string>> = {
   'friends-family': 'Friends & Family',
-  matched: '2× Double your impact!',
 };
+
+/**
+ * Match-offer seal — the `match-offer-star.svg` purple star with the multiplier
+ * overlaid (mirrors `.match-offer-badge` in _projectCardSmall.scss).
+ */
+function MatchSeal({ label = '2X' }: { label?: string }) {
+  return (
+    <span className="dc-pc-match__seal" aria-hidden="true">
+      <img className="dc-pc-match__star" src={matchStarUrl} alt="" />
+      <span className="dc-pc-match__x">{label}</span>
+    </span>
+  );
+}
 
 export function DCProjectCard({
   title,
@@ -44,8 +100,11 @@ export function DCProjectCard({
   donors,
   status = 'active',
   layout = 'horizontal',
+  loading = false,
   onGive,
 }: DCProjectCardProps) {
+  if (loading) return <ProjectCardSkeleton layout={layout} />;
+
   const isFunded = status === 'funded' || raised >= goal;
   const pct = Math.min(Math.round((raised / goal) * 100), 100);
   const stillNeeded = Math.max(goal - raised, 0);
@@ -58,6 +117,14 @@ export function DCProjectCard({
     .filter(Boolean)
     .join(' ');
   const badge = BADGE[status];
+
+  const matchedFooter =
+    status === 'matched' ? (
+      <div className="dc-pc-match">
+        <MatchSeal />
+        <span className="dc-pc-match__label">Donations matched!</span>
+      </div>
+    ) : null;
 
   const verticalCard = (
     <article className={classes}>
@@ -92,6 +159,7 @@ export function DCProjectCard({
           <span className="dc-project-card__progress-fill" style={{ width: `${pct}%` }} />
         </span>
       </div>
+      {matchedFooter}
     </article>
   );
 
@@ -154,18 +222,9 @@ export function DCProjectCard({
           </DCButton>
         )}
       </div>
+      {matchedFooter}
     </article>
   );
 
-  const card = layout === 'vertical' ? verticalCard : horizontalCard;
-
-  if (status === 'matched') {
-    return (
-      <div className="dc-pc-halo-wrap">
-        <span className="dc-pc-halo" aria-hidden="true" />
-        {card}
-      </div>
-    );
-  }
-  return card;
+  return layout === 'vertical' ? verticalCard : horizontalCard;
 }

@@ -83,3 +83,79 @@
 .dc-kf--dot-pulse {
   animation: dc-dot-pulse 1.25s var(--dc-ease) infinite;
 }
+
+/* ---- Dot loader (three bouncing dots) — inline "working…" indicator ---- */
+@keyframes dc-dot-loader {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+  40% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+.dc-dot-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.dc-dot-loader__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--dc-blue-link);
+  animation: dc-dot-loader 1.2s var(--dc-ease) infinite both;
+}
+.dc-dot-loader__dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.dc-dot-loader__dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* Demo-only: freeze every descendant animation (catalog "Pause loops" control). */
+.dc-anim-paused,
+.dc-anim-paused * {
+  animation-play-state: paused !important;
+}
+
+/* ---- Demo-only: `.is-demo-hover` forces each component's :hover end-state ----
+ * Used by the Animations → Reference catalog so its Play/Reset buttons reproduce
+ * exactly what a real pointer hover does — including pseudo-element glows that
+ * can't be toggled from inline styles. Mirrors the :hover rules in each feature
+ * stylesheet; keep in sync if those change. Not used in production markup. */
+.dc-button.is-demo-hover.dc-button--primary {
+  background: var(--dc-blue-link-hover);
+  color: var(--dc-white);
+}
+.dc-project-card.is-demo-hover {
+  border-color: rgba(0, 98, 253, 0.75);
+}
+.dc-project-card.is-demo-hover::after {
+  opacity: 1;
+}
+.dc-project-card.is-demo-hover .dc-project-card__title {
+  color: var(--dc-blue-link);
+}
+.dc-essential.is-demo-hover {
+  border-color: rgba(0, 98, 253, 0.5);
+}
+.dc-give__amount.is-demo-hover {
+  border-color: var(--dc-blue-link);
+}
+.dc-map__pin.is-demo-hover {
+  background: var(--dc-blue-link-hover);
+}
+.dc-school-marker.is-demo-hover {
+  filter: brightness(0.94);
+  transform: translate(-50%, -100%) scale(1.08);
+}
+.dc-sp__row.is-demo-hover {
+  border-color: rgba(0, 98, 253, 0.75);
+}
+.dc-sp__row.is-demo-hover .dc-sp__row-title {
+  color: var(--dc-blue-link);
+}

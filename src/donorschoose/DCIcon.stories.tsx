@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { DCIcon, ICON_NAMES } from './DCIcon';
+import { DCIcon } from './DCIcon';
 
 /**
  * **SS Junior** — the DonorsChoose icon set (149 glyphs), ported from the
@@ -54,48 +54,5 @@ export const Colors: Story = {
   ),
 };
 
-/** The full set — hover a tile to see its name. */
-export const Gallery: Story = {
-  parameters: { layout: 'fullscreen' },
-  render: () => (
-    <div style={{ padding: '2rem', fontFamily: 'var(--dc-font-body)' }}>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(96px, 1fr))',
-          gap: '0.5rem',
-        }}
-      >
-        {ICON_NAMES.map((name) => (
-          <div
-            key={name}
-            title={name}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 6,
-              padding: '0.9rem 0.5rem',
-              border: '1px solid var(--dc-grey-stroke)',
-              borderRadius: 'var(--dc-radius-inner)',
-              color: 'var(--dc-black)',
-            }}
-          >
-            <DCIcon name={name} size={26} />
-            <span
-              style={{
-                fontSize: 10,
-                color: 'var(--dc-grey)',
-                textAlign: 'center',
-                wordBreak: 'break-all',
-                lineHeight: 1.2,
-              }}
-            >
-              {name}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  ),
-};
+// The full icon gallery — sprite + brand/map/social, with tinting and
+// downloads — lives in SiteIcons.stories.tsx (Components/Icons → Gallery).

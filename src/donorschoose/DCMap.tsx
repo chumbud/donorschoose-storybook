@@ -6,14 +6,18 @@ import './dc-map.css';
 export interface DCMapProps {
   /** Height of the map surface. Defaults to 420px. */
   height?: number | string;
+  /** Stagger pins/markers in with a drop-in animation when the map mounts. */
+  animateChildren?: boolean;
   children?: ReactNode;
   className?: string;
 }
 
-export function DCMap({ height = 420, children, className }: DCMapProps) {
+export function DCMap({ height = 420, animateChildren = false, children, className }: DCMapProps) {
   return (
     <div
-      className={['dc-map', className].filter(Boolean).join(' ')}
+      className={['dc-map', animateChildren && 'dc-map--animate-children', className]
+        .filter(Boolean)
+        .join(' ')}
       style={{ height: typeof height === 'number' ? `${height}px` : height }}
       role="img"
       aria-label="Map"

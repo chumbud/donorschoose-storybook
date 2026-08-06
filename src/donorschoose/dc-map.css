@@ -29,6 +29,64 @@
     repeating-linear-gradient(90deg, #f1e7e0 0 2px, transparent 2px 54px);
 }
 
+/* ---------------- Animate children (staggered marker drop-in) ----------------
+ * Pins / school markers / popups pop in one after another when the map mounts.
+ * Uses the independent `scale` + `opacity` longhands so it composes with each
+ * marker's own `transform: translate(...)` and `rotate` without fighting them. */
+@keyframes dc-marker-in {
+  0% {
+    opacity: 0;
+    scale: 0;
+  }
+  60% {
+    opacity: 1;
+    scale: 1.15;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+.dc-map--animate-children > *:not(.dc-map__surface) {
+  animation: dc-marker-in 0.45s var(--dc-ease) both;
+}
+.dc-map--animate-children > *:nth-child(2) {
+  animation-delay: 0s;
+}
+.dc-map--animate-children > *:nth-child(3) {
+  animation-delay: 0.07s;
+}
+.dc-map--animate-children > *:nth-child(4) {
+  animation-delay: 0.14s;
+}
+.dc-map--animate-children > *:nth-child(5) {
+  animation-delay: 0.21s;
+}
+.dc-map--animate-children > *:nth-child(6) {
+  animation-delay: 0.28s;
+}
+.dc-map--animate-children > *:nth-child(7) {
+  animation-delay: 0.35s;
+}
+.dc-map--animate-children > *:nth-child(8) {
+  animation-delay: 0.42s;
+}
+.dc-map--animate-children > *:nth-child(9) {
+  animation-delay: 0.49s;
+}
+.dc-map--animate-children > *:nth-child(10) {
+  animation-delay: 0.56s;
+}
+.dc-map--animate-children > *:nth-child(11) {
+  animation-delay: 0.63s;
+}
+.dc-map--animate-children > *:nth-child(12) {
+  animation-delay: 0.7s;
+}
+.dc-map--animate-children > *:nth-child(13) {
+  animation-delay: 0.77s;
+}
+
 /* ---------------- Pin ---------------- */
 .dc-map__pin {
   position: absolute;

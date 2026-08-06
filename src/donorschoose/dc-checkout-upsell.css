@@ -1,0 +1,91 @@
+/* DonorsChoose checkout "add-on" upsell (essentials / fund). */
+.dc-addon {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 560px;
+  padding: 1.5rem 1.75rem;
+  background: #f4f1ff; /* light DC purple wash */
+  border-radius: var(--dc-radius-standard);
+  font-family: var(--dc-font-body);
+  color: var(--dc-black);
+}
+
+.dc-addon__body {
+  flex: 1;
+  min-width: 0;
+}
+.dc-addon__title {
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-large);
+  margin: 0 0 0.25rem;
+  color: var(--dc-black);
+}
+.dc-addon__line {
+  font-size: var(--dc-font-size-body);
+  line-height: 1.4;
+  color: var(--dc-black);
+  margin: 0 0 1.1rem;
+}
+.dc-addon__teacher {
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+}
+
+/* Purple outlined pill CTA (essentials use purple where blue would be). */
+.dc-addon__cta {
+  display: inline-block;
+  padding: 0.7em 1.6em;
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-button);
+  color: var(--dc-purple);
+  background: transparent;
+  border: 2px solid var(--dc-purple);
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background var(--dc-duration-fast) var(--dc-ease),
+    color var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-addon__cta:hover,
+.dc-addon__cta:focus-visible {
+  background: var(--dc-purple);
+  color: var(--dc-white);
+}
+
+.dc-addon__media {
+  position: relative;
+  flex: none;
+  width: 140px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dc-addon__photo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.dc-addon__sparkles {
+  position: absolute;
+  top: -6px;
+  right: 4px;
+  width: 26px;
+  height: auto;
+  z-index: 1;
+}
+
+@media screen and (max-width: 34em) {
+  .dc-addon {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+  .dc-addon__media {
+    width: 120px;
+    height: 110px;
+  }
+}
