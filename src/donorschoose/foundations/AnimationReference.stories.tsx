@@ -23,7 +23,7 @@ import { DCMap, DCMapPin, DCSchoolMarker } from '../DCMap';
  * a per-card Play button. All motion is CSS on the `--dc-ease` curve.
  */
 const meta = {
-  title: 'Tokens/Animations',
+  title: 'Foundations/Tokens/Animations',
   tags: ['!autodocs'],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;

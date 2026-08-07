@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { DCCheckoutUpsell } from './DCCheckoutUpsell';
+import { underConstruction } from './underConstruction';
 
 const IMG = '/images/essentials';
 
@@ -12,8 +13,9 @@ const IMG = '/images/essentials';
 const meta = {
   title: 'Components/Checkout Upsell',
   component: DCCheckoutUpsell,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  parameters: { layout: 'centered', badges: ['wip'] },
+  tags: ['autodocs', 'wip'],
+  decorators: [underConstruction],
   args: {
     kind: 'essentials',
     teacher: 'Ms. Kristen',

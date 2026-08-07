@@ -1,0 +1,76 @@
+/* Essentials version of the map card — a single Essentials-list item row.
+ * Ported from MapEssentialsCard.js + `.essentials-list-card.mini` in map.scss. */
+
+.dc-map-essentials-card {
+  --dc-ess-purple: #8152ff; /* $essentials-purple */
+  --dc-ess-purple-soft: #c9b8ff; /* $essentials-purple-outline */
+
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 1.25rem;
+  background-color: var(--dc-white);
+  border: 1px solid var(--dc-ess-purple-soft);
+  border-radius: var(--dc-radius-standard);
+  color: var(--dc-black);
+  text-decoration: none;
+  font-family: var(--dc-font-body);
+  transition: border-color var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-map-essentials-card:hover,
+.dc-map-essentials-card:focus-visible {
+  border-color: var(--dc-ess-purple);
+}
+
+.dc-map-essentials-card__img {
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  background-color: var(--dc-vlgrey);
+  background-size: cover;
+  background-position: center;
+}
+
+.dc-map-essentials-card__info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.dc-map-essentials-card__name {
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-large);
+  line-height: 1.2;
+}
+
+.dc-map-essentials-card__from {
+  margin-top: 0.2rem;
+  font-size: var(--dc-font-size-body);
+  color: var(--dc-black);
+}
+
+.dc-map-essentials-card__cta {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 46px;
+  padding: 0 1.3rem;
+  border: 1px solid var(--dc-ess-purple-soft);
+  border-radius: 500rem;
+  background-color: var(--dc-white);
+  color: var(--dc-ess-purple);
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-body);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-map-essentials-card__cta:hover {
+  background-color: #f4f0ff;
+}
+.dc-map-essentials-card__price {
+  font-weight: 900;
+}

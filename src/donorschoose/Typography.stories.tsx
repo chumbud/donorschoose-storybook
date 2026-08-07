@@ -11,7 +11,7 @@ import './fonts.css';
  * Font files live in `/public/fonts` and load via `src/donorschoose/fonts.css`.
  */
 const meta = {
-  title: 'Tokens/Typography',
+  title: 'Foundations/Tokens/Typography',
   tags: ['!autodocs'],
   parameters: { layout: 'padded' },
 } satisfies Meta;

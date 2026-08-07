@@ -42,8 +42,12 @@ const countStatuses = (rootId: string, api: Api) => {
 };
 
 const renderLabel = (item: Entry & { name: string }, api: Api): string => {
-  // Section header → name + 🚧N / ⚠️N counts.
-  if (item.type === 'root') {
+  // Top-level section → name + 🚧N / ⚠️N counts. With `showRoots: false` the
+  // sections render as collapsible groups (type 'group') rather than roots, so
+  // treat single-segment group ids (e.g. "components", "foundations") as sections.
+  const isSection =
+    item.type === 'root' || (item.type === 'group' && !item.id.includes('-'));
+  if (isSection) {
     const c = countStatuses(item.id, api);
     let label = item.name;
     if (c.wip) label += `  🚧${c.wip}`;
@@ -73,7 +77,12 @@ const mq =
 const applyTheme = (isDark: boolean) => {
   addons.setConfig({
     theme: isDark ? darkTheme : lightTheme,
-    sidebar: { renderLabel: renderLabel as never },
+    sidebar: {
+      // Render the top-level sections as collapsible folders that start
+      // collapsed, instead of always-open uppercase root headers.
+      showRoots: false,
+      renderLabel: renderLabel as never,
+    },
   });
 };
 

@@ -11,7 +11,7 @@ import './animations.css';
  * Ported from `_mixins.scss` (`DCtransition*`) and feature stylesheets.
  */
 const meta = {
-  title: 'Tokens/Animations',
+  title: 'Foundations/Tokens/Animations',
   tags: ['!autodocs'],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;

@@ -17,7 +17,7 @@ const preview: Preview = {
   parameters: {
     options: {
       storySort: {
-        order: ['Overview', 'Brand', 'Tokens', 'Components', 'Pages'],
+        order: ['Overview', 'Foundations', ['Tokens', 'Brand'], 'Components', 'Pages'],
       },
     },
     // Status badges (via @geometricpanda/storybook-addon-badges). Applied to a

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
 import '../tokens.css';
+import { underConstruction } from '../underConstruction';
 
 /**
  * # Photo treatment
@@ -11,9 +12,10 @@ import '../tokens.css';
  * scrim when text sits on top.
  */
 const meta = {
-  title: 'Brand/Photo Treatment',
-  tags: ['!autodocs'],
-  parameters: { layout: 'fullscreen' },
+  title: 'Foundations/Brand/Photo Treatment',
+  tags: ['!autodocs', 'wip'],
+  decorators: [underConstruction],
+  parameters: { layout: 'fullscreen', badges: ['wip'] },
 } satisfies Meta;
 
 export default meta;

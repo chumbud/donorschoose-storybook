@@ -1,0 +1,325 @@
+/* Project page — mobile. Single column, blue title band, classroom hero,
+ * essay, stats, accordions, and a fixed bottom donation bar.
+ * Ported from proposal.jsp .proposal-mobile-v2-* + .mobile-donation-box. */
+
+.dc-pm {
+  background-color: var(--dc-white);
+  color: var(--dc-black);
+  font-family: var(--dc-font-body);
+  padding-bottom: 96px; /* room for the fixed give bar */
+}
+
+/* 1. Title band */
+.dc-pm__title-band {
+  background-color: var(--dc-blue);
+  color: var(--dc-white);
+  padding: 1.5rem 1rem;
+}
+.dc-pm__title {
+  margin: 0;
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-xlarge);
+  line-height: 1.15;
+}
+.dc-pm__subheader {
+  margin: 0.5rem 0 0;
+  font-size: var(--dc-font-size-body);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 2. Hero */
+.dc-pm__photo-wrap {
+  position: relative;
+}
+.dc-pm__photo {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+.dc-pm__fav {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--dc-white);
+  color: var(--dc-blue-link);
+  box-shadow: 0 2px 8px rgba(33, 33, 33, 0.2);
+  cursor: pointer;
+}
+.dc-pm__fav svg { fill: currentColor; }
+
+.dc-pm__teacher {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--dc-grey-stroke);
+}
+.dc-pm__teacher-lines { min-width: 0; }
+.dc-pm__teacher-name {
+  display: block;
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-large);
+  color: var(--dc-blue-link);
+  text-decoration: none;
+}
+.dc-pm__school {
+  display: block;
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-blue-link);
+  text-decoration: none;
+}
+.dc-pm__loc {
+  display: flex;
+  gap: 0.4rem;
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-grey);
+}
+.dc-pm__dot { color: var(--dc-grey-stroke-strong); }
+
+/* body */
+.dc-pm__body { padding: 1.25rem 1rem 0; }
+
+/* 3. Share */
+.dc-pm__share {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--dc-grey-stroke);
+}
+.dc-pm__share-label {
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-discreet);
+}
+.dc-pm__share-icons { display: flex; gap: 0.5rem; }
+.dc-pm__share-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: 50%;
+  background-color: var(--dc-white);
+  color: var(--dc-blue-link);
+  cursor: pointer;
+}
+.dc-pm__share-btn svg { fill: currentColor; }
+
+/* 4. Essay */
+.dc-pm__essay { padding: 1.25rem 0; }
+.dc-pm__essay-title {
+  margin: 0 0 0.5rem;
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-large);
+}
+.dc-pm__essay-body {
+  margin: 0;
+  font-size: var(--dc-font-size-body);
+  line-height: 1.55;
+}
+.dc-pm__essay-body--fade {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.dc-pm__readmore { margin-top: 0.5rem; font-weight: 700; }
+
+/* 5. Stats */
+.dc-pm__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.5rem;
+  margin: 0 0 1.25rem;
+  padding: 1rem 0;
+  list-style: none;
+  border-top: 1px solid var(--dc-grey-stroke);
+  border-bottom: 1px solid var(--dc-grey-stroke);
+}
+.dc-pm__stat { text-align: center; }
+.dc-pm__stat-value {
+  display: block;
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-body);
+  color: var(--dc-blue);
+}
+.dc-pm__stat-label {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: var(--dc-font-size-tiny);
+  color: var(--dc-grey);
+  line-height: 1.25;
+}
+
+/* 6. Tags */
+.dc-pm__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.dc-pm__tag {
+  padding: 0.3rem 0.7rem;
+  background-color: var(--dc-beige);
+  border-radius: 500rem;
+  font-size: var(--dc-font-size-discreet);
+}
+.dc-pm__expires {
+  margin: 0 0 1.5rem;
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-grey);
+}
+
+/* 7/8. Accordions */
+.dc-pm__accordion { border-top: 1px solid var(--dc-grey-stroke); }
+.dc-pm__accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--dc-black);
+}
+.dc-pm__accordion-title {
+  margin: 0;
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-body);
+}
+.dc-pm__accordion-trigger svg { fill: var(--dc-grey); }
+
+.dc-pm__materials {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: var(--dc-font-size-discreet);
+}
+.dc-pm__materials td { padding: 0.5rem 0; border-bottom: 1px solid var(--dc-grey-stroke); }
+.dc-pm__mat-cost { text-align: right; white-space: nowrap; }
+.dc-pm__mat-fee td { color: var(--dc-grey); }
+.dc-pm__mat-total td { font-weight: 900; border-bottom: none; }
+
+.dc-pm__activity {
+  margin: 0 0 1rem;
+  padding: 0 0 0 0;
+  list-style: none;
+  font-size: var(--dc-font-size-discreet);
+}
+.dc-pm__activity li { padding: 0.5rem 0; border-bottom: 1px solid var(--dc-grey-stroke); }
+
+/* 9. Similar */
+.dc-pm__similar { padding: 1.5rem 0; }
+.dc-pm__similar-title {
+  margin: 0 0 1rem;
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-large);
+}
+.dc-pm__similar-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* 10. Footer */
+.dc-pm__footer {
+  padding: 2rem 1rem;
+  background-color: var(--dc-vlgrey);
+  text-align: center;
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-grey);
+}
+
+/* Fixed bottom donation bar */
+.dc-pm__give {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background-color: var(--dc-white);
+  border-top: 1px solid var(--dc-grey-stroke);
+  box-shadow: 0 -4px 18px rgba(33, 33, 33, 0.12);
+}
+.dc-pm__give-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+}
+.dc-pm__give-progress { flex: 1 1 auto; min-width: 0; }
+.dc-pm__progress {
+  height: 8px;
+  border-radius: 500rem;
+  background-color: var(--dc-grey-stroke);
+  overflow: hidden;
+}
+.dc-pm__progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: 500rem;
+  background-color: var(--dc-blue-lighter);
+}
+.dc-pm__give-need {
+  margin-top: 0.35rem;
+  font-size: var(--dc-font-size-discreet);
+}
+.dc-pm__give-btn {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 120px;
+}
+
+.dc-pm__give-open { padding: 1rem; }
+.dc-pm__give-open-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+}
+.dc-pm__give-close {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--dc-grey);
+}
+.dc-pm__give-close svg { fill: currentColor; }
+.dc-pm__amounts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.dc-pm__amount { width: auto; min-width: 0; padding: 0 0.5rem; }
+.dc-pm__complete { width: 100%; max-width: none; margin-bottom: 0.5rem; }
+.dc-pm__custom { display: block; width: 100%; text-align: center; }
+
+/* Storybook phone frame — keeps the "fixed" give bar docked inside a mobile
+ * viewport-sized preview instead of the full desktop canvas. */
+.dc-pm-phone {
+  position: relative;
+  width: 390px;
+  max-width: 100%;
+  height: 780px;
+  margin: 1.5rem auto;
+  overflow: hidden auto;
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(33, 33, 33, 0.18);
+}
+.dc-pm-phone .dc-pm__give {
+  position: absolute;
+}

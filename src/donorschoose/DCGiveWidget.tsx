@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './tokens.css';
 import './dc-give-widget.css';
 import { DCButton } from './DCButton';
@@ -13,8 +13,13 @@ export interface DCGiveWidgetProps {
   title?: ReactNode;
   /** Supporting line under the title. */
   subtitle?: ReactNode;
-  /** Preset amounts. Defaults to [15, 25, 50, 100]. */
+  /** Override the preset amounts for BOTH frequencies. When omitted, the
+   *  frequency-specific defaults below are used. */
   amounts?: number[];
+  /** Monthly preset amounts. Defaults to [15, 25, 50, 100] — people give less monthly. */
+  monthlyAmounts?: number[];
+  /** One-time preset amounts. Defaults to [50, 100, 250, 500] — people give more one-time. */
+  oneTimeAmounts?: number[];
   /** Initially selected amount. */
   defaultAmount?: number;
   /** Show the Monthly / One-time toggle. */
@@ -37,7 +42,9 @@ const usd = (n: number) => `$${n.toLocaleString('en-US')}`;
 export function DCGiveWidget({
   title = "Donate to this classroom",
   subtitle = 'Every donation goes towards supplies this classroom needs',
-  amounts = [15, 25, 50, 100],
+  amounts,
+  monthlyAmounts = [15, 25, 50, 100],
+  oneTimeAmounts = [50, 100, 250, 500],
   defaultAmount,
   allowMonthly = true,
   defaultFrequency = 'monthly',
@@ -48,8 +55,29 @@ export function DCGiveWidget({
   onGive,
 }: DCGiveWidgetProps) {
   const [frequency, setFrequency] = useState<DCGiveFrequency>(allowMonthly ? defaultFrequency : 'one-time');
-  const [amount, setAmount] = useState<number>(defaultAmount ?? amounts[Math.min(2, amounts.length - 1)]);
+  // People give less monthly and more one-time, so each frequency has its own
+  // tier of amounts (an explicit `amounts` prop overrides both).
+  const activeAmounts = amounts ?? (frequency === 'monthly' ? monthlyAmounts : oneTimeAmounts);
+  const [amount, setAmount] = useState<number>(
+    defaultAmount ?? activeAmounts[Math.min(2, activeAmounts.length - 1)],
+  );
   const [custom, setCustom] = useState(false);
+
+  // Switching frequency swaps to that tier's amounts and re-selects its default
+  // (index 2). The new button set is also keyed by frequency, so the buttons
+  // remount and the appear animation replays. Skip the initial mount so a
+  // provided `defaultAmount` is honored.
+  const firstRun = useRef(true);
+  useEffect(() => {
+    if (firstRun.current) {
+      firstRun.current = false;
+      return;
+    }
+    const set = amounts ?? (frequency === 'monthly' ? monthlyAmounts : oneTimeAmounts);
+    setAmount(set[Math.min(2, set.length - 1)]);
+    setCustom(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [frequency]);
 
   const label =
     ctaLabel ?? `Give ${usd(amount)}${frequency === 'monthly' ? ' monthly' : ''}`;
@@ -63,20 +91,20 @@ export function DCGiveWidget({
       {allowMonthly && (
         <div className="dc-give__freq" role="group" aria-label="Donation frequency">
           <button aria-pressed={frequency === 'monthly'} onClick={() => setFrequency('monthly')}>
-            {frequency === 'monthly' && <DCIcon name="check" size={16} />}
+            <DCIcon name="check" size={16} />
             Monthly
           </button>
           <button aria-pressed={frequency === 'one-time'} onClick={() => setFrequency('one-time')}>
-            {frequency === 'one-time' && <DCIcon name="check" size={16} />}
+            <DCIcon name="check" size={16} />
             One-time
           </button>
         </div>
       )}
 
       <div className="dc-give__amounts">
-        {amounts.map((a) => (
+        {activeAmounts.map((a) => (
           <button
-            key={a}
+            key={`${frequency}-${a}`}
             className={['dc-give__amount', a === amount && !custom && 'is-selected'].filter(Boolean).join(' ')}
             onClick={() => {
               setAmount(a);

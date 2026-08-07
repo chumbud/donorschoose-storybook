@@ -24,81 +24,174 @@
   margin: 0 0 1.5rem;
 }
 
-/* Frequency toggle */
+/* Frequency toggle — ported from _giveWidget.scss (.donation-type):
+ * two joined segmented buttons; the selected one fills blue and shows a check
+ * that collapses to width 0 when unselected. */
 .dc-give__freq {
   display: flex;
-  border: 1px solid var(--dc-grey-stroke);
-  border-radius: var(--dc-radius-button);
-  padding: 3px;
-  margin-bottom: 1rem;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 1.5rem;
 }
 .dc-give__freq button {
   flex: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
-  border: none;
-  background: transparent;
-  border-radius: var(--dc-radius-button);
-  padding: 0.75rem 1rem;
-  font-family: var(--dc-font-headline);
-  font-weight: 700;
-  font-size: var(--dc-font-size-large);
-  color: var(--dc-black);
-  cursor: pointer;
-  transition: background var(--dc-duration-fast) var(--dc-ease);
-}
-.dc-give__freq button[aria-pressed='true'] {
-  background: rgba(0, 98, 253, 0.1);
-  box-shadow: inset 0 0 0 1px var(--dc-blue-link);
-}
-.dc-give__freq .dc-icon {
-  fill: var(--dc-blue-link);
-}
-
-/* Amount presets */
-.dc-give__amounts {
-  display: flex;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-.dc-give__amount {
-  flex: 1;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
   border: 1px solid var(--dc-grey-stroke);
   border-radius: var(--dc-radius-button);
-  background: var(--dc-white);
-  padding: 0.85rem 0.5rem;
+  background-color: var(--dc-white);
+  color: var(--dc-black);
   font-family: var(--dc-font-headline);
   font-weight: 700;
-  font-size: var(--dc-font-size-large);
-  color: var(--dc-black);
+  font-size: var(--dc-font-size-button);
+  text-align: center;
   cursor: pointer;
   transition: all var(--dc-duration-fast) var(--dc-ease);
 }
-.dc-give__amount:hover {
+.dc-give__freq button:first-of-type {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0;
+  padding-right: 1rem;
+}
+.dc-give__freq button:last-of-type {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 0;
+  padding-left: 1rem;
+}
+.dc-give__freq button:hover {
+  color: var(--dc-blue-link);
   border-color: var(--dc-blue-link);
 }
+.dc-give__freq button[aria-pressed='true'] {
+  background-color: rgba(0, 98, 253, 0.15);
+  color: var(--dc-blue-link);
+  border: 1px solid rgba(0, 98, 253, 0.5);
+}
+.dc-give__freq .dc-icon {
+  fill: var(--dc-blue-link);
+  width: 16px;
+  margin-right: 0.35rem;
+  overflow: hidden;
+  transition: width var(--dc-duration-fast) var(--dc-ease),
+    margin var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-give__freq button:not([aria-pressed='true']) .dc-icon {
+  width: 0;
+  margin-right: 0;
+}
+
+/* Amount presets — ported from _anchoredGiveAmounts.scss
+ * (.anchored-amounts / .suggested-amount). */
+.dc-give__amounts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  width: 100%;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.dc-give__amount {
+  flex: 1 0 calc(25% - (0.5rem * 3));
+  height: 50px;
+  line-height: 50px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-button);
+  background-color: var(--dc-white);
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-button);
+  color: var(--dc-grey);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--dc-duration-fast) var(--dc-ease);
+  /* staggered entrance (appearLeft) */
+  position: relative;
+  z-index: 1;
+  transform: translateX(-5px);
+  opacity: 0;
+  animation: dc-give-appear-left var(--dc-duration-fast) forwards var(--dc-ease);
+}
+.dc-give__amount:hover,
+.dc-give__amount:focus,
+.dc-give__amount:active {
+  background: rgba(0, 98, 253, 0.1);
+  border-color: var(--dc-blue-link);
+  color: var(--dc-black);
+}
+.dc-give__amount:hover,
+.dc-give__amount:focus-within {
+  z-index: 10;
+}
 .dc-give__amount.is-selected {
-  border: 2px solid var(--dc-blue-link);
-  background: rgba(0, 98, 253, 0.08);
+  border-color: var(--dc-blue-link);
+  outline: 3px solid var(--dc-blue-link);
+  background-color: rgba(0, 98, 253, 0.15);
+  color: var(--dc-black);
+}
+.dc-give__amount:nth-child(1) { animation-delay: 0.075s; }
+.dc-give__amount:nth-child(2) { animation-delay: 0.15s; }
+.dc-give__amount:nth-child(3) { animation-delay: 0.225s; }
+.dc-give__amount:nth-child(4) { animation-delay: 0.3s; }
+.dc-give__amount:nth-child(5) { animation-delay: 0.375s; }
+.dc-give__amount:nth-child(6) { animation-delay: 0.45s; }
+.dc-give__amount:nth-child(7) { animation-delay: 0.525s; }
+.dc-give__amount:nth-child(8) { animation-delay: 0.6s; }
+
+@keyframes dc-give-appear-left {
+  0% {
+    transform: translateX(-5px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dc-give__amount {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 .dc-give__another {
   display: inline-block;
   border: none;
   background: none;
   color: var(--dc-blue-link);
-  font-family: var(--dc-font-headline);
-  font-weight: 700;
+  font-family: var(--dc-font-body);
+  font-weight: 400;
   font-size: var(--dc-font-size-body);
+  text-decoration: none;
   cursor: pointer;
   margin-bottom: 1.25rem;
+}
+.dc-give__another:hover {
+  text-decoration: underline;
 }
 .dc-give__custom {
   margin-bottom: 1.25rem;
 }
 .dc-give__cta {
   margin-bottom: 1rem;
+}
+/* Pressing a suggested amount pulses the CTA — an exact port of
+ * `.anchored-amounts:active ~ .button-primary` in _anchoredGiveAmounts.scss.
+ * `:active` bubbles from the pressed amount up to `.dc-give__amounts`, so the
+ * sibling CTA scales to 1.05 and darkens; the button's own `all .15s`
+ * transition eases it up on press and back on release, drawing the eye to the
+ * amount that just changed on the button. */
+.dc-give__amounts:active ~ .dc-give__cta {
+  transform: scale(1.05);
+  background-color: #004eca; /* darken($blue-link, 10%) */
 }
 .dc-give__fine {
   color: var(--dc-grey);

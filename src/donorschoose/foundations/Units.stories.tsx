@@ -12,7 +12,7 @@ import '../tokens.css';
  * rem for type, spacing, and radii so everything scales from that single root.
  */
 const meta = {
-  title: 'Tokens/Units',
+  title: 'Foundations/Tokens/Units',
   tags: ['!autodocs'],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;

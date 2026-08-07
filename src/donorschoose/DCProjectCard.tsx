@@ -1,10 +1,11 @@
 import './tokens.css';
 import './dc-project-card.css';
+import { usd } from './money';
 import { DCButton } from './DCButton';
 import { DCIcon } from './DCIcon';
 import matchStarUrl from './assets/match-offer-star.svg';
 
-export type DCProjectStatus = 'active' | 'almost' | 'funded' | 'friends-family' | 'matched';
+export type DCProjectStatus = 'active' | 'almost' | 'funded' | 'matched';
 
 export interface DCProjectCardProps {
   title: string;
@@ -68,16 +69,9 @@ function ProjectCardSkeleton({ layout }: { layout: 'horizontal' | 'vertical' }) 
   );
 }
 
-const usd = (n: number) =>
-  n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-
-const BADGE: Partial<Record<DCProjectStatus, string>> = {
-  'friends-family': 'Friends & Family',
-};
-
 /**
  * Match-offer seal — the `match-offer-star.svg` purple star with the multiplier
- * overlaid (mirrors `.match-offer-badge` in _projectCardSmall.scss).
+ * overlaid (mirrors `.match-offer-badge` in _projectCard.scss).
  */
 function MatchSeal({ label = '2X' }: { label?: string }) {
   return (
@@ -106,6 +100,7 @@ export function DCProjectCard({
   if (loading) return <ProjectCardSkeleton layout={layout} />;
 
   const isFunded = status === 'funded' || raised >= goal;
+  const isMatched = status === 'matched';
   const pct = Math.min(Math.round((raised / goal) * 100), 100);
   const stillNeeded = Math.max(goal - raised, 0);
 
@@ -116,15 +111,6 @@ export function DCProjectCard({
   ]
     .filter(Boolean)
     .join(' ');
-  const badge = BADGE[status];
-
-  const matchedFooter =
-    status === 'matched' ? (
-      <div className="dc-pc-match">
-        <MatchSeal />
-        <span className="dc-pc-match__label">Donations matched!</span>
-      </div>
-    ) : null;
 
   const verticalCard = (
     <article className={classes}>
@@ -137,7 +123,6 @@ export function DCProjectCard({
         <button type="button" className="dc-pc-v__bookmark" aria-label="Follow project">
           <DCIcon name="bookmark" size={16} />
         </button>
-        {badge && <span className="dc-project-card__badge">{badge}</span>}
         <h3 className="dc-pc-v__title">{title}</h3>
       </div>
       <div className="dc-pc-v__body">
@@ -152,21 +137,18 @@ export function DCProjectCard({
           </div>
         ) : (
           <div className="dc-pc-v__need">
-            <strong>{usd(stillNeeded)}</strong> {status === 'matched' ? 'for now' : 'still needed'}
+            <strong>{usd(stillNeeded)}</strong> {isMatched ? 'for now' : 'still needed'}
           </div>
         )}
         <span className="dc-project-card__progress">
           <span className="dc-project-card__progress-fill" style={{ width: `${pct}%` }} />
         </span>
       </div>
-      {matchedFooter}
     </article>
   );
 
   const horizontalCard = (
     <article className={classes}>
-      {badge && <span className="dc-project-card__badge">{badge}</span>}
-
       <div
         className="dc-project-card__photo"
         style={imageUrl ? { backgroundImage: `url("${imageUrl}")` } : undefined}
@@ -199,12 +181,10 @@ export function DCProjectCard({
           ) : (
             <>
               <li className="dc-project-card__cost">
-                <strong>{usd(stillNeeded)}</strong> {status === 'matched' ? 'for now' : 'still needed'}
+                <strong>{usd(stillNeeded)}</strong> {isMatched ? 'for now' : 'still needed'}
               </li>
               {status === 'almost' && <li>Almost there — {pct}% funded</li>}
-              {status === 'matched' && (
-                <li className="dc-project-card__match-note">Your gift is matched!</li>
-              )}
+              {isMatched && <li className="dc-project-card__match-note">Your gift is matched!</li>}
             </>
           )}
           <li>
@@ -213,18 +193,35 @@ export function DCProjectCard({
         </ul>
 
         {isFunded ? (
-          <DCButton variant="secondary" size="small" fullWidth onClick={onGive}>
+          <DCButton variant="secondary" size="small" onClick={onGive}>
             Say thanks
           </DCButton>
         ) : (
-          <DCButton size="small" fullWidth onClick={onGive}>
+          <DCButton variant="secondary" size="small" onClick={onGive}>
             Give
           </DCButton>
         )}
       </div>
-      {matchedFooter}
     </article>
   );
 
-  return layout === 'vertical' ? verticalCard : horizontalCard;
+  const card = layout === 'vertical' ? verticalCard : horizontalCard;
+
+  // Matched projects get the colorful match frame *surrounding* the whole card,
+  // with the "Donations matched!" callout sitting above it (outside the card).
+  // Ported from `.matched` (conic-gradient ::after + .match-offer-section) in
+  // _projectCard.scss.
+  if (isMatched) {
+    return (
+      <div className={['dc-pc-matched', layout === 'vertical' && 'dc-pc-matched--vertical'].filter(Boolean).join(' ')}>
+        <div className="dc-pc-matched__callout">
+          <MatchSeal />
+          <span className="dc-pc-matched__text">Donations matched!</span>
+        </div>
+        {card}
+      </div>
+    );
+  }
+
+  return card;
 }
