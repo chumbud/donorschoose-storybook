@@ -15,8 +15,6 @@ const meta = {
   args: {
     title: "Donate to Ms. Mitzy Diaz's classroom",
     subtitle: 'Every donation goes towards supplies this classroom needs',
-    amounts: [15, 25, 50, 100],
-    defaultAmount: 50,
     allowMonthly: true,
     defaultFrequency: 'monthly',
     allowCustomAmount: true,

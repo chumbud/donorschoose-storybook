@@ -22,5 +22,4 @@ type Story = StoryObj<typeof meta>;
 export const Active: Story = { args: { project: byStatus('active') } };
 export const AlmostFunded: Story = { args: { project: byStatus('almost') } };
 export const Funded: Story = { args: { project: byStatus('funded') } };
-export const FriendsAndFamily: Story = { args: { project: byStatus('friends-family') } };
 export const Matched: Story = { args: { project: byStatus('matched') } };

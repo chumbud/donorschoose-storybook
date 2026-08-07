@@ -11,7 +11,7 @@ import '../tokens.css';
  * the tags below render exactly as they do on donorschoose-web.
  */
 const meta = {
-  title: 'Tokens/Headings',
+  title: 'Foundations/Tokens/Headings',
   tags: ['!autodocs'],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;

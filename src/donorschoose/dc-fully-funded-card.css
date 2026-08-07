@@ -1,0 +1,97 @@
+/* Fully-funded project card — ported from `.completed-projects .fully-funded`
+ * in schoolStatPage.scss (donorschoose-web). */
+
+.dc-ff-card {
+  --dc-ff-green-dark: #01695e; /* $green-dark — pill text + progress bar */
+  --dc-ff-green-hi: #caffd1; /* $green-highlighter — pill background */
+
+  position: relative;
+  isolation: isolate;
+  display: block;
+  padding: 1.5rem;
+  background-color: var(--dc-white);
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-standard);
+  box-shadow: 0 2px 10px rgba(33, 33, 33, 0.08);
+  color: var(--dc-black);
+  text-decoration: none;
+  transition: transform var(--dc-duration-fast) var(--dc-ease),
+    border-color var(--dc-duration-fast) var(--dc-ease);
+}
+
+.dc-ff-card:hover,
+.dc-ff-card:focus-visible {
+  border-color: var(--dc-blue-link);
+  transform: scale(1.015);
+}
+
+/* Blue rosette/ribbon in the top-right corner. */
+.dc-ff-card__rosette {
+  position: absolute;
+  top: -25px;
+  right: -5px;
+  z-index: 3;
+  width: 70px;
+  height: auto;
+  transform: rotate(-10deg);
+  transform-origin: center;
+  transition: transform var(--dc-duration-med) var(--dc-ease);
+  filter: drop-shadow(0 2px 3px rgba(33, 33, 33, 0.2));
+}
+
+.dc-ff-card:hover .dc-ff-card__rosette {
+  transform: rotate(-25deg);
+}
+
+.dc-ff-card__foreground {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.dc-ff-card__pill {
+  align-self: flex-start;
+  padding: 0.25rem 0.6rem;
+  background-color: var(--dc-ff-green-hi);
+  color: var(--dc-ff-green-dark);
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-discreet);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border-radius: 0.5rem;
+}
+
+.dc-ff-card__date {
+  margin-top: 1rem;
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-font-size-discreet);
+  color: rgba(65, 65, 66, 0.75);
+}
+
+.dc-ff-card__desc {
+  min-height: 125px;
+  margin: 0.75rem 0 1rem;
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-font-size-body);
+  line-height: 1.5;
+  color: var(--dc-black);
+}
+
+.dc-ff-card__byline {
+  margin-bottom: 0.9rem;
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-font-size-body);
+}
+
+.dc-ff-card__byline strong {
+  font-weight: 700;
+}
+
+.dc-ff-card__bar {
+  width: 100%;
+  height: 11px;
+  background-color: var(--dc-ff-green-dark);
+  border-radius: 500rem;
+}

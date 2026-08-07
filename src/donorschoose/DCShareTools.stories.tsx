@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { DCShareTools, SHARE_PLATFORMS } from './DCShareTools';
+import { underConstruction } from './underConstruction';
 
 /**
  * DonorsChoose Share Tools — the "Give this project a boost!" share bar. White
@@ -10,8 +11,9 @@ import { DCShareTools, SHARE_PLATFORMS } from './DCShareTools';
 const meta = {
   title: 'Components/Share Tools',
   component: DCShareTools,
-  parameters: { layout: 'padded' },
-  tags: ['autodocs'],
+  parameters: { layout: 'padded', badges: ['wip'] },
+  tags: ['autodocs', 'wip'],
+  decorators: [underConstruction],
   args: {
     platforms: ['facebook', 'email', 'nextdoor', 'linkedin'],
     showCopyLink: true,

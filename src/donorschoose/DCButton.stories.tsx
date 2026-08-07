@@ -17,7 +17,7 @@ type StoryArgs = ComponentProps<typeof DCButton> & { iconName?: string };
  * disabled, small, and full-width.
  */
 const meta = {
-  title: 'Components/Button',
+  title: 'Components/Buttons and Links/Button',
   component: DCButton,
   parameters: {
     layout: 'centered',

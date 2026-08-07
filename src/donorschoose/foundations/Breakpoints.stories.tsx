@@ -10,7 +10,7 @@ import '../tokens.css';
  * Values resolved from `donorschoose-web`.
  */
 const meta = {
-  title: 'Tokens/Breakpoints',
+  title: 'Foundations/Tokens/Breakpoints',
   tags: ['!autodocs'],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;

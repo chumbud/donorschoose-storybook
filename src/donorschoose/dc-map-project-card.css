@@ -1,0 +1,104 @@
+/* Map card — a project tile from the "Discover local need" map sidebar.
+ * Ported from MapProjectCard.js + `.map-project-card` in map.scss. */
+
+.dc-map-project-card {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background-color: var(--dc-white);
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-standard);
+  color: var(--dc-black);
+  text-decoration: none;
+  font-family: var(--dc-font-body);
+  transition: border-color var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-map-project-card:hover,
+.dc-map-project-card:focus-visible {
+  border-color: var(--dc-grey-stroke-strong);
+}
+
+.dc-map-project-card__body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.dc-map-project-card__title {
+  margin: 0;
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-large);
+  line-height: 1.2;
+  color: var(--dc-black);
+}
+
+.dc-map-project-card__desc {
+  margin: 0.75rem 0 1rem;
+  font-size: var(--dc-font-size-body);
+  line-height: 1.4;
+  color: var(--dc-black);
+}
+
+.dc-map-project-card__teacher {
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-body);
+}
+
+/* Right column: bookmark on top, progress + cost below. */
+.dc-map-project-card__aside {
+  flex: 0 0 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.dc-map-project-card__bookmark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: 50%;
+  background-color: var(--dc-white);
+  color: var(--dc-black);
+  cursor: pointer;
+  transition: background-color var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-map-project-card__bookmark:hover {
+  background-color: var(--dc-vlgrey);
+}
+.dc-map-project-card__bookmark svg {
+  fill: currentColor;
+}
+
+.dc-map-project-card__give {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  width: 100%;
+}
+
+.dc-map-project-card__progress {
+  display: block;
+  height: 10px;
+  border-radius: 500rem;
+  background-color: var(--dc-grey-stroke);
+  overflow: hidden;
+}
+.dc-map-project-card__progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: 500rem;
+  background-color: var(--dc-blue-lighter);
+}
+
+.dc-map-project-card__cost {
+  margin-top: 0.6rem;
+  text-align: center;
+  font-size: var(--dc-font-size-body);
+  line-height: 1.2;
+}
+.dc-map-project-card__cost strong {
+  font-weight: 700;
+}

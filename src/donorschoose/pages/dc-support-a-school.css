@@ -1,0 +1,135 @@
+/* Support a school landing page — ported from schoolLevelGivingLanding.scss. */
+
+.dc-sas {
+  background-color: var(--dc-white);
+  color: var(--dc-black);
+  font-family: var(--dc-font-body);
+}
+
+.dc-sas__main {
+  text-align: center;
+  padding: 3rem 1.5rem 4rem;
+}
+
+/* --- Hero --- */
+.dc-sas__hero {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.dc-sas__title {
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-gigantic);
+  line-height: 1.05;
+  color: var(--dc-black);
+  margin: 0;
+}
+.dc-sas__title em {
+  font-style: normal;
+  color: var(--dc-blue);
+}
+
+.dc-sas__subheader {
+  font-family: var(--dc-font-headline);
+  font-size: var(--dc-font-size-xlarge);
+  color: var(--dc-grey);
+  line-height: 1.35;
+  margin: 1.25rem auto 2rem;
+  max-width: 620px;
+}
+
+.dc-sas__location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--dc-font-size-body);
+  color: var(--dc-black);
+  margin-bottom: 1rem;
+}
+.dc-sas__location svg { fill: var(--dc-blue); }
+
+/* --- Search --- */
+.dc-sas__search { margin: 0 auto; max-width: 640px; }
+.dc-sas__search-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+.dc-sas__search-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+  justify-content: center;
+}
+.dc-sas__search-input {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  height: 60px;
+  padding: 0 1.25rem;
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-font-size-body);
+  color: var(--dc-black);
+  background-color: var(--dc-white);
+  border: 4px solid var(--dc-blue);
+  border-radius: var(--dc-radius-standard);
+  box-shadow: inset 0 1px 4px rgba(56, 4, 193, 0.1);
+  outline: none;
+}
+.dc-sas__search-input::placeholder { color: var(--dc-grey-stroke-strong); }
+.dc-sas__search-input:focus-visible {
+  outline: 3px solid var(--dc-purple);
+  outline-offset: 2px;
+}
+.dc-sas__search-btn {
+  flex: none;
+  width: auto;
+  height: 60px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* --- Schools grid --- */
+.dc-sas__schools {
+  max-width: 1080px;
+  margin: 4rem auto 0;
+}
+.dc-sas__schools-title {
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-xxlarge);
+  margin: 0 0 2rem;
+}
+.dc-sas__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  text-align: left;
+}
+.dc-sas__more { margin-top: 2rem; }
+
+/* --- Fully funded section --- */
+.dc-sas__funded {
+  max-width: 1080px;
+  margin: 4.5rem auto 0;
+}
+.dc-sas__funded-title {
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-xxlarge);
+  line-height: 1.15;
+  margin: 0 0 2.5rem;
+}
+.dc-sas__funded-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .dc-sas__title { font-size: var(--dc-font-size-xxlarge); }
+  .dc-sas__subheader { font-size: var(--dc-font-size-large); }
+}

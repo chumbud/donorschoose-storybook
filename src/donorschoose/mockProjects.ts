@@ -47,18 +47,6 @@ export const projects: DCProjectCardProps[] = [
     status: 'funded',
   },
   {
-    title: 'Art Supplies for Every Young Artist',
-    teacher: 'Ms. Patel',
-    school: 'Riverside K-8',
-    location: 'Austin, TX',
-    description: 'My students need paint, brushes, and paper to express themselves.',
-    imageUrl: photo(330),
-    goal: 430,
-    raised: 150,
-    donors: 4,
-    status: 'friends-family',
-  },
-  {
     title: 'Tablets to Bridge the Digital Divide',
     teacher: 'Mr. Johnson',
     school: 'Eastside High',

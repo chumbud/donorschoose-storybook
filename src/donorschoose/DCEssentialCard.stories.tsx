@@ -42,7 +42,7 @@ const imageLabels = Object.fromEntries(
  * **imageUrl** dropdown in Controls to swap the supply.
  */
 const meta = {
-  title: 'Components/Essential Card',
+  title: 'Components/Cards/Essential Card',
   component: DCEssentialCard,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],

@@ -1,8 +1,11 @@
 /*
  * DonorsChoose Checkbox / Radio — ported from base/form-elements/_forms.scss
- * (.checkbox-holder / .radio-holder). Custom 14px control: white box with an
- * inset top highlight and a grey rotated-border tick (the box stays white when
+ * (.checkbox-holder / .radio-holder). Custom control: white box with an inset
+ * top highlight and a grey rotated-border tick (the box stays white when
  * checked). Radio is a round box with a filled dot.
+ *
+ * Box is 16×16 inside its 1px border (18×18 border-box). Label text turns blue
+ * on hover and bold when checked.
  */
 .dc-check {
   position: relative;
@@ -21,21 +24,22 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   margin: 0;
   opacity: 0;
 }
 
-/* The box (drawn as the label's ::before so it's the first flex item). */
+/* The box (drawn as the label's ::before so it's the first flex item).
+ * 16×16 content + 1px border = 18×18 border-box. */
 .dc-check::before {
   content: '';
   flex: none;
   box-sizing: border-box;
-  width: 14px;
-  height: 14px;
-  margin-top: 3px;
-  border-radius: 2px;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  border-radius: 3px;
   background: #fff;
   border: 1px solid var(--dc-grey-stroke);
   box-shadow: inset 0 2px 0 0 #f6f6f6;
@@ -45,14 +49,24 @@
   border-color: var(--dc-blue-link);
 }
 
+/* Label text turns blue on hover (not when disabled). */
+.dc-check:not(.dc-check--disabled):hover span {
+  color: var(--dc-blue-link);
+}
+
+/* Label text goes bold when checked. */
+.dc-check:has(input:checked) span {
+  font-weight: 700;
+}
+
 /* Checked tick — a rotated bottom/right border, grey, over the white box. */
 .dc-check:has(input:checked)::after {
   content: '';
   position: absolute;
-  left: 5px;
+  left: 6px;
   top: 6px;
-  width: 3px;
-  height: 6px;
+  width: 4px;
+  height: 8px;
   border: solid var(--dc-grey);
   border-width: 0 3px 3px 0;
   border-radius: 1px;
@@ -63,9 +77,9 @@
 .dc-check:has(input:indeterminate)::after {
   content: '';
   position: absolute;
-  left: 3px;
-  top: 9px;
-  width: 8px;
+  left: 4px;
+  top: 10px;
+  width: 10px;
   height: 3px;
   border: 0;
   border-radius: 1px;
@@ -80,7 +94,7 @@
 .dc-check--radio:has(input:checked)::after {
   content: '';
   position: absolute;
-  left: 4px;
+  left: 5px;
   top: 7px;
   width: 8px;
   height: 8px;

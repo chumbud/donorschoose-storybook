@@ -1,0 +1,72 @@
+/* Link primitives — ported from donorschoose-web:
+ *   .text-link      → base/form-elements/_buttons.scss
+ *   a.link-discreet → general.scss
+ *   .subtle-link    → base/form-elements/_buttons.scss
+ *   a (base)        → general.scss
+ * Prefixed `dc-` to avoid colliding with Storybook's own manager styles. */
+
+/* Base anchor: blue, no underline, underline + darken on hover. */
+.dc-link {
+  color: var(--dc-blue-link);
+  text-decoration: none;
+}
+.dc-link:hover {
+  text-decoration: underline;
+  color: var(--dc-blue-link-hover);
+}
+.dc-link:focus-visible {
+  outline: 3px solid var(--dc-purple);
+  outline-offset: 2px;
+}
+
+/* .text-link — a button/anchor that reads as an inline blue link. */
+.dc-text-link {
+  display: inline;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: var(--dc-blue-link);
+  font-family: inherit;
+  font-size: var(--dc-font-size-body);
+  text-decoration: none;
+  cursor: pointer;
+}
+.dc-text-link:hover {
+  text-decoration: underline;
+}
+.dc-text-link:focus-visible {
+  outline: 3px solid var(--dc-purple);
+  outline-offset: 2px;
+}
+
+/* a.link-discreet — muted grey link with a dotted half-opacity underline that
+ * turns solid black on hover. */
+.dc-link-discreet {
+  color: var(--dc-grey);
+  text-underline-position: from-font;
+  text-underline-offset: 2px;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: rgba(65, 65, 66, 0.5);
+  cursor: pointer;
+}
+.dc-link-discreet:hover {
+  text-decoration-style: solid;
+  text-decoration-color: var(--dc-black);
+}
+
+/* .subtle-link — near-black dotted underline that turns blue on hover. */
+.dc-subtle-link {
+  color: var(--dc-black);
+  text-underline-position: from-font;
+  text-underline-offset: 2px;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: rgba(65, 65, 66, 0.5);
+  cursor: pointer;
+}
+.dc-subtle-link:hover {
+  color: var(--dc-blue-link);
+  text-decoration-style: solid;
+  text-decoration-color: var(--dc-blue-link);
+}

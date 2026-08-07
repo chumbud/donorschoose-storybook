@@ -1,0 +1,195 @@
+/* Toast — brief, self-dismissing feedback. New pattern built from DC tokens.
+ * Icon (left) · message (middle) · action (right), with a countdown bar on top. */
+
+.dc-toast {
+  position: absolute;
+  z-index: 1000;
+  width: 300px;
+  max-width: calc(100vw - 3rem);
+  border-radius: var(--dc-radius-standard);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  color: var(--dc-white);
+  animation-duration: var(--dc-duration-med);
+  animation-timing-function: var(--dc-ease);
+  animation-fill-mode: both;
+}
+.dc-toast--fixed {
+  position: fixed;
+}
+
+/* --- Tones --- */
+.dc-toast--black {
+  background-color: var(--dc-black);
+}
+.dc-toast--blue {
+  background-color: var(--dc-blue);
+}
+
+/* --- Corner placement + slide-in direction --- */
+.dc-toast--top-left {
+  top: 1.5rem;
+  left: 1.5rem;
+  animation-name: dc-toast-in-top;
+}
+.dc-toast--top-right {
+  top: 1.5rem;
+  right: 1.5rem;
+  animation-name: dc-toast-in-top;
+}
+.dc-toast--bottom-left {
+  bottom: 1.5rem;
+  left: 1.5rem;
+  animation-name: dc-toast-in-bottom;
+}
+.dc-toast--bottom-right {
+  bottom: 1.5rem;
+  right: 1.5rem;
+  animation-name: dc-toast-in-bottom;
+}
+
+/* --- Leaving (exit) --- */
+.dc-toast--top-left.is-leaving,
+.dc-toast--top-right.is-leaving {
+  animation-name: dc-toast-out-top;
+}
+.dc-toast--bottom-left.is-leaving,
+.dc-toast--bottom-right.is-leaving {
+  animation-name: dc-toast-out-bottom;
+}
+
+/* --- Countdown bar --- */
+.dc-toast__timer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background-color: var(--dc-blue-highlighter);
+  animation-name: dc-toast-countdown;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+/* Hovering pauses the bar — and therefore the auto-dismiss. */
+.dc-toast:hover .dc-toast__timer {
+  animation-play-state: paused;
+}
+
+/* --- Body: icon · message · action --- */
+.dc-toast__body {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+}
+
+.dc-toast__icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--dc-blue-highlighter);
+}
+.dc-toast__icon svg {
+  fill: currentColor;
+}
+
+.dc-toast__msg {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-font-size-discreet);
+  line-height: 1.35;
+}
+
+.dc-toast__action {
+  flex: 0 0 auto;
+}
+
+.dc-toast__close {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: var(--dc-white-overlay);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-toast__close:hover {
+  color: var(--dc-white);
+}
+
+/* --- Mobile: dock to the top of the screen, full width, slide down --- */
+@media (max-width: 46em) {
+  .dc-toast--fixed {
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    bottom: auto;
+    width: auto;
+    max-width: none;
+    animation-name: dc-toast-in-top;
+  }
+  .dc-toast--fixed.is-leaving {
+    animation-name: dc-toast-out-top;
+  }
+}
+
+/* --- Keyframes --- */
+@keyframes dc-toast-in-top {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes dc-toast-in-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes dc-toast-out-top {
+  to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+@keyframes dc-toast-out-bottom {
+  to {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes dc-toast-countdown {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dc-toast {
+    animation: none;
+  }
+  .dc-toast__timer {
+    animation-timing-function: linear;
+  }
+}

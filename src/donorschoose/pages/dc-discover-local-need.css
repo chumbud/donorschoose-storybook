@@ -1,0 +1,107 @@
+/* Discover local need — the full map page. Sidebar (left) + map (right),
+ * with a search bar and the need-level legend overlaid on the map. */
+
+.dc-dln {
+  background-color: var(--dc-white);
+  color: var(--dc-black);
+  font-family: var(--dc-font-body);
+}
+
+.dc-dln__stage {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  min-height: 640px;
+}
+
+/* --- Left panel --- */
+.dc-dln__panel {
+  flex: 0 0 440px;
+  max-width: 440px;
+  padding: 1.5rem;
+  background-color: var(--dc-vlgrey);
+  border-right: 1px solid var(--dc-grey-stroke);
+  overflow-y: auto;
+}
+/* The sidebar component already has its own shadow/rounding; let it sit flush. */
+.dc-dln__panel .dc-map-sidebar {
+  width: 100%;
+  max-height: none;
+  box-shadow: 0 2px 12px rgba(33, 33, 33, 0.1);
+}
+
+/* --- Map --- */
+.dc-dln__mapwrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.dc-dln__map {
+  height: 100% !important;
+  border-radius: 0;
+}
+
+.dc-dln__searchbar {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 3;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.dc-dln__search-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 0.75rem;
+  height: 40px;
+  background-color: var(--dc-white);
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: 500rem;
+  box-shadow: 0 2px 8px rgba(33, 33, 33, 0.12);
+}
+.dc-dln__search-field svg {
+  fill: var(--dc-blue);
+}
+.dc-dln__search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-font-size-discreet);
+  color: var(--dc-black);
+  width: 180px;
+}
+
+.dc-dln__legend {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+  background-color: var(--dc-white);
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--dc-radius-standard);
+  box-shadow: 0 2px 10px rgba(33, 33, 33, 0.14);
+}
+
+/* --- Mobile: stack the panel under the map --- */
+@media (max-width: 46em) {
+  .dc-dln__stage {
+    flex-direction: column;
+  }
+  .dc-dln__panel {
+    flex: 1 1 auto;
+    max-width: none;
+    border-right: none;
+    border-top: 1px solid var(--dc-grey-stroke);
+    order: 2;
+  }
+  .dc-dln__mapwrap {
+    order: 1;
+    min-height: 360px;
+  }
+  .dc-dln__search-input {
+    width: 120px;
+  }
+}

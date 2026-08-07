@@ -7,11 +7,11 @@ import '../tokens.css';
  *
  * The core DonorsChoose palette and the color + typography combinations used
  * for text on different backgrounds. The full `globalConstants.scss` color list
- * is below. Responsive breakpoint variables live on the Tokens → Breakpoints
- * page. Values resolved from `donorschoose-web`.
+ * is below. Responsive breakpoint variables live on the Foundations → Tokens →
+ * Breakpoints page. Values resolved from `donorschoose-web`.
  */
 const meta = {
-  title: 'Tokens/Colors',
+  title: 'Foundations/Tokens/Colors',
   tags: ['!autodocs'],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
 import '../tokens.css';
 import { DCIcon } from '../DCIcon';
+import { underConstruction } from '../underConstruction';
 
 /**
  * # Illustrations
@@ -12,9 +13,10 @@ import { DCIcon } from '../DCIcon';
  * [Components → Icons](?path=/story/components-icons--gallery).
  */
 const meta = {
-  title: 'Brand/Illustrations',
-  tags: ['!autodocs'],
-  parameters: { layout: 'fullscreen' },
+  title: 'Foundations/Brand/Illustrations',
+  tags: ['!autodocs', 'wip'],
+  decorators: [underConstruction],
+  parameters: { layout: 'fullscreen', badges: ['wip'] },
 } satisfies Meta;
 
 export default meta;
