@@ -1,0 +1,31 @@
+/* Overview landing — clickable nav/status cards and links with hover states.
+ * (Kept as a class so :hover works; inline styles can't define :hover.) */
+
+.dc-ov-card {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: var(--dc-radius-standard);
+  background: #fff;
+  text-decoration: none;
+  color: var(--dc-black);
+  transition:
+    border-color var(--dc-duration-fast) var(--dc-ease),
+    box-shadow var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-ov-card:hover {
+  border-color: var(--dc-blue-link);
+  box-shadow: 0 2px 12px rgba(0, 98, 253, 0.1);
+}
+.dc-ov-card:hover span:first-child {
+  color: var(--dc-blue-link);
+}
+
+.dc-ov-maillink {
+  margin-left: auto;
+  color: var(--dc-blue-link);
+  text-decoration: none;
+}
+.dc-ov-maillink:hover {
+  text-decoration: underline;
+}

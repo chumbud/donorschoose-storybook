@@ -282,6 +282,22 @@
   width: 100%;
 }
 
+/* Optional inline give box — a DCInput amount field to the left of the Give
+   button. Gated entirely by the `giveBox` prop (off by default). */
+.dc-project-card__give-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.dc-project-card__give-row .dc-field {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-bottom: 0;
+}
+.dc-project-card__give-input.dc-input {
+  height: 38px;
+}
+
 /* ---- Vertical / small card (photo on top, title overlaid) ---- */
 .dc-project-card--vertical {
   display: block;

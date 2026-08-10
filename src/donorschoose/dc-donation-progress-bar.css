@@ -1,0 +1,217 @@
+/* Proposed donation progress bar — ported to match src/styles/progress-bar.css
+ * from the donorschoose-remix prototype (exact class names, theme palettes,
+ * dimensions, and states). */
+
+.dc-progress-widget {
+  --dc-progress-blue: #2e7fb6;
+  --dc-progress-blue-rgb: 61, 169, 243;
+  --dc-progress-blue-strong: #2b95e0;
+  --dc-progress-blue-deep: #1a7fc7;
+  --dc-progress-blue-dark: #1569a8;
+  --dc-progress-surface: #e8f4fc;
+  --dc-progress-ring: #9dd4f8;
+  --dc-progress-text: #222222;
+
+  max-width: 520px;
+  font-family: var(--dc-font-body);
+  color: var(--dc-progress-text);
+}
+.dc-progress-widget.dc-progress-widget--fully-funding {
+  --dc-progress-blue: #01695e;
+  --dc-progress-blue-rgb: 1, 105, 94;
+  --dc-progress-blue-strong: #1a9d8f;
+  --dc-progress-blue-deep: #0d5c54;
+  --dc-progress-blue-dark: #074842;
+  --dc-progress-surface: #e5f0ef;
+  --dc-progress-ring: #95c1bd;
+}
+.dc-progress-widget.dc-progress-widget--matched {
+  --dc-progress-blue: #3e00c9;
+  --dc-progress-blue-rgb: 62, 0, 201;
+  --dc-progress-blue-strong: #6d3dd8;
+  --dc-progress-blue-deep: #3200a3;
+  --dc-progress-blue-dark: #280085;
+  --dc-progress-surface: #f2ebf9;
+  --dc-progress-ring: #b9a0ff;
+}
+
+/* --- Track & fill --- */
+.dc-progress-track {
+  position: relative;
+  height: 20px;
+  background: rgba(var(--dc-progress-blue-rgb), 0.1);
+  border-radius: 100px;
+  cursor: pointer;
+  overflow: visible;
+  z-index: 2;
+  box-shadow: inset 0 0 0 2px rgba(var(--dc-progress-blue-rgb), 0.25);
+}
+.dc-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--dc-progress-blue-strong), var(--dc-progress-blue-strong));
+  border-radius: 100px 0 0 100px;
+  border: 3px solid var(--dc-progress-blue-deep);
+  box-sizing: border-box;
+  z-index: 10;
+  pointer-events: none;
+  transition: width 0.3s ease;
+}
+.dc-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 4px;
+  right: 4px;
+  height: 4px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+}
+.dc-progress-fill--full {
+  border-radius: 20px;
+}
+.dc-progress-hover-fill {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: rgba(var(--dc-progress-blue-rgb), 0.349);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 0;
+  transition: width 0.01s linear;
+}
+
+/* --- Milestone dots --- */
+.dc-milestone-dot {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--dc-progress-blue);
+  z-index: 3;
+  outline: 3px solid var(--dc-progress-surface);
+  pointer-events: none;
+  transition: width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease, outline-color 0.2s ease;
+}
+.dc-milestone-dot--track-end {
+  left: calc(100% - 11px);
+  outline-width: 2px;
+}
+.dc-milestone-dot--reached {
+  background: var(--dc-progress-surface);
+  z-index: 11;
+  outline: none;
+}
+.dc-milestone-dot--hovered {
+  width: 16px;
+  height: 16px;
+  outline: 10px solid var(--dc-progress-ring);
+}
+.dc-milestone-dot--hovered.dc-milestone-dot--track-end {
+  outline-width: 12px;
+}
+
+/* --- Hover tooltip --- */
+.dc-hover-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%);
+  padding: 0.25rem 0.5rem;
+  background: var(--dc-progress-blue-deep);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* --- Labels --- */
+.dc-progress-labels {
+  position: relative;
+  min-height: 1.4rem;
+  margin-top: 0.85rem;
+}
+.dc-progress-remaining {
+  position: absolute;
+  right: 0;
+  color: var(--dc-progress-text);
+  font-family: var(--dc-font-body);
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+.dc-progress-remaining--prominent {
+  font-weight: 800;
+  font-size: 1.3rem;
+  font-family: var(--dc-font-headline);
+  color: var(--dc-progress-blue);
+}
+
+/* --- Input & button --- */
+.dc-progress-input-area {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+.dc-progress-input-wrap {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 2px solid #c8cdd0;
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  width: 80px;
+  transition: border-color 0.15s;
+}
+.dc-progress-input-wrap:focus-within {
+  border-color: var(--dc-progress-blue);
+}
+.dc-progress-input-prefix {
+  color: #1a1a2e;
+  font-weight: 700;
+}
+.dc-progress-input {
+  background: none;
+  border: none;
+  outline: none;
+  color: #1a1a2e;
+  font-size: 1rem;
+  font-weight: 700;
+  width: 100%;
+  font-family: inherit;
+}
+.dc-progress-give-btn {
+  background: var(--dc-progress-blue-deep);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: var(--dc-font-headline);
+  border: none;
+  border-radius: 28px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.dc-progress-give-btn:hover {
+  background: var(--dc-progress-blue-dark);
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(var(--dc-progress-blue-rgb), 0.35);
+}
+.dc-progress-give-btn:active {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dc-progress-fill {
+    transition: none;
+  }
+}

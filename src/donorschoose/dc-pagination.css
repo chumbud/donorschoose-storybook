@@ -14,15 +14,20 @@
 }
 .dc-pagination li {
   display: inline-block;
+  vertical-align: middle; /* align arrows and numbers by their centers */
   font-size: var(--dc-font-size-discreet);
   margin: 0 0.25em;
   color: var(--dc-grey);
 }
 .dc-pagination a {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.25em; /* keep arrow pills the same height as number pills */
   border: 1px solid var(--dc-grey-stroke);
   border-radius: var(--dc-radius-button); /* pill */
   padding: 0.5em 1em;
+  line-height: 1;
   color: var(--dc-black);
   text-decoration: none;
   cursor: pointer;

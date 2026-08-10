@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import './tokens.css';
 import './dc-modal.css';
 
@@ -25,6 +25,8 @@ export function DCModal({ open, onClose, title, footer, size = 'default', childr
   const [mounted, setMounted] = useState(open);
   const [visible, setVisible] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
 
   useEffect(() => {
     if (open) {
@@ -39,10 +41,48 @@ export function DCModal({ open, onClose, title, footer, size = 'default', childr
     return () => clearTimeout(timer.current);
   }, [open]);
 
-  // Close on Escape
+  // Focus management: move focus into the dialog on open and restore it to the
+  // previously-focused element on close. (Base UI: components manage focus.)
+  useEffect(() => {
+    if (!open) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const raf = requestAnimationFrame(() => dialogRef.current?.focus());
+    return () => {
+      cancelAnimationFrame(raf);
+      previouslyFocused?.focus?.();
+    };
+  }, [open]);
+
+  // Close on Escape; trap Tab focus within the dialog while open.
   useEffect(() => {
     if (!mounted) return;
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+      const focusable = dialog.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (focusable.length === 0) {
+        e.preventDefault();
+        dialog.focus();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+      if (e.shiftKey && (active === first || active === dialog)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [mounted, onClose]);
@@ -60,13 +100,20 @@ export function DCModal({ open, onClose, title, footer, size = 'default', childr
   return (
     <div className={classes}>
       <div className="dc-modal__scrim" onClick={onClose} />
-      <div className="dc-modal__dialog" role="dialog" aria-modal="true">
-        <button type="button" className="dc-modal__close" aria-label="close" onClick={onClose}>
+      <div
+        className="dc-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={title != null ? titleId : undefined}
+        tabIndex={-1}
+        ref={dialogRef}
+      >
+        <button type="button" className="dc-modal__close" aria-label="Close" onClick={onClose}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M18.3 5.7a1 1 0 0 0-1.4 0L12 10.6 7.1 5.7a1 1 0 1 0-1.4 1.4L10.6 12l-4.9 4.9a1 1 0 1 0 1.4 1.4L12 13.4l4.9 4.9a1 1 0 0 0 1.4-1.4L13.4 12l4.9-4.9a1 1 0 0 0 0-1.4z" />
           </svg>
         </button>
-        {title != null && <h2 className="dc-modal__title">{title}</h2>}
+        {title != null && <h2 className="dc-modal__title" id={titleId}>{title}</h2>}
         <div className="dc-modal__body">{children}</div>
         {footer != null && <div className="dc-modal__footer">{footer}</div>}
       </div>

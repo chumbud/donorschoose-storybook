@@ -1,0 +1,69 @@
+/* Classic project progress bar — ported from .progress-bar / .progress in
+ * project.scss (proposal.jsp). Deprecated; see the proposed replacement. */
+
+.dc-pbar {
+  font-family: var(--dc-font-body);
+  max-width: 360px;
+}
+
+/* Stats row above the bar */
+.dc-pbar__stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  list-style: none;
+  margin: 0 0 0.25rem;
+  padding: 0;
+  color: var(--dc-grey);
+  font-size: var(--dc-font-size-discreet);
+}
+.dc-pbar__stats strong {
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-button);
+  color: var(--dc-black);
+}
+.dc-pbar__togo {
+  text-align: right;
+}
+.dc-pbar--match .dc-pbar__stats strong,
+.dc-pbar--match .dc-pbar__match-note {
+  color: var(--dc-blue);
+  font-weight: 900;
+}
+
+/* Track */
+.dc-pbar__track {
+  position: relative;
+  height: 12px;
+  width: 100%;
+  overflow: hidden;
+  margin: 4px 0 0.5rem;
+  background: var(--dc-white);
+  border: 1px solid rgba(61, 169, 243, 0.5); /* rgba($blue-lighter, .5) */
+  border-radius: var(--dc-radius-standard);
+  box-shadow: inset 0 2px 0 0 #f6f6f6;
+}
+.dc-pbar--match .dc-pbar__track {
+  border-color: rgba(56, 4, 193, 0.25); /* rgba($blue, .25) */
+}
+
+/* Fill */
+.dc-pbar__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 12px;
+  width: 0;
+  background: var(--dc-blue-lighter); /* #3da9f3 */
+  transition: width 1s var(--dc-ease) 0.25s;
+}
+.dc-pbar--match .dc-pbar__fill {
+  background: var(--dc-blue); /* #3804c1 */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dc-pbar__fill {
+    transition: none;
+  }
+}

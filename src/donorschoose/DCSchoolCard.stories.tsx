@@ -23,23 +23,20 @@ const meta = {
     foundingSupporter: { control: 'boolean' },
     numTeachers: { control: { type: 'number', min: 0 } },
   },
-  decorators: [
-    (Story) => (
-      <div style={{ maxWidth: 340 }}>
-        <Story />
-      </div>
-    ),
-  ],
 } satisfies Meta<typeof DCSchoolCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** Constrains a single card to a card-like width (the Grid story stays full-width). */
+const narrow: Story['decorators'] = [(Story) => <div style={{ maxWidth: 340 }}><Story /></div>];
+
 /** One teacher uses DonorsChoose at this school. */
-export const OneTeacher: Story = {};
+export const OneTeacher: Story = { decorators: narrow };
 
 /** Several teachers — photos stack and the count reads "N teachers use…". */
 export const ManyTeachers: Story = {
+  decorators: narrow,
   args: {
     schoolName: 'District 2 Pre-K Center Reade Street',
     numTeachers: 6,
@@ -54,6 +51,7 @@ export const ManyTeachers: Story = {
 
 /** No active teachers yet — the "Become a Founding Supporter" call to action. */
 export const FoundingSupporter: Story = {
+  decorators: narrow,
   args: {
     schoolName: 'District 2 Pre-K Center at 52 Chambers Street',
     foundingSupporter: true,
@@ -69,9 +67,13 @@ export const Grid: Story = {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+        gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
         gap: '1rem',
         padding: '2rem',
+        width: '100%',
+        maxWidth: 980,
+        margin: '0 auto',
+        boxSizing: 'border-box',
         background: 'var(--dc-vlgrey)',
       }}
     >

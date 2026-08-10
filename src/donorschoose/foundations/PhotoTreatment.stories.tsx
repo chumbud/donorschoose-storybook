@@ -26,12 +26,13 @@ const PHOTO2 = '/images/classroom/classroom-3.jpg';
 
 const wrap: CSSProperties = { fontFamily: 'var(--dc-font-body)', color: 'var(--dc-black)', padding: '2.5rem', maxWidth: 1000 };
 const mono: CSSProperties = { fontFamily: 'ui-monospace, Consolas, monospace', fontSize: '0.78rem', color: 'var(--dc-grey)' };
+const caption: CSSProperties = { ...mono, marginTop: '1rem' };
 const lead: CSSProperties = { fontSize: '1.05rem', color: 'var(--dc-grey)', maxWidth: 680 };
 const row: CSSProperties = { display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'flex-end', margin: '1rem 0 2.5rem' };
 const cover = (url: string): CSSProperties => ({ background: `#d7d7d9 url("${url}") center/cover`, border: '1px solid var(--dc-grey-stroke)' });
 
 function Spec({ children }: { children: React.ReactNode }) {
-  return <div style={{ ...mono, marginTop: '0.5rem' }}>{children}</div>;
+  return <div style={{ ...mono, marginTop: '1rem' }}>{children}</div>;
 }
 
 export const Overview: Story = {
@@ -54,15 +55,15 @@ export const Overview: Story = {
       <div style={row}>
         <figure style={{ margin: 0 }}>
           <div style={{ ...cover(PHOTO), width: 260, height: 170, borderRadius: 'var(--dc-radius-photo)' }} />
-          <figcaption style={mono}>--dc-radius-photo · 70px · fund/hero</figcaption>
+          <figcaption style={caption}>--dc-radius-photo · 70px · fund/hero</figcaption>
         </figure>
         <figure style={{ margin: 0 }}>
           <div style={{ ...cover(PHOTO), width: 200, height: 150, borderRadius: 'var(--dc-radius-standard)' }} />
-          <figcaption style={mono}>--dc-radius-standard · 16px · cards</figcaption>
+          <figcaption style={caption}>--dc-radius-standard · 16px · cards</figcaption>
         </figure>
         <figure style={{ margin: 0 }}>
           <div style={{ ...cover(PHOTO), width: 130, height: 130, borderRadius: 'var(--dc-radius-inner)' }} />
-          <figcaption style={mono}>--dc-radius-inner · 6px · thumbs</figcaption>
+          <figcaption style={caption}>--dc-radius-inner · 6px · thumbs</figcaption>
         </figure>
       </div>
 
@@ -81,7 +82,7 @@ export const Overview: Story = {
         ].map(([label, w, h]) => (
           <figure key={label as string} style={{ margin: 0 }}>
             <div style={{ ...cover(PHOTO2), width: w as number, height: h as number, borderRadius: 'var(--dc-radius-standard)' }} />
-            <figcaption style={mono}>{label} — same photo, cover</figcaption>
+            <figcaption style={caption}>{label} — same photo, cover</figcaption>
           </figure>
         ))}
       </div>
@@ -117,11 +118,11 @@ export const Overview: Story = {
       <div style={row}>
         <figure style={{ margin: 0 }}>
           <div style={{ width: 200, height: 150, borderRadius: 'var(--dc-radius-standard)', background: '#d7d7d9', border: '1px solid var(--dc-grey-stroke)' }} />
-          <figcaption style={mono}>loading · #d7d7d9</figcaption>
+          <figcaption style={caption}>loading · #d7d7d9</figcaption>
         </figure>
         <figure style={{ margin: 0 }}>
           <div style={{ width: 200, height: 150, borderRadius: 'var(--dc-radius-standard)', background: 'var(--dc-vlgrey) url("/images/no-classroom-photo.png") center/contain no-repeat', border: '1px solid var(--dc-grey-stroke)' }} />
-          <figcaption style={mono}>no classroom photo</figcaption>
+          <figcaption style={caption}>no classroom photo</figcaption>
         </figure>
       </div>
     </div>

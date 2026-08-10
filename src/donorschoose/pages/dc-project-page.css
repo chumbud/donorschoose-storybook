@@ -158,6 +158,10 @@
   margin-top: 0.5rem;
   text-decoration: none;
 }
+.dc-pp__teacher-name:hover {
+  color: var(--dc-blue-link-hover);
+  text-decoration: underline;
+}
 .dc-pp__teacher-sub {
   text-align: center;
   color: var(--dc-grey);

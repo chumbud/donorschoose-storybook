@@ -1,0 +1,64 @@
+/* School-page sub-navigation — ported from #subnav-container / #subnav /
+ * #active-bar (school_info.jsp + schoolStatPage.scss). Sticky secondary bar of
+ * in-page links with a sliding active indicator and a "Give to this school" CTA. */
+
+.dc-subnav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  background-color: var(--dc-vlgrey);
+  border-bottom: 1px solid var(--dc-grey-stroke);
+}
+
+.dc-subnav__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  font-family: var(--dc-font-headline);
+  font-size: var(--dc-font-size-button);
+  font-weight: 700;
+}
+
+.dc-subnav__give {
+  margin-right: 0.75rem;
+}
+
+.dc-subnav__link {
+  padding: 1rem 1.5rem;
+  color: var(--dc-black);
+  text-decoration: none;
+  border-bottom: 4px solid rgba(65, 65, 66, 0.15);
+  transition:
+    color var(--dc-duration-fast) var(--dc-ease),
+    background-color var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-subnav__link:hover,
+.dc-subnav__link.is-active {
+  color: var(--dc-blue-link);
+  background-color: rgba(0, 98, 253, 0.1);
+}
+
+/* Sliding active indicator */
+.dc-subnav__active-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background-color: var(--dc-blue-link);
+  transition: transform 300ms var(--dc-ease), width 300ms var(--dc-ease);
+}
+
+/* Non-sticky (in-page) state hides the active bar; the CTA is already gated in
+   markup. Kept here for parity with the source's `:not(.sticky)` rules. */
+.dc-subnav:not(.dc-subnav--sticky) .dc-subnav__active-bar {
+  display: none;
+}
+
+@media screen and (max-width: 46em) {
+  .dc-subnav {
+    display: none;
+  }
+}

@@ -1,0 +1,108 @@
+/* FAQ section — ported from `section.faq` (.question-container / .single-question)
+ * + components/_faq.scss. Static two-column list by default; an optional
+ * single-column accordion for the collapsible variant. */
+
+.dc-faq {
+  font-family: var(--dc-font-body);
+  color: var(--dc-black);
+  text-align: center;
+}
+
+.dc-faq__heading {
+  font-family: var(--dc-font-headline);
+  font-weight: 900;
+  font-size: var(--dc-font-size-xxlarge);
+  color: var(--dc-black);
+  margin: 0;
+}
+.dc-faq__subheader {
+  font-family: var(--dc-font-headline);
+  font-size: var(--dc-font-size-large);
+  color: var(--dc-grey);
+  line-height: 1.35;
+  max-width: 640px;
+  margin: 0.75rem auto 0;
+}
+
+/* --- Static two-column list (matches _faq.scss column layout) --- */
+.dc-faq__list {
+  margin-top: 2rem;
+  column-gap: 3rem;
+  text-align: left;
+}
+.dc-faq--cols-2 .dc-faq__list {
+  column-count: 2;
+}
+.dc-faq--cols-1 .dc-faq__list {
+  column-count: 1;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.dc-faq__item {
+  break-inside: avoid-column;
+  margin: 0 0 2rem;
+  text-align: left;
+}
+.dc-faq__q {
+  font-family: var(--dc-font-headline);
+  font-weight: 700;
+  font-size: var(--dc-font-size-button);
+  line-height: 1.25;
+  color: var(--dc-black);
+  margin: 0 0 0.5rem;
+}
+.dc-faq__a {
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-font-size-body);
+  line-height: 1.6;
+  color: var(--dc-black);
+}
+.dc-faq__a a {
+  color: var(--dc-blue-link);
+  text-decoration: none;
+}
+.dc-faq__a a:hover {
+  text-decoration: underline;
+}
+
+/* --- Collapsible accordion variant --- */
+.dc-faq--collapsible .dc-faq__list {
+  column-count: 1;
+  max-width: 720px;
+  margin: 2rem auto 0;
+  border-top: 1px solid var(--dc-grey-stroke);
+}
+.dc-faq--collapsible .dc-faq__item {
+  margin: 0;
+  border-bottom: 1px solid var(--dc-grey-stroke);
+}
+.dc-faq__q-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.1rem 0;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--dc-black);
+}
+.dc-faq__q-btn .dc-faq__q {
+  margin: 0;
+}
+.dc-faq__q-btn svg {
+  flex: none;
+  fill: var(--dc-grey);
+}
+.dc-faq--collapsible .dc-faq__a {
+  padding: 0 0 1.25rem;
+}
+
+@media screen and (max-width: 46em) {
+  .dc-faq--cols-2 .dc-faq__list {
+    column-count: 1;
+  }
+}
