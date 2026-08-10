@@ -4,7 +4,7 @@ import './dc-toast.css';
 import { DCButton } from './DCButton';
 
 export type DCToastPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
-export type DCToastTone = 'black' | 'blue';
+export type DCToastTone = 'black' | 'error' | 'success' | 'warning';
 
 export interface DCToastAction {
   label: string;
@@ -24,7 +24,7 @@ export interface DCToastProps {
   message: ReactNode;
   /** Optional icon rendered on the left (e.g. `<DCIcon name="cart" />`). */
   icon?: ReactNode;
-  /** Surface color. `black` (#212121) or DonorsChoose `blue` (#3804c1). */
+  /** Surface color: `black` (default), `error` (red), `success` (green), or `warning` (yellow). */
   tone?: DCToastTone;
   /** Which corner it appears in. Drives the slide-in direction too. */
   position?: DCToastPosition;
@@ -36,7 +36,7 @@ export interface DCToastProps {
   duration?: number;
   /** Optional action button on the right. */
   action?: DCToastAction;
-  /** Show a close (×) button. */
+  /** Show a close (×) button. Defaults to `true`. */
   showClose?: boolean;
   /**
    * `true` (default) pins the toast to the viewport corner. `false` positions it
@@ -60,7 +60,7 @@ export function DCToast({
   position = 'bottom-right',
   duration = 0,
   action,
-  showClose = false,
+  showClose = true,
   fixed = true,
   onDismiss,
 }: DCToastProps) {
@@ -117,6 +117,7 @@ export function DCToast({
     'dc-toast',
     `dc-toast--${tone}`,
     `dc-toast--${position}`,
+    action && 'dc-toast--has-action',
     fixed && 'dc-toast--fixed',
     leaving && 'is-leaving',
   ]
@@ -124,9 +125,21 @@ export function DCToast({
     .join(' ');
 
   return (
-    <div className={classes} role="status" aria-live="polite" ref={rootRef}>
+    <div
+      className={classes}
+      role={tone === 'error' ? 'alert' : 'status'}
+      aria-live={tone === 'error' ? 'assertive' : 'polite'}
+      aria-atomic="true"
+      ref={rootRef}
+    >
       {duration > 0 && (
         <span className="dc-toast__timer" style={{ animationDuration: `${duration}s` }} />
+      )}
+
+      {showClose && (
+        <button type="button" className="dc-toast__close" aria-label="Dismiss" onClick={dismiss}>
+          ×
+        </button>
       )}
 
       <div className="dc-toast__body">
@@ -146,17 +159,6 @@ export function DCToast({
           >
             {action.label}
           </DCButton>
-        )}
-
-        {showClose && (
-          <button
-            type="button"
-            className="dc-toast__close"
-            aria-label="Dismiss"
-            onClick={dismiss}
-          >
-            ×
-          </button>
         )}
       </div>
     </div>

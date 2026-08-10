@@ -41,7 +41,13 @@ export function DCPagination({ page, totalPages, onChange, siblingCount = 1 }: D
       <ul>
         {/* Prev */}
         <li className={page <= 1 ? 'disabled' : ''}>
-          <a href="#" onClick={go(page - 1)} aria-label="Previous page">
+          <a
+            href="#"
+            onClick={go(page - 1)}
+            aria-label="Previous page"
+            aria-disabled={page <= 1 || undefined}
+            tabIndex={page <= 1 ? -1 : undefined}
+          >
             <DCIcon name="navigateleft" size={14} className="dc-pagination__icon" />
           </a>
         </li>
@@ -67,7 +73,13 @@ export function DCPagination({ page, totalPages, onChange, siblingCount = 1 }: D
 
         {/* Next */}
         <li className={page >= totalPages ? 'disabled' : ''}>
-          <a href="#" onClick={go(page + 1)} aria-label="Next page">
+          <a
+            href="#"
+            onClick={go(page + 1)}
+            aria-label="Next page"
+            aria-disabled={page >= totalPages || undefined}
+            tabIndex={page >= totalPages ? -1 : undefined}
+          >
             <DCIcon name="navigateright" size={14} className="dc-pagination__icon" />
           </a>
         </li>

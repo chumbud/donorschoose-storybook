@@ -28,11 +28,11 @@ const meta = {
     tone: 'black',
     position: 'bottom-right',
     duration: 0,
-    showClose: false,
+    showClose: true,
     onDismiss: fn(),
   },
   argTypes: {
-    tone: { control: 'inline-radio', options: ['black', 'blue'] },
+    tone: { control: 'inline-radio', options: ['black', 'error', 'success', 'warning'] },
     position: {
       control: 'select',
       options: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
@@ -119,27 +119,21 @@ export const Playground: Story = {
   render: (args) => <Stage {...args} />,
 };
 
-/** Both tones: black (#212121) and DonorsChoose blue (#3804c1). */
+/** The four tones: black (default), error (red), success (green), warning (yellow). */
 export const Tones: Story = {
   render: () => (
-    <div style={{ ...stage, minHeight: 220, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', background: 'var(--dc-white)' }}>
-      <div style={{ position: 'relative', minHeight: 120 }}>
-        <DCToast
-          fixed={false}
-          position="top-left"
-          tone="black"
-          icon={<DCIcon name="check" size={22} />}
-          message="You're now following this classroom. We'll email you when it's funded!"
-        />
+    <div style={{ ...stage, minHeight: 300, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem 1.5rem', background: 'var(--dc-white)' }}>
+      <div style={{ position: 'relative', minHeight: 90 }}>
+        <DCToast fixed={false} position="top-left" tone="black" icon={<DCIcon name="cart" size={22} />} message="Markers added to your cart." />
       </div>
-      <div style={{ position: 'relative', minHeight: 120 }}>
-        <DCToast
-          fixed={false}
-          position="top-left"
-          tone="blue"
-          icon={<DCIcon name="heart" size={22} />}
-          message="You're now following this classroom. We'll email you when it's funded!"
-        />
+      <div style={{ position: 'relative', minHeight: 90 }}>
+        <DCToast fixed={false} position="top-left" tone="error" icon={<DCIcon name="alert" size={22} />} message="Something went wrong. Please try again." />
+      </div>
+      <div style={{ position: 'relative', minHeight: 90 }}>
+        <DCToast fixed={false} position="top-left" tone="success" icon={<DCIcon name="check" size={22} />} message="You're now following this classroom!" />
+      </div>
+      <div style={{ position: 'relative', minHeight: 90 }}>
+        <DCToast fixed={false} position="top-left" tone="warning" icon={<DCIcon name="caution" size={22} />} message="This project expires in 3 days." />
       </div>
     </div>
   ),
@@ -151,9 +145,9 @@ export const Positions: Story = {
     <div style={{ ...stage, minHeight: 320 }}>
       <p style={hint}>Four corners, four slide-in directions.</p>
       <DCToast fixed={false} position="top-left" tone="black" message="Top-left toast." icon={<DCIcon name="star" size={22} />} />
-      <DCToast fixed={false} position="top-right" tone="blue" message="Top-right toast." icon={<DCIcon name="star" size={22} />} />
-      <DCToast fixed={false} position="bottom-left" tone="blue" message="Bottom-left toast." icon={<DCIcon name="star" size={22} />} />
-      <DCToast fixed={false} position="bottom-right" tone="black" message="Bottom-right toast." icon={<DCIcon name="star" size={22} />} />
+      <DCToast fixed={false} position="top-right" tone="success" message="Top-right toast." icon={<DCIcon name="star" size={22} />} />
+      <DCToast fixed={false} position="bottom-left" tone="error" message="Bottom-left toast." icon={<DCIcon name="star" size={22} />} />
+      <DCToast fixed={false} position="bottom-right" tone="warning" message="Bottom-right toast." icon={<DCIcon name="star" size={22} />} />
     </div>
   ),
 };
@@ -182,7 +176,7 @@ export const UseCases: Story = {
         <DCToast
           fixed={false}
           position="top-left"
-          tone="blue"
+          tone="success"
           icon={<DCIcon name="check" size={22} />}
           message="You're now following Ms. Olivia's classroom."
           action={{ label: 'Undo', variant: 'secondary', onClick: fn() }}
@@ -192,10 +186,9 @@ export const UseCases: Story = {
         <DCToast
           fixed={false}
           position="top-left"
-          tone="black"
+          tone="error"
           icon={<DCIcon name="alert" size={22} />}
           message="Something went wrong adding that gift. Please try again."
-          showClose
         />
       </div>
     </div>

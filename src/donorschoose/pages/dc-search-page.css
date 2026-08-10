@@ -135,6 +135,10 @@
   display: inline-block;
   margin-bottom: 0.5rem;
 }
+.dc-sp__showtype:hover {
+  color: var(--dc-blue-link-hover);
+  text-decoration: underline;
+}
 
 /* ---- Results list ---- */
 .dc-sp__results {

@@ -17,7 +17,15 @@
   transition: border-color var(--dc-duration-fast) var(--dc-ease);
 }
 .dc-essential:hover {
-  border-color: rgba(0, 98, 253, 0.5);
+  border-color: rgba(129, 82, 255, 0.5); /* essentials outline purple */
+}
+/* Hovering the card underlines the teacher line and darkens the CTA. */
+.dc-essential:hover .dc-essential__for {
+  text-decoration: underline;
+}
+.dc-essential:hover .dc-essential__cta.dc-button--primary {
+  background: #6f3cf5;
+  border-color: #6f3cf5;
 }
 .dc-essential__img {
   width: 100%;

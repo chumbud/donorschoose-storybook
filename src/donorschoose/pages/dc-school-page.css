@@ -57,6 +57,10 @@
   text-decoration: none;
   font-size: var(--dc-font-size-discreet);
 }
+.dc-sch-hero__link:hover {
+  color: var(--dc-blue-link-hover);
+  text-decoration: underline;
+}
 
 /* ---------------- About + info sidebar ---------------- */
 .dc-sch-about {
@@ -73,6 +77,10 @@
 .dc-sch-note {
   color: var(--dc-blue-link);
   font-size: var(--dc-font-size-discreet);
+}
+.dc-sch-note:hover {
+  color: var(--dc-blue-link-hover);
+  text-decoration: underline;
 }
 .dc-sch-info__row {
   display: flex;

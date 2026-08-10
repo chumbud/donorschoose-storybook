@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState, type CSSProperties } from 'react';
 import './tokens.css';
+import './dc-overview.css';
 
 /**
  * Landing page for the DonorsChoose design system.
@@ -93,7 +94,7 @@ function StatusList({ items }: { items: StatusItem[] }) {
     <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: '0.6rem' }}>
       {items.map((item) => (
         <li key={item.id}>
-          <a href={`/?path=/story/${item.id}`} target="_top" style={{ ...card, padding: '0.85rem 1.1rem' }}>
+          <a href={`/?path=/story/${item.id}`} target="_top" className="dc-ov-card" style={{ padding: '0.85rem 1.1rem' }}>
             <span style={{ fontFamily: 'var(--dc-font-headline)', fontWeight: 700 }}>
               {item.title.replace(/^(Components|Pages)\//, '')}
               <span style={{ color: 'var(--dc-grey)', fontWeight: 400 }}> · {item.title.split('/')[0]}</span>
@@ -154,7 +155,7 @@ export const Welcome: Story = {
         <h2 style={h2}>Explore</h2>
         <div style={{ display: 'grid', gap: '0.75rem' }}>
           {SECTIONS.map((s) => (
-            <a key={s.label} href={s.href} target="_top" style={card}>
+            <a key={s.label} href={s.href} target="_top" className="dc-ov-card">
               <span style={{ fontFamily: 'var(--dc-font-headline)', fontWeight: 700, fontSize: '1.05rem' }}>{s.label}</span>
               <span style={{ display: 'block', color: 'var(--dc-grey)', fontSize: '0.95rem', marginTop: 2 }}>{s.blurb}</span>
             </a>
@@ -190,7 +191,7 @@ export const Welcome: Story = {
             <li key={o.email} style={{ ...card, display: 'flex', alignItems: 'baseline', gap: '0.6rem' }}>
               <span style={{ fontFamily: 'var(--dc-font-headline)', fontWeight: 700 }}>{o.name}</span>
               <span style={{ color: 'var(--dc-grey)', fontSize: '0.9rem' }}>{o.role}</span>
-              <a href={`mailto:${o.email}`} style={{ marginLeft: 'auto', color: 'var(--dc-blue-link)', textDecoration: 'none' }}>
+              <a href={`mailto:${o.email}`} className="dc-ov-maillink">
                 {o.email}
               </a>
             </li>

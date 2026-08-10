@@ -94,7 +94,8 @@
 
 /* --- Schools grid --- */
 .dc-sas__schools {
-  max-width: 1080px;
+  width: 100%;
+  max-width: 980px;
   margin: 4rem auto 0;
 }
 .dc-sas__schools-title {
@@ -113,7 +114,8 @@
 
 /* --- Fully funded section --- */
 .dc-sas__funded {
-  max-width: 1080px;
+  width: 100%;
+  max-width: 980px;
   margin: 4.5rem auto 0;
 }
 .dc-sas__funded-title {
@@ -125,7 +127,7 @@
 }
 .dc-sas__funded-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.5rem;
 }
 

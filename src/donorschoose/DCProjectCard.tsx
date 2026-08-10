@@ -2,6 +2,7 @@ import './tokens.css';
 import './dc-project-card.css';
 import { usd } from './money';
 import { DCButton } from './DCButton';
+import { DCInput } from './DCInput';
 import { DCIcon } from './DCIcon';
 import matchStarUrl from './assets/match-offer-star.svg';
 
@@ -25,6 +26,11 @@ export interface DCProjectCardProps {
   layout?: 'horizontal' | 'vertical';
   /** Show the shimmering skeleton placeholder instead of content. */
   loading?: boolean;
+  /**
+   * Show an inline "give box" — an amount input to the left of the Give button.
+   * Toggled off by default (the card shows just the Give button).
+   */
+  giveBox?: boolean;
   onGive?: () => void;
 }
 
@@ -95,6 +101,7 @@ export function DCProjectCard({
   status = 'active',
   layout = 'horizontal',
   loading = false,
+  giveBox = false,
   onGive,
 }: DCProjectCardProps) {
   if (loading) return <ProjectCardSkeleton layout={layout} />;
@@ -192,14 +199,19 @@ export function DCProjectCard({
           </li>
         </ul>
 
-        {isFunded ? (
-          <DCButton variant="secondary" size="small" onClick={onGive}>
-            Say thanks
-          </DCButton>
-        ) : (
-          <DCButton variant="secondary" size="small" onClick={onGive}>
-            Give
-          </DCButton>
+        {!isFunded && giveBox && (
+          <div className="dc-project-card__give-row">
+            <DCInput
+              type="text"
+              inputMode="numeric"
+              aria-label="Donation amount"
+              placeholder="$25"
+              className="dc-project-card__give-input"
+            />
+            <DCButton variant="secondary" size="small" onClick={onGive}>
+              Give
+            </DCButton>
+          </div>
         )}
       </div>
     </article>

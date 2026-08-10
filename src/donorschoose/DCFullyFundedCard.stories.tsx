@@ -18,6 +18,13 @@ const meta = {
     raised: 997,
     teacher: 'Ms. Hillenbrand',
   },
+} satisfies Meta<typeof DCFullyFundedCard>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+/** A single card, sized as it appears in a column. */
+export const Default: Story = {
   decorators: [
     (Story) => (
       <div style={{ maxWidth: 340, paddingTop: '1.5rem' }}>
@@ -25,12 +32,7 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof DCFullyFundedCard>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {};
+};
 
 const funded = [
   {
@@ -79,7 +81,8 @@ export const Section: Story = {
           display: 'grid',
           gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
           gap: '1.5rem',
-          maxWidth: 1080,
+          width: '100%',
+          maxWidth: 980,
           margin: '0 auto',
         }}
       >

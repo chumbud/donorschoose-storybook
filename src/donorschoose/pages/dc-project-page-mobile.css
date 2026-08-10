@@ -75,6 +75,11 @@
   color: var(--dc-blue-link);
   text-decoration: none;
 }
+.dc-pm__teacher-name:hover,
+.dc-pm__school:hover {
+  color: var(--dc-blue-link-hover);
+  text-decoration: underline;
+}
 .dc-pm__loc {
   display: flex;
   gap: 0.4rem;

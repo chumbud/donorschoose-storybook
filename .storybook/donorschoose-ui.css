@@ -111,3 +111,19 @@ h4,
     font-size: var(--dc-font-size-large);
   }
 }
+
+/* Base hover for bare (classless) internal links — mirrors the site's base
+   `a:hover { text-decoration: underline }`. Classed links (card wrappers,
+   text-link / link-discreet, header/footer, etc.) manage their own hover, so
+   `:not([class])` leaves them untouched. */
+a:not([class]):hover {
+  text-decoration: underline;
+}
+
+/* Visible keyboard focus for any interactive element that doesn't define its
+   own indicator. Zero-specificity :where() so component focus styles still win.
+   (Base UI accessibility: always visibly indicate :focus-visible.) */
+:where(a, button, input, select, textarea, summary, label, [tabindex]):focus-visible {
+  outline: 3px solid var(--dc-purple);
+  outline-offset: 2px;
+}

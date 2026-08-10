@@ -6,7 +6,6 @@ import { DCHeader } from '../DCHeader';
 import { DCAvatar } from '../DCAvatar';
 import { DCIcon } from '../DCIcon';
 import { DCProjectCard } from '../DCProjectCard';
-import { classroomPhoto } from '../placeholderPhotos';
 import { projects as mockProjects } from '../mockProjects';
 import { usd } from '../money';
 
@@ -57,7 +56,7 @@ export function DCProjectPageMobile({
 
   const pct = Math.min(Math.round((raised / goal) * 100), 100);
   const stillNeeded = Math.max(goal - raised, 0);
-  const photo = imageUrl ?? classroomPhoto(10365025);
+  const photo = imageUrl ?? '/images/classroom/fallback-classroom@2x.png';
 
   return (
     <div className="dc-pm">

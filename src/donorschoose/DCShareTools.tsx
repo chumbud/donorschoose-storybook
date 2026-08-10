@@ -21,12 +21,12 @@ const CONFIG: Record<SharePlatform, { label: string; color: string; icon: string
   nextdoor: { label: 'Nextdoor', color: '#00a95c', icon: 'icon-ss-nextdoor' },
   linkedin: { label: 'LinkedIn', color: '#0A66C2', icon: 'icon-ss-linkedin' },
   twitter: { label: 'X', color: '#000000', icon: 'icon-ss-twitter' },
-  sms: { label: 'Text', color: '#6EA217', icon: 'icon-ss-phone' },
+  sms: { label: 'SMS', color: '#6EA217', icon: 'icon-ss-phone' },
   messenger: { label: 'Messenger', color: '#0084FF', icon: 'icon-ss-facebook' },
 };
 
 /** Renders a brand glyph from the social-circle sprite (public/icon-social-circle.svg). */
-function SocialGlyph({ id, size = 16 }: { id: string; size?: number }) {
+function SocialGlyph({ id, size = 20 }: { id: string; size?: number }) {
   return (
     <svg className="dc-icon" width={size} height={size} viewBox="0 0 23 32" aria-hidden="true">
       <use href={`/icon-social-circle.svg#${id}`} />

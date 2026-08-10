@@ -8,7 +8,6 @@
   max-width: calc(100vw - 3rem);
   border-radius: var(--dc-radius-standard);
   box-shadow: 0 10px 34px rgba(0, 0, 0, 0.28);
-  overflow: hidden;
   color: var(--dc-white);
   animation-duration: var(--dc-duration-med);
   animation-timing-function: var(--dc-ease);
@@ -17,13 +16,24 @@
 .dc-toast--fixed {
   position: fixed;
 }
+/* Toasts with an action button get 25% more room. */
+.dc-toast--has-action {
+  width: 375px;
+}
 
 /* --- Tones --- */
 .dc-toast--black {
   background-color: var(--dc-black);
 }
-.dc-toast--blue {
-  background-color: var(--dc-blue);
+.dc-toast--error {
+  background-color: var(--dc-red-error);
+}
+.dc-toast--success {
+  background-color: var(--dc-green);
+}
+.dc-toast--warning {
+  background-color: var(--dc-yellow);
+  color: var(--dc-black);
 }
 
 /* --- Corner placement + slide-in direction --- */
@@ -65,7 +75,9 @@
   left: 0;
   height: 4px;
   width: 100%;
-  background-color: var(--dc-blue-highlighter);
+  background-color: currentColor; /* adapts to the tone's text color */
+  opacity: 0.85;
+  border-radius: var(--dc-radius-standard) var(--dc-radius-standard) 0 0;
   animation-name: dc-toast-countdown;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
@@ -90,7 +102,7 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  color: var(--dc-blue-highlighter);
+  color: currentColor; /* white on dark tones, black on the yellow warning tone */
 }
 .dc-toast__icon svg {
   fill: currentColor;
@@ -108,23 +120,30 @@
   flex: 0 0 auto;
 }
 
+/* Circular black button hanging off the top-right corner of the toast. */
 .dc-toast__close {
-  flex: 0 0 auto;
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
   border: none;
-  background: transparent;
-  color: var(--dc-white-overlay);
-  font-size: 1.35rem;
+  border-radius: 50%;
+  background-color: var(--dc-black);
+  color: var(--dc-white);
+  font-size: 1.1rem;
   line-height: 1;
   cursor: pointer;
-  transition: color var(--dc-duration-fast) var(--dc-ease);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: background-color var(--dc-duration-fast) var(--dc-ease);
 }
 .dc-toast__close:hover {
-  color: var(--dc-white);
+  background-color: #000;
 }
 
 /* --- Mobile: dock to the top of the screen, full width, slide down --- */

@@ -101,11 +101,12 @@ export function DCGiveWidget({
         </div>
       )}
 
-      <div className="dc-give__amounts">
+      <div className="dc-give__amounts" role="group" aria-label="Donation amount">
         {activeAmounts.map((a) => (
           <button
             key={`${frequency}-${a}`}
             className={['dc-give__amount', a === amount && !custom && 'is-selected'].filter(Boolean).join(' ')}
+            aria-pressed={a === amount && !custom}
             onClick={() => {
               setAmount(a);
               setCustom(false);

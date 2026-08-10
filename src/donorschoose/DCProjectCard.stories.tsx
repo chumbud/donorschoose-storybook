@@ -25,6 +25,9 @@ export const AlmostFunded: Story = { args: byStatus('almost') };
 export const Funded: Story = { args: byStatus('funded') };
 export const Matched: Story = { args: byStatus('matched') };
 
+/** Give box on — an amount input sits to the left of the Give button. */
+export const GiveBox: Story = { args: { ...byStatus('active'), giveBox: true } };
+
 /** Shimmering skeleton shown while data loads — horizontal and vertical. */
 export const Loading: Story = {
   args: { ...byStatus('active'), loading: true },
