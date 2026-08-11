@@ -1,0 +1,50 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Components/Buttons and Links/Overview" />
+
+# Buttons and Links
+
+Two parts, and the choice between them is about **what happens on click**, not
+about emphasis: a button performs an action, a link goes somewhere. Reach for a
+[Button](?path=/docs/components-buttons-and-links-button--docs) when the click
+changes something — adding to a cart, submitting, opening a dialog — and a
+[Link](?path=/story/components-buttons-and-links-links--links) when it navigates.
+A quiet action is still a button, and a prominent navigation is still a link.
+
+## The parts
+
+{/* Links have to be markdown: MDX maps those to Storybook's anchor, which
+    navigates the manager. A raw <a> renders as a plain anchor and resolves
+    `?path=` against the preview iframe, which loads nothing. */}
+
+- **[Button](?path=/docs/components-buttons-and-links-button--docs)** —
+  **primary** (filled blue CTA) and **secondary** (outlined), each with the states
+  used across the site: hover, focus, active, loading, disabled, small,
+  full-width, plus the destructive and overlay tones.
+- **[Links](?path=/story/components-buttons-and-links-links--links)** — the four
+  link treatments: the default `<a>`, `.text-link`, `.link-discreet`, and
+  `.subtle-link`.
+
+## Which link treatment?
+
+- **Default `<a>`** — blue, no underline at rest, underline plus a slight darken
+  on hover. The everyday link.
+- **`.text-link`** — a `<button>` (or `<a>`) that reads as an inline blue link,
+  with no border or background. For inline actions inside a sentence: “Learn
+  more”, “Cancel”.
+- **`.link-discreet`** — muted grey with a dotted, half-opacity underline that
+  turns solid black on hover. For quiet, low-emphasis links.
+- **`.subtle-link`** — near-black with a dotted underline that turns blue on
+  hover.
+
+## Notes
+
+- Both parts are ported from `donorschoose-web`: buttons from
+  `base/form-elements/_buttons.scss`, links from `general.scss` and the same
+  buttons file.
+- `fullWidth` buttons stretch to their container but cap at **550px** and center,
+  matching the site.
+- `warning` and `overlay` are secondary-only tones; setting either on a primary
+  button resolves to secondary so the tone actually shows.
+- The real class is **`link-discreet`**, not `discreet-link` — the latter doesn't
+  exist in the codebase.

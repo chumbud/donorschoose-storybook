@@ -18,55 +18,33 @@ one for a school.
 
 ## Which card do I want?
 
-{/* Written as HTML: this MDX pipeline has no remark-gfm, so pipe tables render
-    as literal pipes. */}
+{/* Markdown lists rather than a table, for two reasons: this MDX pipeline has no
+    remark-gfm (pipe tables render as literal pipes), and links have to be markdown
+    to work — MDX maps those to Storybook's anchor, which navigates the manager. A
+    raw <a> renders as a plain anchor and resolves `?path=` against the preview
+    iframe, which loads nothing. */}
 
-<table>
-  <thead>
-    <tr>
-      <th>Card</th>
-      <th>What it shows</th>
-      <th>Where it appears</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><a href="?path=/docs/components-cards-project-card--docs">Project Card</a></td>
-      <td>A classroom project with its funding progress bar, across active / almost-funded / funded / matched states</td>
-      <td>Search results, project lists, teacher and school pages</td>
-    </tr>
-    <tr>
-      <td><a href="?path=/docs/components-cards-vertical-project-card--docs">Vertical Project Card</a></td>
-      <td>The same project card in its compact “photo on top, title overlaid” layout</td>
-      <td>“Nearby projects” grids</td>
-    </tr>
-    <tr>
-      <td><a href="?path=/docs/components-cards-map-card--docs">Map Card</a></td>
-      <td>A classroom project sized for the map sidebar</td>
-      <td>Discover local need → map sidebar</td>
-    </tr>
-    <tr>
-      <td><a href="?path=/docs/components-cards-essential-card--docs">Essential Card</a></td>
-      <td>One classroom-basics item — real supply photo, price, “Add to cart”</td>
-      <td>“Help a teacher stock up” strips, Essentials lists</td>
-    </tr>
-    <tr>
-      <td><a href="?path=/docs/components-cards-map-essentials-card--docs">Map Essentials Card</a></td>
-      <td>One Essentials item sized for the map sidebar</td>
-      <td>Discover local need → map sidebar</td>
-    </tr>
-    <tr>
-      <td><a href="?path=/docs/components-cards-fully-funded-card--docs">Fully Funded Card</a></td>
-      <td>A finished project: green “FULLY FUNDED!” pill, funding date, impact blurb, rosette</td>
-      <td>“Fully funded projects at [school]”</td>
-    </tr>
-    <tr>
-      <td><a href="?path=/docs/components-cards-school-card--docs">School Card</a></td>
-      <td>A school as a cream tile — location pill, school name, its teachers or a “Become a Founding Supporter” prompt</td>
-      <td>Support a school</td>
-    </tr>
-  </tbody>
-</table>
+- **[Project Card](?path=/docs/components-cards-project-card--docs)** — a
+  classroom project with its funding progress bar, across active / almost-funded /
+  funded / matched states. _Search results, project lists, teacher and school
+  pages._
+- **[Vertical Project Card](?path=/docs/components-cards-vertical-project-card--docs)** —
+  the same project card in its compact "photo on top, title overlaid" layout.
+  _"Nearby projects" grids._
+- **[Map Card](?path=/docs/components-cards-map-card--docs)** — a classroom
+  project sized for the map sidebar. _Discover local need → map sidebar._
+- **[Essential Card](?path=/docs/components-cards-essential-card--docs)** — one
+  classroom-basics item: real supply photo, price, "Add to cart". _"Help a teacher
+  stock up" strips, Essentials lists._
+- **[Map Essentials Card](?path=/docs/components-cards-map-essentials-card--docs)** —
+  one Essentials item sized for the map sidebar. _Discover local need → map
+  sidebar._
+- **[Fully Funded Card](?path=/docs/components-cards-fully-funded-card--docs)** —
+  a finished project: green "FULLY FUNDED!" pill, funding date, impact blurb,
+  rosette. _"Fully funded projects at [school]"._
+- **[School Card](?path=/docs/components-cards-school-card--docs)** — a school as
+  a cream tile: location pill, school name, and either its teachers or a "Become a
+  Founding Supporter" prompt. _Support a school._
 
 ## Picking between the close calls
 

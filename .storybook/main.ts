@@ -118,9 +118,12 @@ const config: StorybookConfig = {
       }
 
       /* The section child whose subtree is open in the rail. Storybook's own
-         selected styling lands on the story row, which no longer shows. */
-      #storybook-explorer-tree .sidebar-item.is-dc-current > a,
-      #storybook-explorer-tree .sidebar-item.is-dc-current > button {
+         selected styling lands on the story row, which no longer shows — except
+         when the row *is* the open page (a root-level story like Overview). There
+         Storybook paints the row solid blue with white text, so this lighter
+         treatment has to stay out of the way or it renders blue on blue. */
+      #storybook-explorer-tree .sidebar-item.is-dc-current:not([data-selected="true"]) > a,
+      #storybook-explorer-tree .sidebar-item.is-dc-current:not([data-selected="true"]) > button {
         background: rgba(0, 98, 253, 0.1) !important;
         color: #0062fd !important;
         font-weight: 700 !important;

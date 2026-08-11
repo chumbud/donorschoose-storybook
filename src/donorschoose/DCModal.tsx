@@ -46,7 +46,12 @@ export function DCModal({ open, onClose, title, footer, size = 'default', childr
   useEffect(() => {
     if (!open) return;
     const previouslyFocused = document.activeElement as HTMLElement | null;
-    const raf = requestAnimationFrame(() => dialogRef.current?.focus());
+    // `preventScroll` because the dialog is fixed-position — there's nothing to
+    // scroll to. Without it, a docs page (where every story mounts at once) jumps
+    // down to whichever modal story is open.
+    const raf = requestAnimationFrame(() =>
+      dialogRef.current?.focus({ preventScroll: true }),
+    );
     return () => {
       cancelAnimationFrame(raf);
       previouslyFocused?.focus?.();

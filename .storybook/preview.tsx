@@ -67,10 +67,17 @@ const preview: Preview = {
     layout: 'centered',
     options: {
       /* Components are listed explicitly so the order is stated rather than
-       * inherited from filenames — that's also what keeps `Cards` in place now
-       * that it owns a standalone Overview page (`Cards, ['Overview', '*']`
-       * orders Cards' children without moving Cards itself). New entries land at
-       * the trailing `'*'`; move them into the list to place them.
+       * inherited from filenames — that's also what keeps the multi-part groups
+       * in place now that they own standalone Overview pages (a nested
+       * `['Overview', '*']` orders a group's children without moving the group
+       * itself). New entries land at the trailing `'*'`; move them into the list
+       * to place them.
+       *
+       * Only groups with no page of their own get an Overview: where the group
+       * node also has its own stories (Map, Progress Bar), Storybook always lists
+       * those before nested children, so an Overview there could never be the
+       * landing page — those pages orient across their parts in the component's
+       * own docs instead.
        *
        * A comparator function would express this more tersely, but Storybook
        * evaluates this parameter as plain JS while indexing, so a typed one can't
@@ -85,6 +92,7 @@ const preview: Preview = {
           [
             'Avatar',
             'Buttons and Links',
+            ['Overview', '*'],
             'Cart',
             'Checkbox',
             'Checkout Upsell',
