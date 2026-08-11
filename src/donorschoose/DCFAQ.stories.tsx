@@ -10,7 +10,7 @@ import { DCFAQ } from './DCFAQ';
 const meta = {
   title: 'Components/FAQ',
   component: DCFAQ,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
   args: {
     heading: 'Answers and tools',

@@ -8,7 +8,7 @@ import { DCHeading, DCSubheader, DCText } from './DCText';
 const meta = {
   title: 'Components/Text',
   component: DCHeading,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
 } satisfies Meta<typeof DCHeading>;
 

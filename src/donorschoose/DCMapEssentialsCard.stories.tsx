@@ -12,7 +12,7 @@ const IMG = '/images/essentials';
 const meta = {
   title: 'Components/Cards/Map Essentials Card',
   component: DCMapEssentialsCard,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
   args: {
     name: 'Tissues',

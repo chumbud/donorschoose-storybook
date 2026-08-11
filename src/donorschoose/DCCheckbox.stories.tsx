@@ -8,7 +8,7 @@ import { DCCheckbox } from './DCCheckbox';
 const meta = {
   title: 'Components/Checkbox',
   component: DCCheckbox,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
   args: { label: 'Make it monthly' },
   argTypes: {

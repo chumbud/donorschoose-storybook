@@ -99,7 +99,7 @@ export const Small: Story = {
 
 export const FullWidth: Story = {
   args: { variant: 'primary', fullWidth: true },
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
 };
 
 /* ---- Icons ---- */
@@ -144,7 +144,7 @@ export const Overlay: Story = {
 /* ---- Overview: every variant × state at a glance ---- */
 
 export const AllStates: Story = {
-  parameters: { layout: 'padded', controls: { disable: true } },
+  parameters: { layout: 'centered', controls: { disable: true } },
   render: () => (
     <div
       style={{

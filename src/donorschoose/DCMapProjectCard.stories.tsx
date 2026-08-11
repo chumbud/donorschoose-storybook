@@ -10,7 +10,7 @@ import { DCMapProjectCard } from './DCMapProjectCard';
 const meta = {
   title: 'Components/Cards/Map Card',
   component: DCMapProjectCard,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
   args: {
     title: 'Building a Space Made for Science',

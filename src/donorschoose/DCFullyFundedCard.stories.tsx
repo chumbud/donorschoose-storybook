@@ -9,7 +9,7 @@ import { DCFullyFundedCard } from './DCFullyFundedCard';
 const meta = {
   title: 'Components/Cards/Fully Funded Card',
   component: DCFullyFundedCard,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
   args: {
     date: '5/6/2026',

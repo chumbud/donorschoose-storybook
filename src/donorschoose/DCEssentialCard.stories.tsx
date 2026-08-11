@@ -84,7 +84,7 @@ export const Bandages: Story = {
 };
 
 export const Row: Story = {
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   render: (args) => (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', maxWidth: 900 }}>
       <DCEssentialCard {...args} name="Crayons" price={11} forWho="For Mrs. Stephens · Avon, MS" imageUrl={`${IMG}/crayons.jpg`} />

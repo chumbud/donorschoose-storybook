@@ -12,7 +12,7 @@ import { projects, byStatus } from './mockProjects';
 const meta = {
   title: 'Components/Cards/Project Card',
   component: DCProjectCard,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
   args: { onGive: fn() },
 } satisfies Meta<typeof DCProjectCard>;
@@ -104,7 +104,7 @@ function LenSlider({ label, value, min, max, suffix, onChange }: {
  * layouts handle it (wrapping, truncation, progress fill).
  */
 export const Playground: Story = {
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   render: () => {
     const [teacherLen, setTeacherLen] = useState(12);
     const [schoolLen, setSchoolLen] = useState(26);

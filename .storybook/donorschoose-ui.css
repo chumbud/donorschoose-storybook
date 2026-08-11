@@ -127,3 +127,32 @@ a:not([class]):hover {
   outline: 3px solid var(--dc-purple);
   outline-offset: 2px;
 }
+
+/* ---------- Page width: the site's 980px container ----------
+   `$defaultPageWidth: 980px` in donorschoose-web's _globalConstants.scss. Every
+   story is centered (preview.tsx `layout: 'centered'`) and capped at that width,
+   so components are laid out in the same column the real site gives them.
+   Stories that opt into `layout: 'fullscreen'` (pages, fixed-position demos)
+   stay full-bleed — that's the point of asking for it. */
+/* Centered stories: Storybook centers `#storybook-root` with `margin: auto`
+   inside a flex, full-height body — so the root has to stay shrink-to-fit for
+   that to work (never `width: 100%`). It's border-box with 1rem of padding, so
+   the cap includes that padding to leave 980px of content. */
+.sb-main-centered #storybook-root {
+  max-width: calc(980px + 2rem);
+}
+/* Padded stories: the body holds the padding, so cap and center the root itself. */
+.sb-main-padded #storybook-root {
+  max-width: 980px;
+  margin-inline: auto;
+}
+/* Anything wider than the column shrinks into it rather than overflowing. */
+.sb-main-centered #storybook-root > *,
+.sb-main-padded #storybook-root > * {
+  max-width: 100%;
+}
+/* Docs pages get the same column. */
+.sbdocs-content {
+  max-width: 980px;
+  margin: 0 auto;
+}

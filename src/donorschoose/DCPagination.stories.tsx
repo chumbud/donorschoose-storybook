@@ -11,7 +11,7 @@ import { DCPagination } from './DCPagination';
 const meta = {
   title: 'Components/Pagination',
   component: DCPagination,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
   args: { page: 1, totalPages: 10, onChange: fn() },
   argTypes: {
