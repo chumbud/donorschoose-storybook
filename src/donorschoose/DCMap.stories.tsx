@@ -8,6 +8,15 @@ import { underConstruction } from './underConstruction';
  * Lightweight, brand-styled **map UI** for composing map layouts — a map
  * surface, pins/markers (with counts + active state), and an anchored popup.
  * This is a styling/layout kit, not a real map engine.
+ *
+ * **The parts.** This page is the surface itself; the other two sit under it.
+ * [Marker](/?path=/docs/components-map-marker--docs) covers the pins placed on
+ * it (default, active, cluster, pulsing, visited), and
+ * [Sidebar](/?path=/docs/components-map-sidebar--docs) is the school-detail panel
+ * that overlays the map when a marker is selected. The sidebar's request list is
+ * built from [Map Cards](/?path=/docs/components-cards-map-card--docs) and
+ * [Map Essentials Cards](/?path=/docs/components-cards-map-essentials-card--docs),
+ * which live under Cards since they're card variants rather than map parts.
  */
 const meta = {
   title: 'Components/Map',
