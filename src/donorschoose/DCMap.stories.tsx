@@ -12,7 +12,7 @@ import { underConstruction } from './underConstruction';
 const meta = {
   title: 'Components/Map',
   component: DCMap,
-  parameters: { layout: 'padded', badges: ['wip'] },
+  parameters: { layout: 'centered', badges: ['wip'] },
   tags: ['autodocs', 'wip'],
   decorators: [underConstruction],
 } satisfies Meta<typeof DCMap>;

@@ -10,7 +10,7 @@ import { DCSchoolCard } from './DCSchoolCard';
 const meta = {
   title: 'Components/Cards/School Card',
   component: DCSchoolCard,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
   args: {
     schoolName: 'South Bronx Classical Charter School III',

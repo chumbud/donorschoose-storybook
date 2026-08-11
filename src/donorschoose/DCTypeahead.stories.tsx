@@ -10,7 +10,7 @@ import { DCTypeahead } from './DCTypeahead';
 const meta = {
   title: 'Components/Inputs',
   component: DCTypeahead,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
   args: { onChange: fn(), onViewAllTeachers: fn() },
 } satisfies Meta<typeof DCTypeahead>;

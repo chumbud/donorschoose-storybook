@@ -9,7 +9,7 @@ import { DCAvatar, DCAvatarGroup, PLACEHOLDER_AVATARS } from './DCAvatar';
 const meta = {
   title: 'Components/Avatar',
   component: DCAvatar,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
   argTypes: {
     placeholder: {

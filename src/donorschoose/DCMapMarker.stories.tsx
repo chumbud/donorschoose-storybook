@@ -11,7 +11,7 @@ import { DCMapPin } from './DCMap';
 const meta = {
   title: 'Components/Map/Marker',
   component: DCMapPin,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
   args: { x: 50, y: 78, onClick: fn() },
   argTypes: {

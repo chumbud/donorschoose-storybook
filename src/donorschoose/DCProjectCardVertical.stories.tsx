@@ -12,7 +12,7 @@ import { projects, byStatus } from './mockProjects';
 const meta = {
   title: 'Components/Cards/Vertical Project Card',
   component: DCProjectCard,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
   args: { ...byStatus('active'), layout: 'vertical', onGive: fn() },
   argTypes: {

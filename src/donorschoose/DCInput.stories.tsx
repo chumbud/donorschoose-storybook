@@ -9,7 +9,7 @@ import { DCCheck, DCInput, DCSearchInput, DCSelect, DCTextarea } from './DCInput
 const meta = {
   title: 'Components/Inputs',
   component: DCInput,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
 } satisfies Meta<typeof DCInput>;
 

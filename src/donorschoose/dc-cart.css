@@ -1,0 +1,191 @@
+/*
+ * DonorsChoose mini-cart (the "multi-cart" header element).
+ *
+ * Ported from donorschoose-web:
+ *   - markup:  web/war/WEB-INF/tags/genHeader.tag  (`.cart-group > .mini-cart + .cart-message`)
+ *   - styles:  web/war/scss/components/navigation/_header.scss  (`#mainHeader a.mini-cart`)
+ *   - behavior: web/war/js/dc/general/module/miniCartFunctions.ts (count/total/message)
+ *               web/war/js/dc/projectpage-react/multiProjectGiving.js (`show-message`)
+ *
+ * The badge count and the black message bubble are the two halves of the
+ * element: the count is always visible once the cart has items, the message
+ * ("$45 for 2 classrooms") reveals on hover/focus — or is pushed open for a few
+ * seconds right after something lands in the cart.
+ */
+
+.dc-cart {
+  /* Ring around the badge — matches the nav background it sits on. */
+  --dc-cart-badge-ring: var(--dc-vlgrey);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--dc-font-body);
+}
+
+/* The `.cart-group:after` divider that separates the cart from the account links. */
+.dc-cart--divider {
+  padding-right: 1em;
+  margin-right: 1em;
+  border-right: 1px solid var(--dc-grey-stroke);
+}
+
+/* ---- Trigger (`a.mini-cart`) ---- */
+.dc-cart__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: var(--dc-grey);
+  text-decoration: none;
+  transition: color var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-cart__link:hover {
+  color: var(--dc-blue-link);
+  text-decoration: none;
+}
+.dc-cart__link:focus-visible {
+  outline: 3px solid var(--dc-purple);
+  outline-offset: 4px;
+  border-radius: var(--dc-radius-inner);
+}
+.dc-cart__icon {
+  width: 2.25em; /* 36px — $font-size-body * 2.25 */
+  height: 2.25em;
+  fill: currentColor;
+}
+
+/* On checkout the cart is inert (`.mini-cart.checkout`). */
+.dc-cart--checkout .dc-cart__link {
+  pointer-events: none;
+}
+
+/* ---- Count badge (`.mini-cart:before { content: attr(data-value) }`) ---- */
+.dc-cart__badge {
+  position: absolute;
+  top: -13px;
+  right: -13px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box; /* the site sets this globally in general.scss */
+  /*
+   * 21×21 *including* the 3px ring — a true circle at a single digit, exactly
+   * as production sizes it. The site hard-codes `width: 21px`, which spills a
+   * 2–3 digit count over the circle; `min-width` + side padding keeps single
+   * digits at 21px and lets bigger counts grow into a pill instead.
+   */
+  min-width: 21px;
+  height: 21px;
+  padding: 0 3px;
+  color: var(--dc-vlgrey);
+  background-color: var(--dc-blue-link);
+  border: 3px solid var(--dc-cart-badge-ring);
+  border-radius: 10em;
+  font-size: var(--dc-font-size-discreet); /* 14px, $font-size-discreet */
+  font-weight: bold;
+  /*
+   * Production sets `line-height: 21px` on a border-box 21px badge, so the
+   * digit lands ~3px below the middle of the 15px blue area. Centered here.
+   */
+  line-height: 1;
+  text-align: center;
+}
+
+/* Count changed — a quick bump, reusing the site's add-to-cart pop feel. */
+.dc-cart__badge--pop {
+  animation: dc-cart-badge-pop 0.45s var(--dc-ease);
+}
+@keyframes dc-cart-badge-pop {
+  0% {
+    transform: scale(0.8);
+  }
+  55% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ---- Message bubble (`.cart-message`) ---- */
+.dc-cart__message {
+  position: absolute;
+  z-index: 101; /* $z-index-tooltip */
+  top: calc(100% + 6px);
+  left: 30%; /* the site anchors the bubble left-of-center under the icon */
+  padding: 1em;
+  background: var(--dc-black);
+  color: var(--dc-white);
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(33, 33, 33, 0.22);
+  font-size: var(--dc-font-size-discreet);
+  line-height: 1.35;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -5px) scale(0.9);
+  transition:
+    opacity var(--dc-duration-fast) var(--dc-ease),
+    transform var(--dc-duration-fast) var(--dc-ease),
+    visibility 0s linear var(--dc-duration-fast);
+}
+.dc-cart__message::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  background-color: var(--dc-black);
+  transform: rotate(45deg);
+}
+
+/*
+ * Revealed on hover/focus of a non-empty cart, or pushed open via
+ * `showMessage` (the site's `.mini-cart.show-message`).
+ */
+.dc-cart--enabled .dc-cart__link:hover ~ .dc-cart__message,
+.dc-cart--enabled .dc-cart__link:focus-visible ~ .dc-cart__message,
+.dc-cart--enabled.dc-cart--show-message .dc-cart__message {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+  transition:
+    opacity var(--dc-duration-fast) var(--dc-ease),
+    transform var(--dc-duration-fast) var(--dc-ease);
+}
+
+/* ---- Mobile (`#mobile-header .menu-items a.mini-cart`) ----
+ * The badge becomes a blue pill sitting beside the icon, and the hover
+ * message is dropped — there's no hover on touch. */
+@media (max-width: 46em) {
+  .dc-cart__badge {
+    position: static;
+    display: inline-flex;
+    margin-left: 4px;
+    min-width: 0;
+    height: 28px;
+    padding: 0 1em;
+    border: none;
+    border-radius: 50px;
+  }
+  .dc-cart__icon {
+    width: 1.5em;
+    height: 1.5em;
+  }
+  .dc-cart__message {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dc-cart__badge--pop {
+    animation: none;
+  }
+  .dc-cart__message {
+    transition: none;
+  }
+}

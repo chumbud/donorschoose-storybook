@@ -1,0 +1,94 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+{/*
+  Landing page for the Cards group. MDX entries are indexed before `*.stories.*`
+  (see the `stories` globs in .storybook/main.ts), so this is the first page under
+  Cards — which is what opening "Cards" in the sidebar lands on, instead of
+  dropping people on whichever card happens to sort first.
+*/}
+
+<Meta title="Components/Cards/Overview" />
+
+# Cards
+
+Seven cards, and the differences between them are mostly about **where they
+appear** rather than what they're made of. Two families cover most of it —
+classroom projects and Essentials requests — plus a card for a funded project and
+one for a school.
+
+## Which card do I want?
+
+{/* Written as HTML: this MDX pipeline has no remark-gfm, so pipe tables render
+    as literal pipes. */}
+
+<table>
+  <thead>
+    <tr>
+      <th>Card</th>
+      <th>What it shows</th>
+      <th>Where it appears</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="?path=/docs/components-cards-project-card--docs">Project Card</a></td>
+      <td>A classroom project with its funding progress bar, across active / almost-funded / funded / matched states</td>
+      <td>Search results, project lists, teacher and school pages</td>
+    </tr>
+    <tr>
+      <td><a href="?path=/docs/components-cards-vertical-project-card--docs">Vertical Project Card</a></td>
+      <td>The same project card in its compact “photo on top, title overlaid” layout</td>
+      <td>“Nearby projects” grids</td>
+    </tr>
+    <tr>
+      <td><a href="?path=/docs/components-cards-map-card--docs">Map Card</a></td>
+      <td>A classroom project sized for the map sidebar</td>
+      <td>Discover local need → map sidebar</td>
+    </tr>
+    <tr>
+      <td><a href="?path=/docs/components-cards-essential-card--docs">Essential Card</a></td>
+      <td>One classroom-basics item — real supply photo, price, “Add to cart”</td>
+      <td>“Help a teacher stock up” strips, Essentials lists</td>
+    </tr>
+    <tr>
+      <td><a href="?path=/docs/components-cards-map-essentials-card--docs">Map Essentials Card</a></td>
+      <td>One Essentials item sized for the map sidebar</td>
+      <td>Discover local need → map sidebar</td>
+    </tr>
+    <tr>
+      <td><a href="?path=/docs/components-cards-fully-funded-card--docs">Fully Funded Card</a></td>
+      <td>A finished project: green “FULLY FUNDED!” pill, funding date, impact blurb, rosette</td>
+      <td>“Fully funded projects at [school]”</td>
+    </tr>
+    <tr>
+      <td><a href="?path=/docs/components-cards-school-card--docs">School Card</a></td>
+      <td>A school as a cream tile — location pill, school name, its teachers or a “Become a Founding Supporter” prompt</td>
+      <td>Support a school</td>
+    </tr>
+  </tbody>
+</table>
+
+## Picking between the close calls
+
+**Project Card vs. Vertical Project Card** — one component, one prop. The vertical
+card is `DCProjectCard` with `layout="vertical"`; reach for it when cards sit in a
+grid and the photo should lead. Everything else about it (states, progress bar,
+give box) behaves identically.
+
+**Map Card vs. Project Card** — the map card is a separate, tighter component
+built for the sidebar's width, not a variant of the project card. If you're not in
+the map sidebar, you want the project card.
+
+**Essential Card vs. Map Essentials Card** — same split as above: the plain
+essential card is the full-size tile with the supply photo and its own add-to-cart
+button; the map version is the compact row for the sidebar.
+
+## Shared behavior
+
+- **Money formatting** goes through `usd()` (`money.ts`) so every card renders
+  amounts the same way — whole dollars, no cents.
+- **Funding progress** on the project and fully-funded cards uses the same
+  progress bar treatment as [Progress Bar](?path=/docs/components-progress-bar--docs).
+- **Cart actions** (`onGive`, `Add to cart`) are callbacks — the cards don't own
+  cart state. See [Cart](?path=/docs/components-cart--docs) for the mini-cart the
+  additions land in.

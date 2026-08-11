@@ -12,7 +12,7 @@ import { DCIcon } from './DCIcon';
 const meta = {
   title: 'Components/Icons',
   component: DCIcon,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
 } satisfies Meta<typeof DCIcon>;
 

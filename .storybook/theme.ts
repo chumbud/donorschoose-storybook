@@ -25,7 +25,7 @@ export const lightTheme = create({
   base: 'light',
   brandImage: '/donorschoose-logo-blue.png', // served via staticDirs in main.ts
 
-  appBg: '#fafafa',
+  appBg: '#ffffff', // sidebar + manager chrome
   appContentBg: '#ffffff',
   appPreviewBg: '#ffffff',
   appBorderColor: 'rgba(65, 65, 66, 0.2)',
