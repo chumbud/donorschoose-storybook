@@ -154,6 +154,87 @@ const config: StorybookConfig = {
       }
       .dc-story-column.is-open { display: flex; }
 
+      /* ---- Pages: full-bleed canvas ----
+         A page story is a whole composition, so it gets the canvas to itself:
+         manager.tsx collapses the sidebar and keeps the rail shut, and these
+         rules drop the 1328px app cap and the rail's reserved column so the
+         preview spans the window. Both sidebars are taken out of the layout
+         flow while a page is open, so reopening the sidebar (the S shortcut)
+         overlays the page instead of squeezing it. The pages themselves keep
+         their own 980px content containers. */
+      #root.dc-full-bleed { max-width: none; }
+      #root.dc-full-bleed > div:has(.sidebar-container) {
+        width: 100% !important;
+      }
+      /* Both sidebars leave the layout flow while a page is open, so bringing
+         one back overlays the page rather than squeezing it. Scoped to the
+         full-bleed state: elsewhere the rail is positioned against the
+         centred, capped #root, which fixed positioning would break. */
+      #root.dc-full-bleed div:has(> div > .sidebar-container),
+      #root.dc-full-bleed .dc-story-column {
+        position: fixed;
+      }
+
+      /* ---- Collapsed nav ----
+         On a page the sidebar collapses to this button rather than vanishing:
+         a rounded square in the top-left corner that expands into the full
+         sidebar (manager.tsx owns the toggle). Hidden everywhere else, where
+         the sidebar is already on screen. */
+      .dc-nav-toggle { display: none; }
+      #root.dc-full-bleed .dc-nav-toggle {
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 12;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        border: 1px solid rgba(65, 65, 66, 0.2);
+        border-radius: 10px;
+        background: #ffffff;
+        color: #212121;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        cursor: pointer;
+      }
+      #root.dc-full-bleed .dc-nav-toggle:hover {
+        color: #0062fd;
+        border-color: rgba(0, 98, 253, 0.4);
+      }
+      #root.dc-full-bleed .dc-nav-toggle:focus-visible {
+        outline: 2px solid #8152ff;
+        outline-offset: 2px;
+      }
+
+      /* Expanded: the button grows into a floating sidebar panel anchored to the
+         same corner. The canvas keeps its full width — the nav column is forced
+         back to 0 so the panel overlays the page instead of squeezing it (the
+         nav column only exists in this state, so the three tracks are safe to
+         name here). */
+      #root.dc-full-bleed.dc-nav-open > div:has(.sidebar-container) {
+        grid-template-columns: 0 1fr 0 !important;
+      }
+      #root.dc-full-bleed.dc-nav-open div:has(> div > .sidebar-container) {
+        top: 1rem;
+        left: 1rem;
+        bottom: 1rem;
+        /* Above the canvas, just under the toggle that closes it. */
+        z-index: 11;
+        width: var(--dc-nav-panel-width, 220px);
+        border-radius: 12px;
+        background: #ffffff;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+        overflow: hidden;
+      }
+      /* The toggle stays parked in the corner as the close control, so the
+         sidebar's own header clears it. */
+      #root.dc-full-bleed.dc-nav-open .sidebar-container {
+        padding-top: 2.75rem;
+        box-sizing: border-box;
+      }
+
       /* Same treatment as the sidebar's section headers. */
       .dc-story-column__title {
         margin: 0 0 0.25rem;

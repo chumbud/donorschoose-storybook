@@ -27,10 +27,10 @@ export const WIP = 'wip';
 const banner: CSSProperties = {
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'center',
   gap: '0.5rem',
   marginBottom: '1.25rem',
   padding: '0.6rem 1rem',
-  borderRadius: '8px',
   border: '1px solid #e6c34d',
   background:
     'repeating-linear-gradient(45deg, #fff6da, #fff6da 14px, #ffe9ad 14px, #ffe9ad 28px)',

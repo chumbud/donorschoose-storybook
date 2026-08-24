@@ -37,6 +37,8 @@
   width: 100%;
   height: 220px;
   object-fit: cover;
+  /* Inner hairline so light photos still read as a framed image. */
+  box-shadow: inset 0 0 0 1px rgba(65, 65, 66, 0.5); /* $grey @ 50% */
 }
 .dc-pm__fav {
   position: absolute;

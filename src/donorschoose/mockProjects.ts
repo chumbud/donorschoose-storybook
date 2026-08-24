@@ -57,6 +57,7 @@ export const projects: DCProjectCardProps[] = [
     raised: 540,
     donors: 31,
     status: 'matched',
+    matchSponsor: 'Dieux',
   },
 ];
 
