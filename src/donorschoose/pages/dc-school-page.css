@@ -19,11 +19,13 @@
   color: var(--dc-blue-link);
   text-decoration: none;
 }
+/* The hero band goes edge to edge; its title stays in the 980px column. */
 .dc-sch-hero__title {
   font-family: var(--dc-font-headline);
   font-weight: 900;
   font-size: var(--dc-font-size-xxlarge);
-  margin: 0 0 1.25rem;
+  max-width: var(--dc-container-width);
+  margin: 0 auto 1.25rem;
 }
 .dc-sch-hero__avatars {
   display: flex;

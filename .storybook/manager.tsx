@@ -93,13 +93,18 @@ addons.register('donorschoose/sidebar', (api) => {
   // Storybook restores a persisted nav width from localStorage after boot, which
   // would leave the two columns cramped — set it through the API (not CSS) so the
   // resize handle keeps matching the real width. Dragging still works from here.
-  window.setTimeout(() => api.setSizes({ navSize: DC_NAV_SIZE }), 400);
+  // syncPanel (below) owns the width from here on, so a page can collapse it.
+  window.setTimeout(() => syncNav(), 400);
 
   /* ---- Addon panel only while a component story is open ----
    * Actions / Interactions / Visual tests / Accessibility are only useful with a
    * component story on screen, so the panel is hidden on docs pages and on the
    * Overview / Foundations / Pages entries.
    */
+  /* Page stories are full-width compositions — they get the canvas to
+   * themselves (see the `.dc-full-bleed` rules in main.ts). */
+  const isPageEntry = (id?: string) => !!id && id.startsWith('pages-');
+
   const isComponentStory = (id?: string) => {
     if (!id) return false;
     const entry = (api as unknown as { getData?: (i: string) => { type?: string } | undefined })
@@ -107,14 +112,96 @@ addons.register('donorschoose/sidebar', (api) => {
     return entry?.type === 'story' && id.startsWith('components-');
   };
 
+  /* Both sidebars collapse when a page opens, and the canvas goes full bleed.
+   * Only re-applied when the entry actually changes, so a manual toggle isn't
+   * undone while you stay on that page. */
+  let lastSyncedId: string | undefined;
+
+  /* The nav column is driven by its width, not toggleNav: Storybook's layout
+   * keeps reserving the column through a toggle, and setSizes is what actually
+   * moves it (the same call the boot-time width fix uses). */
+  let navSynced = false;
+
+  /* ---- Collapsed nav on pages ----
+   * A page keeps the canvas full width, but the sidebar stays reachable: it
+   * collapses to a rounded button in the top-left corner that expands back into
+   * the full sidebar, floating over the page (see .dc-nav-toggle / .dc-nav-open
+   * in main.ts). Storybook drops the nav column entirely at navSize 0, so the
+   * button is our own element rather than its built-in chrome.
+   */
+  const MENU_ICON =
+    '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">' +
+    '<path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" ' +
+    'stroke-linecap="round" fill="none"/></svg>';
+  const CLOSE_ICON =
+    '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">' +
+    '<path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.5" ' +
+    'stroke-linecap="round" fill="none"/></svg>';
+
+  let navOpen = false;
+
+  const setNavOpen = (open: boolean) => {
+    navOpen = open;
+    const root = document.getElementById('root');
+    root?.classList.toggle('dc-nav-open', open);
+    api.setSizes({ navSize: open ? DC_NAV_SIZE : 0 });
+    const button = root?.querySelector<HTMLButtonElement>('.dc-nav-toggle');
+    if (button) {
+      button.innerHTML = open ? CLOSE_ICON : MENU_ICON;
+      button.setAttribute('aria-label', open ? 'Hide sidebar' : 'Show sidebar');
+      button.setAttribute('aria-expanded', String(open));
+    }
+  };
+
+  /** Mount the collapsed-nav button once; CSS shows it only on pages. */
+  const ensureNavToggle = () => {
+    const root = document.getElementById('root');
+    if (!root || root.querySelector('.dc-nav-toggle')) return;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'dc-nav-toggle';
+    button.innerHTML = MENU_ICON;
+    button.setAttribute('aria-label', 'Show sidebar');
+    button.setAttribute('aria-expanded', 'false');
+    button.addEventListener('click', () => setNavOpen(!navOpen));
+    root.appendChild(button);
+  };
+
+  // Escape closes the expanded sidebar, matching every other overlay.
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && navOpen) setNavOpen(false);
+  });
+
+  const syncNav = () => {
+    const id = api.getCurrentStoryData()?.id;
+    const onPage = isPageEntry(id);
+    ensureNavToggle();
+    document.getElementById('root')?.classList.toggle('dc-full-bleed', onPage);
+    if (id === lastSyncedId && navSynced) return;
+    const leftAPage = isPageEntry(lastSyncedId);
+    const first = !navSynced;
+    lastSyncedId = id;
+    navSynced = true;
+    // Only write a width when it has to change — on the first sync, and when
+    // crossing into or out of a page — so a manual sidebar resize survives
+    // ordinary navigation.
+    if (onPage) setNavOpen(false);
+    else if (leftAPage || first) {
+      document.getElementById('root')?.classList.remove('dc-nav-open');
+      navOpen = false;
+      api.setSizes({ navSize: DC_NAV_SIZE });
+    }
+  };
+
   const syncPanel = () => {
     // togglePanel is idempotent when passed an explicit target state.
     api.togglePanel(isComponentStory(api.getCurrentStoryData()?.id));
+    syncNav();
   };
 
   api.on(STORY_CHANGED, syncPanel);
   api.on(SET_CURRENT_STORY, () => window.setTimeout(syncPanel, 0));
-  window.setTimeout(syncPanel, 300);
+  window.setTimeout(syncPanel, 600);
 
   /* ---- Story rail ----
    * The sidebar lists only what sits directly under a section; everything below
@@ -201,7 +288,9 @@ addons.register('donorschoose/sidebar', (api) => {
     markSidebar(top?.id);
 
     // A section child that's a page in its own right (Overview) has no subtree.
-    const show = !!top && !isLeaf(top) && !!top.children?.length;
+    // Page stories keep the rail shut — the canvas is theirs.
+    const show =
+      !!top && !isLeaf(top) && !!top.children?.length && !isPageEntry(currentId);
     el.classList.toggle('is-open', show);
     if (!show || !top) {
       el.replaceChildren();

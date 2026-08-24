@@ -44,6 +44,11 @@
   --dc-font-size-xxxlarge: 2.5rem; /* 40px */
   --dc-font-size-gigantic: 3rem; /* 48px */
 
+  /* ---- Layout grid ---- */
+  --dc-container-width: 980px; /* the site container width */
+  --dc-container-padding: 1.5rem; /* container side padding */
+  --dc-gutter: 1.5rem; /* space between grid columns */
+
   /* ---- Radii (rem @ 16px root) ---- */
   --dc-radius-static: 0; /* square corners — DC form inputs */
   --dc-radius-inner: 0.375rem; /* 6px */

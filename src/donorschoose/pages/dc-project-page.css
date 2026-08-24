@@ -2,6 +2,9 @@
 
 .dc-pp {
   font-family: var(--dc-font-body);
+  /* Default copy on this page is 0.875rem; the essay opts back up (see
+     .dc-pp__story p / .dc-pp__pull-quote). */
+  font-size: var(--dc-font-size-discreet);
   color: var(--dc-black);
   background: var(--dc-white);
 }
@@ -13,13 +16,15 @@
   text-align: center;
   padding: 2.5rem 1.5rem 3rem;
 }
+/* The purple band goes edge to edge; its content stays in the 980px column. */
 .dc-pp__hero h1 {
   font-family: var(--dc-font-headline);
   font-weight: 900; /* extrabold */
   letter-spacing: -0.02em; /* -2% */
   color: var(--dc-white);
   font-size: var(--dc-font-size-xxxlarge);
-  margin: 0 0 0.75rem;
+  max-width: var(--dc-container-width);
+  margin: 0 auto 0.75rem;
 }
 .dc-pp__hero p {
   max-width: 560px;
@@ -47,22 +52,25 @@
   gap: 1.5rem;
   padding: 0.75rem 1.5rem;
 }
-.dc-pp__donors {
-  color: var(--dc-grey);
-  font-size: var(--dc-font-size-discreet);
-  white-space: nowrap;
+/* The give controls take a fixed 375px on the right; the progress bar (stats
+   row + track, both from DCProgressBar) fills whatever is left. */
+.dc-pp__fundbar-actions {
+  flex: none;
+  width: 375px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
 }
-.dc-pp__needed {
-  font-family: var(--dc-font-headline);
-  font-weight: 700;
-  color: var(--dc-black);
-  white-space: nowrap;
-}
-.dc-pp__needed.is-funded {
-  color: var(--dc-green);
-}
-.dc-pp__fund-spacer {
+.dc-pp__fundbar-bar {
   flex: 1;
+  min-width: 0;
+}
+.dc-pp__fundbar-bar .dc-pbar {
+  max-width: none;
+}
+.dc-pp__fundbar-bar .dc-pbar__track {
+  margin-bottom: 0;
 }
 .dc-pp__expires {
   color: var(--dc-grey);
@@ -71,35 +79,26 @@
   line-height: 1.2;
   white-space: nowrap;
 }
-.dc-pp__amount {
-  width: 72px;
-  height: 44px;
-  text-align: center;
+/* Compact amount field: a left-aligned, half-opacity "$" placeholder. The
+   field shell is what sets the width — `.dc-input` itself is always 100%. */
+.dc-pp__fundbar-actions .dc-field {
+  flex: none;
+  width: 56px;
+  margin-bottom: 0;
 }
-.dc-pp__fundbar-progress {
-  height: 6px;
+.dc-pp__fundbar-actions .dc-pp__amount {
   width: 100%;
-  background: rgba(61, 169, 243, 0.15);
+  height: 32px;
+  padding: 0 0.5rem;
+  text-align: left;
+  font-size: var(--dc-font-size-discreet);
 }
-.dc-pp__fundbar-fill {
-  height: 100%;
-  background: var(--dc-blue-link);
-  /* Grow the fill to its funded width on load (scaleX composes with any width). */
-  transform-origin: left center;
-  animation: dc-fundbar-fill 0.9s var(--dc-ease) both;
+.dc-pp__amount::placeholder {
+  opacity: 0.5;
 }
-@keyframes dc-fundbar-fill {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-.dc-pp--matched .dc-pp__fundbar-fill {
-  background: var(--dc-blue);
-}
-.dc-pp--funded .dc-pp__fundbar-fill {
+/* DCProgressBar handles the matched (brand-blue) treatment itself; the page
+   keeps its green fully-funded fill. */
+.dc-pp--funded .dc-pp__fundbar-bar .dc-pbar__fill {
   background: var(--dc-green);
 }
 
@@ -122,38 +121,48 @@
   background: #d7d7d9 var(--dc-photo, none);
   background-size: cover;
   background-position: center;
+  /* Inner hairline so light photos still read as a framed image. */
+  box-shadow: inset 0 0 0 1px rgba(65, 65, 66, 0.5); /* $grey @ 50% */
 }
-/* Follow — a subtle link under the teacher info (mirrors .follow-teacher). */
-.dc-pp__follow {
+/* Follow — a small white-filled button floating on the classroom photo, inset
+   1rem and spanning the photo's width. The label is long for the 240px
+   sidebar, so it wraps rather than overflowing. */
+.dc-pp__follow.dc-button {
+  position: absolute;
+  z-index: 1;
+  top: 1rem;
+  right: 1rem;
+  left: 1rem;
+  width: auto;
+  margin: 0;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  margin: 0.75rem 0 0;
-  padding: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--dc-blue-link);
-  font-family: var(--dc-font-body);
-  font-weight: 700;
-  font-size: var(--dc-font-size-discreet);
-  text-decoration: none;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--dc-white);
+  height: auto;
+  min-height: 40px;
+  line-height: 1.3;
+  padding: 0.5rem 0.9rem;
+  white-space: normal;
 }
-.dc-pp__follow:hover {
-  text-decoration: underline;
-}
+/* Avatar, name and school all sit flush left, above the Follow button. */
 .dc-pp__avatar {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: -34px;
   position: relative;
 }
+/* Name uses the display "thick" treatment (see .dc-heading--thick), keeping
+   the link blue rather than the heading black. */
 .dc-pp__teacher-name {
   display: block;
-  text-align: center;
+  text-align: left;
   color: var(--dc-blue-link);
   font-family: var(--dc-font-headline);
-  font-weight: 700;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
   font-size: var(--dc-font-size-large);
   margin-top: 0.5rem;
   text-decoration: none;
@@ -163,7 +172,7 @@
   text-decoration: underline;
 }
 .dc-pp__teacher-sub {
-  text-align: center;
+  text-align: left;
   color: var(--dc-grey);
   font-size: var(--dc-font-size-discreet);
   line-height: 1.4;
@@ -173,7 +182,7 @@
 .dc-pp__impact-note {
   font-family: var(--dc-font-body);
   color: var(--dc-blue);
-  font-size: var(--dc-font-size-large);
+  font-size: var(--dc-font-size-discreet);
   line-height: 1.4;
   text-align: left;
   border-top: 1px solid var(--dc-grey-stroke);
@@ -194,7 +203,7 @@
   display: flex;
   gap: 8px;
   align-items: center;
-  font-size: var(--dc-font-size-large);
+  font-size: var(--dc-font-size-discreet);
   color: var(--dc-black);
   line-height: 1.4;
 }
@@ -221,7 +230,9 @@
 .dc-pp__meta li.is-donors::before {
   background-image: url('/images/project/icon/donors.svg');
 }
-.dc-pp__meta a {
+/* Plain anchors in the meta list read as links; ones that opt into a link
+   primitive (.dc-link-discreet, .dc-subtle-link) keep their own treatment. */
+.dc-pp__meta a:not([class]) {
   color: var(--dc-blue-link);
   text-decoration: none;
 }
@@ -288,8 +299,10 @@
   font-size: var(--dc-font-size-xlarge);
   margin: 0 0 0.75rem;
 }
-.dc-pp__story p {
-  font-size: var(--dc-font-size-large);
+/* The essay is the one block that stays large — 1.25rem minimum. Paragraphs
+   that opt into a text primitive (`.dc-text`) keep their own size. */
+.dc-pp__story p:not(.dc-text) {
+  font-size: max(var(--dc-font-size-large), 1.25rem);
   font-weight: 400;
   line-height: 1.5;
   margin: 0 0 1rem;
@@ -329,10 +342,18 @@
   padding: 0.3rem 0.8rem;
   font-size: var(--dc-font-size-discreet);
 }
-.dc-pp__deadline {
-  color: var(--dc-grey);
-  font-size: var(--dc-font-size-discreet);
-  margin-top: 1.25rem;
+/* Size and colour come from the text-discreet primitive (DCText variant); only
+   the spacing is the page's business — qualified for the same reason as
+   .dc-pp__activity-note below. */
+.dc-pp .dc-pp__deadline {
+  margin: 1.25rem 0 0;
+}
+
+/* Sign-in note under the Project Activity heading. Qualified by `.dc-pp` so it
+   outranks `.dc-text`'s own margin shorthand — dc-text.css is injected after
+   this file, so a single-class rule here would lose on source order. */
+.dc-pp .dc-pp__activity-note {
+  margin: 1rem 0 0;
 }
 
 /* ---- Where your donation goes ---- */

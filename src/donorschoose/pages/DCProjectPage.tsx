@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import '../tokens.css';
 import './dc-project-page.css';
+import '../dc-links.css';
 import { DCHeader } from '../DCHeader';
 import { DCFooter } from '../DCFooter';
 import { DCButton } from '../DCButton';
@@ -10,11 +11,10 @@ import { DCInput } from '../DCInput';
 import { DCModal } from '../DCModal';
 import { DCText } from '../DCText';
 import { DCShareTools } from '../DCShareTools';
+import { DCProgressBar } from '../DCProgressBar';
 import type { DCProjectCardProps } from '../DCProjectCard';
 import { byStatus } from '../mockProjects';
 
-const usd = (n: number) =>
-  n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 const usdCents = (n: number) =>
   n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
 
@@ -28,6 +28,28 @@ const MATERIALS = [
 
 const TAGS = ['Austin, TX', 'Grades 6-8', 'Social Sciences', 'Traditional School', 'Art Supplies', 'More than half of students from low-income households'];
 
+/**
+ * Outlined bookmark glyph for the "Follow" button — stroke-only at 2px, unlike
+ * the filled `DCIcon` sprite version.
+ */
+function BookmarkOutline({ size = 20 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1Z" />
+    </svg>
+  );
+}
+
 export interface DCProjectPageProps {
   /** The project supplying the funding state. Defaults to an active project. */
   project?: DCProjectCardProps;
@@ -37,8 +59,6 @@ export function DCProjectPage({ project = byStatus('active') }: DCProjectPagePro
   const [open, setOpen] = useState(false);
   const isFunded = project.status === 'funded' || project.raised >= project.goal;
   const isMatched = project.status === 'matched';
-  const pct = Math.min(Math.round((project.raised / project.goal) * 100), 100);
-  const stillNeeded = Math.max(project.goal - project.raised, 0);
 
   const stateMod = isFunded ? 'dc-pp--funded' : isMatched ? 'dc-pp--matched' : '';
 
@@ -57,21 +77,26 @@ export function DCProjectPage({ project = byStatus('active') }: DCProjectPagePro
       {/* Sticky funding bar */}
       <div className="dc-pp__fundbar">
         <div className="dc-pp__fundbar-row">
-          <span className="dc-pp__donors">{project.donors} donors</span>
-          <span className={`dc-pp__needed ${isFunded ? 'is-funded' : ''}`}>
-            {isFunded ? 'Fully funded!' : `${usd(stillNeeded)} still needed`}
-          </span>
-          <span className="dc-pp__fund-spacer" />
-          <span className="dc-pp__expires">
-            Expires
-            <br />
-            Nov 27
-          </span>
-          <DCInput className="dc-pp__amount" aria-label="Donation amount" defaultValue="$" />
-          <DCButton onClick={() => setOpen(true)}>Give to this classroom</DCButton>
-        </div>
-        <div className="dc-pp__fundbar-progress">
-          <div className="dc-pp__fundbar-fill" style={{ width: `${pct}%` }} />
+          <div className="dc-pp__fundbar-bar">
+            <DCProgressBar
+              total={project.goal}
+              funded={project.raised}
+              donors={project.donors}
+              matched={isMatched}
+              fullyFunded={isFunded}
+            />
+          </div>
+          <div className="dc-pp__fundbar-actions">
+            <span className="dc-pp__expires">
+              Expires
+              <br />
+              Nov 27
+            </span>
+            <DCInput className="dc-pp__amount" aria-label="Donation amount" placeholder="$" />
+            <DCButton size="small" onClick={() => setOpen(true)}>
+              Give to this classroom
+            </DCButton>
+          </div>
         </div>
       </div>
 
@@ -82,7 +107,16 @@ export function DCProjectPage({ project = byStatus('active') }: DCProjectPagePro
           <div
             className="dc-pp__photo"
             style={project.imageUrl ? { backgroundImage: `url("${project.imageUrl}")` } : undefined}
-          />
+          >
+            <DCButton
+              variant="secondary"
+              size="small"
+              className="dc-pp__follow"
+              icon={<BookmarkOutline />}
+            >
+              Follow projects for updates
+            </DCButton>
+          </div>
           <div className="dc-pp__avatar">
             <DCAvatar name={project.teacher} placeholder="teacher-1" size={68} ring />
           </div>
@@ -90,14 +124,12 @@ export function DCProjectPage({ project = byStatus('active') }: DCProjectPagePro
             {project.teacher}
           </a>
           <div className="dc-pp__teacher-sub">
-            {project.school}
+            <a href="#" className="dc-subtle-link">
+              {project.school}
+            </a>
             <br />
             Grades 6-8
           </div>
-          <button type="button" className="dc-pp__follow">
-            <DCIcon name="bookmark" size={16} />
-            Follow
-          </button>
           <p className="dc-pp__impact-note">
             This project will directly impact historically underfunded classrooms.
           </p>
@@ -117,7 +149,9 @@ export function DCProjectPage({ project = byStatus('active') }: DCProjectPagePro
               <span>150 students impacted</span>
             </li>
             <li className="is-donors">
-              <span>{project.donors} donors</span>
+              <a href="#" className="dc-link-discreet">
+                {project.donors} donors
+              </a>
             </li>
           </ul>
         </aside>
@@ -156,10 +190,10 @@ export function DCProjectPage({ project = byStatus('active') }: DCProjectPagePro
                 </span>
               ))}
             </div>
-            <p className="dc-pp__deadline">
+            <DCText variant="discreet" className="dc-pp__deadline">
               {project.teacher} will only receive her materials if this project is fully funded by
               November 27.
-            </p>
+            </DCText>
           </div>
         </div>
       </div>
@@ -217,7 +251,7 @@ export function DCProjectPage({ project = byStatus('active') }: DCProjectPagePro
               Follow project for updates
             </DCButton>
           </div>
-          <DCText variant="discreet" style={{ marginTop: '1rem' }}>
+          <DCText variant="discreet" className="dc-pp__activity-note">
             If you donated to this project, you can <a href="#">sign in</a> to leave a comment for{' '}
             {project.teacher}.
           </DCText>

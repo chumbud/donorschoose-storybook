@@ -22,6 +22,11 @@ export interface DCProjectCardProps {
   donors: number;
   /** Project state. Defaults to `active`. */
   status?: DCProjectStatus;
+  /**
+   * Name of the match funder, shown as "Thanks to {matchSponsor}." beside the
+   * "Double your impact!" callout. Only rendered when `status` is `matched`.
+   */
+  matchSponsor?: string;
   /** `horizontal` (default, list row) or `vertical` (small card for grids). */
   layout?: 'horizontal' | 'vertical';
   /** Show the shimmering skeleton placeholder instead of content. */
@@ -99,6 +104,7 @@ export function DCProjectCard({
   raised,
   donors,
   status = 'active',
+  matchSponsor,
   layout = 'horizontal',
   loading = false,
   giveBox = false,
@@ -110,6 +116,7 @@ export function DCProjectCard({
   const isMatched = status === 'matched';
   const pct = Math.min(Math.round((raised / goal) * 100), 100);
   const stillNeeded = Math.max(goal - raised, 0);
+  const donorWord = donors === 1 ? 'donor' : 'donors';
 
   const classes = [
     'dc-project-card',
@@ -139,17 +146,38 @@ export function DCProjectCard({
           {school} • {location}
         </div>
         {isFunded ? (
-          <div className="dc-project-card__completed" style={{ margin: '0.75rem 0 0.5rem' }}>
-            Fully funded!
-          </div>
+          <>
+            <div className="dc-project-card__completed" style={{ margin: '0.75rem 0 0.5rem' }}>
+              Fully funded!
+            </div>
+            <span className="dc-project-card__progress">
+              <span className="dc-project-card__progress-fill" style={{ width: `${pct}%` }} />
+            </span>
+          </>
+        ) : isMatched ? (
+          /* Matched: progress on top, then the donor count, then the amount —
+             mirrors the funding column of the matched horizontal card. */
+          <>
+            <span className="dc-project-card__progress">
+              <span className="dc-project-card__progress-fill" style={{ width: `${pct}%` }} />
+            </span>
+            <div className="dc-pc-v__donors">
+              <strong>{donors}</strong> {donorWord} so far
+            </div>
+            <div className="dc-pc-v__need">
+              <strong>{usd(stillNeeded)}</strong> for now
+            </div>
+          </>
         ) : (
-          <div className="dc-pc-v__need">
-            <strong>{usd(stillNeeded)}</strong> {isMatched ? 'for now' : 'still needed'}
-          </div>
+          <>
+            <div className="dc-pc-v__need">
+              <strong>{usd(stillNeeded)}</strong> still needed
+            </div>
+            <span className="dc-project-card__progress">
+              <span className="dc-project-card__progress-fill" style={{ width: `${pct}%` }} />
+            </span>
+          </>
         )}
-        <span className="dc-project-card__progress">
-          <span className="dc-project-card__progress-fill" style={{ width: `${pct}%` }} />
-        </span>
       </div>
     </article>
   );
@@ -184,19 +212,35 @@ export function DCProjectCard({
 
         <ul className="dc-project-card__data">
           {isFunded ? (
-            <li className="dc-project-card__completed">Fully funded!</li>
+            <>
+              <li className="dc-project-card__completed">Fully funded!</li>
+              <li>
+                {donors} {donorWord} so far
+              </li>
+            </>
+          ) : isMatched ? (
+            /* Matched cards lead with the donor count, then the amount still
+               needed — both set larger, since the match callout above already
+               says the gift is doubled. */
+            <>
+              <li className="dc-project-card__donors">
+                <strong>{donors}</strong> {donorWord} so far
+              </li>
+              <li className="dc-project-card__cost">
+                <strong>{usd(stillNeeded)}</strong> for now
+              </li>
+            </>
           ) : (
             <>
               <li className="dc-project-card__cost">
-                <strong>{usd(stillNeeded)}</strong> {isMatched ? 'for now' : 'still needed'}
+                <strong>{usd(stillNeeded)}</strong> still needed
               </li>
               {status === 'almost' && <li>Almost there — {pct}% funded</li>}
-              {isMatched && <li className="dc-project-card__match-note">Your gift is matched!</li>}
+              <li>
+                {donors} {donorWord} so far
+              </li>
             </>
           )}
-          <li>
-            {donors} {donors === 1 ? 'donor' : 'donors'} so far
-          </li>
         </ul>
 
         {!isFunded && giveBox && (
@@ -220,7 +264,7 @@ export function DCProjectCard({
   const card = layout === 'vertical' ? verticalCard : horizontalCard;
 
   // Matched projects get the colorful match frame *surrounding* the whole card,
-  // with the "Donations matched!" callout sitting above it (outside the card).
+  // with the "Double your impact!" callout sitting above it (outside the card).
   // Ported from `.matched` (conic-gradient ::after + .match-offer-section) in
   // _projectCard.scss.
   if (isMatched) {
@@ -228,7 +272,12 @@ export function DCProjectCard({
       <div className={['dc-pc-matched', layout === 'vertical' && 'dc-pc-matched--vertical'].filter(Boolean).join(' ')}>
         <div className="dc-pc-matched__callout">
           <MatchSeal />
-          <span className="dc-pc-matched__text">Donations matched!</span>
+          <span className="dc-pc-matched__lines">
+            <span className="dc-pc-matched__text">Double your impact!</span>
+            {matchSponsor && (
+              <span className="dc-pc-matched__sponsor">Thanks to {matchSponsor}.</span>
+            )}
+          </span>
         </div>
         {card}
       </div>
