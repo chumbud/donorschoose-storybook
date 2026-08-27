@@ -7,7 +7,7 @@ import { projects, byStatus } from './mockProjects';
 /**
  * The DonorsChoose classroom **project card** — ported from `ProjectCard.js` +
  * `_projectCard.scss`. Shows the funding progress bar and adapts to each
- * project state: active, almost funded, funded, and matched.
+ * project state: active, funded, and matched.
  */
 const meta = {
   title: 'Components/Cards/Project Card',
@@ -21,9 +21,19 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Active: Story = { args: byStatus('active') };
-export const AlmostFunded: Story = { args: byStatus('almost') };
 export const Funded: Story = { args: byStatus('funded') };
 export const Matched: Story = { args: byStatus('matched') };
+
+/**
+ * Expiring soon — `daysLeft` stamps the yellow countdown seal on the card's
+ * corner. Ignored once the project is funded.
+ */
+export const ExpiringSoon: Story = { args: { ...byStatus('active'), daysLeft: 4 } };
+
+/** A matched project that's also about to expire — both seals show. */
+export const MatchedExpiringSoon: Story = {
+  args: { ...byStatus('matched'), daysLeft: 4 },
+};
 
 /** Give box on — an amount input sits to the left of the Give button. */
 export const GiveBox: Story = { args: { ...byStatus('active'), giveBox: true } };

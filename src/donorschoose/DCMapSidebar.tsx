@@ -83,7 +83,7 @@ export function DCMapSidebar({
           Give to this school
         </DCButton>
         <div className="dc-map-sidebar__gift-used">
-          <span className="dc-subtle-link">How is my gift used?</span>
+          <span className="dc-link-discreet">How is my gift used?</span>
         </div>
 
         {count > 0 && (

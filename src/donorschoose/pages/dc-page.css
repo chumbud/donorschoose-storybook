@@ -6,9 +6,9 @@
   min-height: 100vh;
 }
 .dc-page__container {
-  max-width: 980px;
+  max-width: var(--dc-container-width);
   margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
+  padding: 2rem var(--dc-container-padding) 4rem;
 }
 .dc-page__breadcrumb {
   font-size: var(--dc-font-size-discreet);
@@ -23,10 +23,11 @@
   display: grid;
   gap: 1.5rem;
 }
+/* col8 + col4 on the 12-column grid. */
 .dc-page__two-col {
   display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 2.5rem;
+  grid-template-columns: 8fr 4fr;
+  gap: var(--dc-gutter);
   align-items: start;
 }
 .dc-page__hero {

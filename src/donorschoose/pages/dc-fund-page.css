@@ -5,9 +5,9 @@
   background: var(--dc-white);
 }
 .dc-fund__inner {
-  max-width: 820px;
+  max-width: var(--dc-container-width);
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 var(--dc-container-padding);
 }
 
 /* Hero */
@@ -199,10 +199,11 @@
 }
 
 /* Learn-more cards */
+/* col6 + col6. */
 .dc-fund__learn {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
+  grid-template-columns: 6fr 6fr;
+  gap: var(--dc-gutter);
   margin: 1.5rem 0 3rem;
 }
 .dc-fund__learn > div {

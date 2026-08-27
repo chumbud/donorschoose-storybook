@@ -7,8 +7,10 @@ import '../dc-grid.css';
  * # Grid
  *
  * The page container and the 12-column `.col` system every DonorsChoose layout
- * sits on: a **980px** container with **1.5rem** gutters, collapsing to a
- * single stacked column at the 46em mobile breakpoint.
+ * sits on: a **980px** container and a float grid with **28px** gutters,
+ * collapsing to a single stacked column at the 46em mobile breakpoint.
+ *
+ * Ported from `base/layout/_grid.scss`.
  */
 const meta = {
   title: 'Foundations/Tokens/Grid',
@@ -123,16 +125,16 @@ function Cell({ children, tone = 'blue' }: { children: ReactNode; tone?: 'blue' 
   );
 }
 
-/** Renders one `.row` of `.col-N` cells, labelled with the split. */
+/** Renders one `.fluid-container` of `.col colN` cells, labelled with the split. */
 function Split({ cols }: { cols: number[] }) {
   return (
     <div style={{ marginBottom: '0.5rem' }}>
       <div style={{ ...mono, color: 'var(--dc-grey)', marginBottom: '0.3rem' }}>
-        {cols.map((c) => `.col-${c}`).join(' + ')}
+        {cols.map((c) => `.col${c}`).join(' + ')}
       </div>
-      <div className="row">
+      <div className="fluid-container">
         {cols.map((c, i) => (
-          <div className={`col-${c}`} key={i}>
+          <div className={`col col${c}`} key={i}>
             <Cell>{c}</Cell>
           </div>
         ))}
@@ -150,17 +152,16 @@ export const Grid: Story = {
       <p style={lead}>
         Every DonorsChoose page is a <strong>980px</strong> container holding rows of{' '}
         <span style={mono}>.col</span> columns, twelve to a row, separated by{' '}
-        <strong>1.5rem</strong> gutters. Below 46em the columns stop dividing the row and stack
+        <strong>28px</strong> gutters. Below 46em the columns stop dividing the row and stack
         full-width.
       </p>
 
       <p style={note}>
-        <strong>Heads up —</strong> the <span style={mono}>.col</span> grid lives in{' '}
-        <span style={mono}>donorschoose-web</span>&apos;s SCSS, which isn&apos;t vendored into this
-        sandbox. The rules documented here are reconstructed from the conventions the ported pages
-        already follow (980px containers, 1.5rem gaps, the 46em breakpoint) and implemented in{' '}
-        <span style={mono}>dc-grid.css</span>. Reconcile them with{' '}
-        <span style={mono}>_grid.scss</span> before treating this page as canonical.
+        Columns <strong>float left</strong> inside a{' '}
+        <span style={mono}>.fluid-container</span>, which pulls its own 14px of column padding back
+        out with a negative margin so the outer edges stay flush with the container. The container
+        clears its floats itself. Ported from{' '}
+        <span style={mono}>base/layout/_grid.scss</span>.
       </p>
 
       {/* ---------------------------------------------------------- Container -- */}
@@ -184,7 +185,7 @@ export const Grid: Story = {
           <tr>
             <td style={{ ...td, ...mono }}>--dc-container-width</td>
             <td style={{ ...td, ...mono }}>980px</td>
-            <td style={td}>Maximum content width</td>
+            <td style={td}>Maximum content width ($defaultPageWidth)</td>
           </tr>
           <tr>
             <td style={{ ...td, ...mono }}>--dc-container-padding</td>
@@ -193,8 +194,8 @@ export const Grid: Story = {
           </tr>
           <tr>
             <td style={{ ...td, ...mono }}>--dc-gutter</td>
-            <td style={{ ...td, ...mono }}>1.5rem</td>
-            <td style={td}>Space between columns</td>
+            <td style={{ ...td, ...mono }}>28px</td>
+            <td style={td}>Space between columns (14px each side)</td>
           </tr>
         </tbody>
       </table>
@@ -235,17 +236,17 @@ export const Grid: Story = {
       {/* ----------------------------------------------------------- Columns -- */}
       <h2 style={h2}>The 12-column .col grid</h2>
       <p style={lead}>
-        A <span style={mono}>.row</span> is a flex container; each{' '}
-        <span style={mono}>.col-N</span> inside it takes N twelfths of the width. Gutters are half a
-        gutter of padding on each column, cancelled by a negative margin on the row, so the outer
-        edges stay flush with the container.
+        Every column carries <span style={mono}>.col</span> plus a width class —{' '}
+        <span style={mono}>.col1</span> through <span style={mono}>.col12</span>, for N twelfths.
+        Each gets 14px of padding either side; the <span style={mono}>.fluid-container</span>{' '}
+        cancels the outermost 14px with a negative margin.
       </p>
 
       <h3 style={h3}>Twelve columns</h3>
       <div style={atContainerWidth}>
-        <div className="row">
+        <div className="fluid-container">
           {Array.from({ length: 12 }, (_, i) => (
-            <div className="col-1" key={i}>
+            <div className="col col1" key={i}>
               <Cell tone="grey">{i + 1}</Cell>
             </div>
           ))}
@@ -261,21 +262,20 @@ export const Grid: Story = {
         <Split cols={[9, 3]} />
       </div>
 
-      <h3 style={h3}>Bare .col — equal shares, no counting</h3>
+      <h3 style={h3}>Offsets</h3>
       <p style={lead}>
-        A column with no number flexes to an equal share of whatever is left. Handy when the number
-        of items is dynamic.
+        <span style={mono}>.col-offsetN</span> pushes a column N twelfths to the right, for
+        indenting a block without an empty column beside it.
       </p>
       <div style={atContainerWidth}>
-        <div className="row">
-          <div className="col">
-            <Cell>.col</Cell>
+        <div className="fluid-container">
+          <div className="col col4 col-offset4">
+            <Cell>.col4 .col-offset4</Cell>
           </div>
-          <div className="col">
-            <Cell>.col</Cell>
-          </div>
-          <div className="col">
-            <Cell>.col</Cell>
+        </div>
+        <div className="fluid-container">
+          <div className="col col6 col-offset6">
+            <Cell>.col6 .col-offset6</Cell>
           </div>
         </div>
       </div>
@@ -283,14 +283,13 @@ export const Grid: Story = {
       <div style={{ marginTop: '1rem' }}>
         <span style={code}>
           {`<div class="dc-container">
-  <div class="row">
-    <div class="col-8">Essay</div>
-    <div class="col-4">Sidebar</div>
+  <div class="fluid-container">
+    <div class="col col8">Essay</div>
+    <div class="col col4">Sidebar</div>
   </div>
 
-  <div class="row">
-    <div class="col">Equal</div>
-    <div class="col">Equal</div>
+  <div class="fluid-container">
+    <div class="col col4 col-offset4">Indented</div>
   </div>
 </div>`}
         </span>
@@ -300,9 +299,9 @@ export const Grid: Story = {
       <h2 style={h2}>Below 46em</h2>
       <p style={lead}>
         At the <span style={mono}>$breakpoint-mobile-width</span> (46em ≈ 736px — see{' '}
-        <span style={mono}>Foundations/Breakpoints</span>) every column goes full width and stacks,
-        picking up a gutter of vertical space between siblings. No per-column mobile classes are
-        needed.
+        <span style={mono}>Foundations/Breakpoints</span>) the columns stop floating, drop their
+        side padding, and go full width; the container drops its negative margin and every offset
+        resets to zero. No per-column mobile classes are needed.
       </p>
       <p style={lead}>
         Resize this preview under 736px and the splits above will collapse into a single column.

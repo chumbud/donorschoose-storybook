@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './tokens.css';
 import './dc-essential-card.css';
-import { DCButton } from './DCButton';
+import { DCButton, type DCButtonSize } from './DCButton';
 import { DCIcon } from './DCIcon';
 
 export interface DCEssentialCardProps {
@@ -15,6 +15,8 @@ export interface DCEssentialCardProps {
   imageUrl?: string;
   /** CTA label. Defaults to "Add to cart". */
   ctaLabel?: string;
+  /** CTA size. Defaults to `default`; `small` for dense grids. */
+  ctaSize?: DCButtonSize;
   onAdd?: () => void;
 }
 
@@ -24,6 +26,7 @@ export function DCEssentialCard({
   forWho,
   imageUrl,
   ctaLabel = 'Add to cart',
+  ctaSize = 'default',
   onAdd,
 }: DCEssentialCardProps) {
   const [added, setAdded] = useState(false);
@@ -51,6 +54,7 @@ export function DCEssentialCard({
       <div className="dc-essential__for">{forWho}</div>
       <DCButton
         className="dc-essential__cta"
+        size={ctaSize}
         fullWidth
         icon={
           added ? (

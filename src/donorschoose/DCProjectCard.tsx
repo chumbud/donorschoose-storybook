@@ -3,10 +3,10 @@ import './dc-project-card.css';
 import { usd } from './money';
 import { DCButton } from './DCButton';
 import { DCInput } from './DCInput';
-import { DCIcon } from './DCIcon';
+import { DCFollowButton } from './DCFollowButton';
 import matchStarUrl from './assets/match-offer-star.svg';
 
-export type DCProjectStatus = 'active' | 'almost' | 'funded' | 'matched';
+export type DCProjectStatus = 'active' | 'funded' | 'matched';
 
 export interface DCProjectCardProps {
   title: string;
@@ -27,6 +27,11 @@ export interface DCProjectCardProps {
    * "Double your impact!" callout. Only rendered when `status` is `matched`.
    */
   matchSponsor?: string;
+  /**
+   * Days until the project expires. When set, the card shows the yellow
+   * "N days left!" seal — the expiring-soon state. Ignored once funded.
+   */
+  daysLeft?: number;
   /** `horizontal` (default, list row) or `vertical` (small card for grids). */
   layout?: 'horizontal' | 'vertical';
   /** Show the shimmering skeleton placeholder instead of content. */
@@ -84,6 +89,23 @@ function ProjectCardSkeleton({ layout }: { layout: 'horizontal' | 'vertical' }) 
  * Match-offer seal — the `match-offer-star.svg` purple star with the multiplier
  * overlaid (mirrors `.match-offer-badge` in _projectCard.scss).
  */
+/**
+ * Expiring-soon seal — the yellow circle that sits on the card's top-right
+ * corner counting down the days a project has left.
+ */
+function DaysLeftSeal({ days }: { days: number }) {
+  return (
+    <span className="dc-pc-days" aria-label={`${days} ${days === 1 ? 'day' : 'days'} left`}>
+      <span className="dc-pc-days__n" aria-hidden="true">
+        {days}
+      </span>
+      <span className="dc-pc-days__label" aria-hidden="true">
+        {days === 1 ? 'day left!' : 'days left!'}
+      </span>
+    </span>
+  );
+}
+
 function MatchSeal({ label = '2X' }: { label?: string }) {
   return (
     <span className="dc-pc-match__seal" aria-hidden="true">
@@ -105,6 +127,7 @@ export function DCProjectCard({
   donors,
   status = 'active',
   matchSponsor,
+  daysLeft,
   layout = 'horizontal',
   loading = false,
   giveBox = false,
@@ -118,10 +141,13 @@ export function DCProjectCard({
   const stillNeeded = Math.max(goal - raised, 0);
   const donorWord = donors === 1 ? 'donor' : 'donors';
 
+  const showDaysLeft = daysLeft !== undefined && !isFunded;
+
   const classes = [
     'dc-project-card',
     layout === 'vertical' && 'dc-project-card--vertical',
     `dc-project-card--${isFunded ? 'funded' : status}`,
+    showDaysLeft && 'dc-project-card--expiring',
   ]
     .filter(Boolean)
     .join(' ');
@@ -134,11 +160,10 @@ export function DCProjectCard({
         role="img"
         aria-label={`${title} classroom`}
       >
-        <button type="button" className="dc-pc-v__bookmark" aria-label="Follow project">
-          <DCIcon name="bookmark" size={16} />
-        </button>
+        <DCFollowButton />
         <h3 className="dc-pc-v__title">{title}</h3>
       </div>
+      {showDaysLeft && <DaysLeftSeal days={daysLeft} />}
       <div className="dc-pc-v__body">
         {description && <p className="dc-pc-v__desc">{description}</p>}
         <div className="dc-project-card__teacher">{teacher}</div>
@@ -189,7 +214,11 @@ export function DCProjectCard({
         style={imageUrl ? { backgroundImage: `url("${imageUrl}")` } : undefined}
         role="img"
         aria-label={`${title} classroom`}
-      />
+      >
+        <DCFollowButton />
+      </div>
+
+      {showDaysLeft && <DaysLeftSeal days={daysLeft} />}
 
       <div className="dc-project-card__main">
         <h3 className="dc-project-card__title">{title}</h3>
@@ -214,8 +243,8 @@ export function DCProjectCard({
           {isFunded ? (
             <>
               <li className="dc-project-card__completed">Fully funded!</li>
-              <li>
-                {donors} {donorWord} so far
+              <li className="dc-project-card__donors">
+                <strong>{donors}</strong> {donorWord} so far
               </li>
             </>
           ) : isMatched ? (
@@ -235,9 +264,8 @@ export function DCProjectCard({
               <li className="dc-project-card__cost">
                 <strong>{usd(stillNeeded)}</strong> still needed
               </li>
-              {status === 'almost' && <li>Almost there — {pct}% funded</li>}
-              <li>
-                {donors} {donorWord} so far
+              <li className="dc-project-card__donors">
+                <strong>{donors}</strong> {donorWord} so far
               </li>
             </>
           )}

@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const Text: Story = {
   args: { label: 'Full name', placeholder: 'Jane Doe', required: true },
   render: (args) => (
-    <div style={{ maxWidth: 360 }}>
+    <div style={{ width: 550, maxWidth: '100%' }}>
       <DCInput {...args} />
     </div>
   ),
@@ -27,7 +27,7 @@ export const Text: Story = {
 
 export const States: Story = {
   render: () => (
-    <div style={{ maxWidth: 360, display: 'grid', gap: '0.5rem' }}>
+    <div style={{ width: 550, maxWidth: '100%', display: 'grid', gap: '0.5rem' }}>
       <DCInput label="Default" placeholder="Placeholder" />
       <DCInput label="With value" defaultValue="Ms. Alvarez" />
       <DCInput label="With helper" placeholder="you@example.com" help="We'll never share your email." />
@@ -39,7 +39,7 @@ export const States: Story = {
 
 export const Fields: Story = {
   render: () => (
-    <div style={{ maxWidth: 420, display: 'grid', gap: '0.75rem' }}>
+    <div style={{ width: 550, maxWidth: '100%', display: 'grid', gap: '0.75rem' }}>
       <DCInput label="Email" type="email" placeholder="you@example.com" required />
       <DCSelect label="Grade level" defaultValue="">
         <option value="" disabled>
@@ -63,7 +63,7 @@ export const Fields: Story = {
 
 export const Search: Story = {
   render: () => (
-    <div style={{ maxWidth: 520 }}>
+    <div style={{ width: 550, maxWidth: '100%' }}>
       <DCSearchInput />
     </div>
   ),
@@ -73,7 +73,7 @@ export const Search: Story = {
  *  green once the minimum is reached, red once over the maximum. */
 export const WordCounter: Story = {
   render: () => (
-    <div style={{ maxWidth: 480, display: 'grid', gap: '1.25rem' }}>
+    <div style={{ width: 550, maxWidth: '100%', display: 'grid', gap: '1.25rem' }}>
       <DCTextarea
         label="Tell us about your project"
         placeholder="Start typing…"

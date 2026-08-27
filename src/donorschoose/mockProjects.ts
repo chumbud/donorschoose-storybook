@@ -32,7 +32,7 @@ export const projects: DCProjectCardProps[] = [
     goal: 820,
     raised: 700,
     donors: 18,
-    status: 'almost',
+    status: 'active',
   },
   {
     title: 'Cozy Flexible Seating for Our Reading Nook',

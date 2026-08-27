@@ -1,0 +1,155 @@
+/*
+ * Sort dropdown — the link-styled trigger above the search results and the
+ * panel it opens. The panel restates the current choice (with its description)
+ * above the alternatives.
+ */
+
+.dc-dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: var(--dc-font-body);
+}
+
+/* ---- Trigger ---- */
+.dc-dropdown__trigger {
+  appearance: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--dc-blue-link);
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+.dc-dropdown__trigger:hover {
+  color: var(--dc-blue-link-hover);
+  text-decoration: underline;
+}
+.dc-dropdown__trigger:focus-visible {
+  outline: 3px solid var(--dc-purple);
+  outline-offset: 2px;
+}
+/* The caret flips while the panel is open. */
+.dc-dropdown__caret {
+  display: inline-flex;
+  transition: transform var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-dropdown__caret.is-open {
+  transform: rotate(180deg);
+}
+
+/* ---- Panel ---- */
+.dc-dropdown__panel {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  z-index: 30;
+  width: max-content;
+  min-width: 260px;
+  max-width: min(440px, 90vw);
+  background: var(--dc-white);
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(33, 33, 33, 0.16);
+  text-align: left;
+  animation: dc-dropdown-in var(--dc-duration-fast) var(--dc-ease) both;
+}
+.dc-dropdown--right .dc-dropdown__panel {
+  right: 0;
+  transform-origin: top right;
+}
+.dc-dropdown--left .dc-dropdown__panel {
+  left: 0;
+  transform-origin: top left;
+}
+
+/* Caret pointing back at the trigger. Drawn as a rotated square so the border
+   and the panel's own border stay a single hairline. */
+.dc-dropdown__panel::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  width: 11px;
+  height: 11px;
+  background: var(--dc-vlgrey);
+  border-left: 1px solid var(--dc-grey-stroke);
+  border-top: 1px solid var(--dc-grey-stroke);
+  transform: rotate(45deg);
+}
+.dc-dropdown--right .dc-dropdown__panel::before {
+  right: 1.5rem;
+}
+.dc-dropdown--left .dc-dropdown__panel::before {
+  left: 1.5rem;
+}
+
+@keyframes dc-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---- Current selection, restated at the top ---- */
+.dc-dropdown__current {
+  background: var(--dc-vlgrey);
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid var(--dc-grey-stroke);
+  border-radius: 14px 14px 0 0;
+}
+.dc-dropdown__current-label {
+  color: var(--dc-black);
+  font-size: var(--dc-font-size-large);
+  line-height: 1.25;
+}
+.dc-dropdown__current-desc {
+  color: var(--dc-grey);
+  font-style: italic;
+  font-size: var(--dc-font-size-body);
+  line-height: 1.35;
+  margin-top: 0.15rem;
+}
+
+/* ---- Options ---- */
+.dc-dropdown__option {
+  appearance: none;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--dc-grey-stroke);
+  background: var(--dc-white);
+  padding: 1rem 1.25rem;
+  text-align: left;
+  color: var(--dc-blue-link);
+  font-family: inherit;
+  font-size: var(--dc-font-size-large);
+  line-height: 1.25;
+  cursor: pointer;
+  transition: background-color var(--dc-duration-fast) var(--dc-ease);
+}
+.dc-dropdown__option:last-child {
+  border-bottom: none;
+  border-radius: 0 0 14px 14px;
+}
+.dc-dropdown__option:hover {
+  background: rgba(0, 98, 253, 0.06);
+}
+.dc-dropdown__option:focus-visible {
+  outline: 3px solid var(--dc-purple);
+  outline-offset: -3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dc-dropdown__panel {
+    animation: none;
+  }
+  .dc-dropdown__caret {
+    transition: none;
+  }
+}

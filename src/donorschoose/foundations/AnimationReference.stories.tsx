@@ -7,6 +7,7 @@ import './animations.css';
 import '../dc-button.css';
 import '../dc-give-widget.css';
 import '../dc-tooltip.css';
+import '../dc-project-card.css';
 import '../pages/dc-search-page.css';
 import '../pages/dc-project-page.css';
 import '../pages/dc-fund-page.css';
@@ -318,14 +319,17 @@ const HOVERS: HoverDef[] = [
     ),
   },
   {
-    name: 'Search result row',
+    name: 'Project card row',
     timing: 'border + title · 0.15s',
-    source: 'dc-search-page.css',
+    source: 'dc-project-card.css',
     desc: 'List row highlights its border and title on hover.',
     code: 'transition: border-color var(--dc-duration-fast) var(--dc-ease);',
     render: (on) => (
-      <div className={clsHover('dc-sp__row', on)} style={{ padding: '0.9rem 1rem', width: 190 }}>
-        <div className="dc-sp__row-title" style={{ fontWeight: 700 }}>Art supplies for 3rd grade</div>
+      <div
+        className={clsHover('dc-project-card', on)}
+        style={{ display: 'block', minHeight: 0, padding: '0.9rem 1rem', width: 190 }}
+      >
+        <div className="dc-project-card__title">Art supplies for 3rd grade</div>
       </div>
     ),
   },

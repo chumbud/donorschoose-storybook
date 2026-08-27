@@ -39,8 +39,9 @@
 }
 .dc-footer__top {
   display: grid;
+  /* col5 + three col?s — kept as the footer's own ratio, on the grid gutter. */
   grid-template-columns: 1.4fr repeat(3, 0.8fr);
-  gap: 2rem;
+  gap: var(--dc-gutter);
 }
 .dc-footer h3 {
   font-family: var(--dc-font-headline);
@@ -99,7 +100,7 @@
 .dc-footer__partners {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 1rem 1.5rem;
+  gap: 1rem var(--dc-gutter);
   align-items: center;
   margin: 1.5rem 0;
   opacity: 0.55;

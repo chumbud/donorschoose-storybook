@@ -45,7 +45,7 @@
   border-bottom: 1px solid var(--dc-grey-stroke);
 }
 .dc-pp__fundbar-row {
-  max-width: 980px;
+  max-width: var(--dc-container-width);
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -104,12 +104,13 @@
 
 /* ---- Body: two columns ---- */
 .dc-pp__body {
-  max-width: 980px;
+  max-width: var(--dc-container-width);
   margin: 0 auto;
-  padding: 2rem 1.5rem 3rem;
+  padding: 2rem var(--dc-container-padding) 3rem;
   display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 2.5rem;
+  /* col3 + col9 on the 12-column grid. */
+  grid-template-columns: 3fr 9fr;
+  gap: var(--dc-gutter);
   align-items: start;
 }
 
@@ -231,7 +232,7 @@
   background-image: url('/images/project/icon/donors.svg');
 }
 /* Plain anchors in the meta list read as links; ones that opt into a link
-   primitive (.dc-link-discreet, .dc-subtle-link) keep their own treatment. */
+   primitive (.dc-link-discreet) keep their own treatment. */
 .dc-pp__meta a:not([class]) {
   color: var(--dc-blue-link);
   text-decoration: none;
@@ -361,7 +362,7 @@
   border-top: 1px solid var(--dc-grey-stroke);
 }
 .dc-pp__section-inner {
-  max-width: 980px;
+  max-width: var(--dc-container-width);
   margin: 0 auto;
   padding: 2.5rem 1.5rem;
 }
@@ -372,10 +373,11 @@
   font-size: var(--dc-font-size-xxlarge);
   margin: 0 0 1.5rem;
 }
+/* col9 + col3. */
 .dc-pp__donation-grid {
   display: grid;
-  grid-template-columns: 1fr 220px;
-  gap: 1.5rem;
+  grid-template-columns: 9fr 3fr;
+  gap: var(--dc-gutter);
   align-items: start;
 }
 .dc-pp__materials {
