@@ -15,7 +15,6 @@ import './dc-links.css';
  *   (no border/background). Used for inline actions like "Learn more", "Cancel".
  * - **`.link-discreet`** — a muted grey link with a dotted, half-opacity
  *   underline that turns solid black on hover. For quiet, low-emphasis links.
- * - **`.subtle-link`** — near-black dotted underline that turns blue on hover.
  *
  * > Note: there is no `discreet-link` class in the codebase — the real class is
  * > **`link-discreet`** (shown below).
@@ -125,17 +124,7 @@ export const Links: Story = {
         <a className="dc-link-discreet" href="#" onClick={noop}>
           Leave a message
         </a>
-      </Row>
-
-      <h2 style={h2}>
-        <code>.subtle-link</code>
-      </h2>
-      <p style={{ color: 'var(--dc-grey)', margin: 0 }}>
-        Near-black dotted underline → blue on hover. A close sibling of
-        <code> link-discreet</code>.
-      </p>
-      <Row note=".subtle-link — _buttons.scss">
-        <a className="dc-subtle-link" href="#" onClick={noop}>
+        <a className="dc-link-discreet" href="#" onClick={noop}>
           How is my gift used?
         </a>
       </Row>
@@ -160,8 +149,7 @@ export const Links: Story = {
           {[
             ['a (base)', 'Blue #0062fd, no underline', 'Underline + darken', 'Standard links'],
             ['.text-link', 'Blue, no underline, no chrome', 'Underline', 'Inline button-as-link actions'],
-            ['.link-discreet', 'Grey #414142, dotted underline', 'Solid black underline', 'Quiet, low-emphasis links'],
-            ['.subtle-link', 'Near-black, dotted underline', 'Turns blue', 'De-emphasized inline links'],
+            ['.link-discreet', 'Grey #414142, dotted underline', 'Solid black underline', 'Quiet, low-emphasis links (absorbs the old .subtle-link)'],
           ].map((r) => (
             <tr key={r[0]} style={{ borderBottom: '1px solid var(--dc-grey-stroke)' }}>
               <td style={{ padding: '0.5rem', ...mono }}>{r[0]}</td>

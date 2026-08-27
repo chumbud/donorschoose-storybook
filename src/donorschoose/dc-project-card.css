@@ -1,7 +1,7 @@
 /*
  * DonorsChoose Project Card — ported from
  * web/war/js/dc/common/ProjectCard.js + _projectCard.scss.
- * States: active, almost, funded, matched.
+ * States: active, funded, matched.
  */
 
 .dc-project-card {
@@ -36,6 +36,9 @@
   transition: opacity var(--dc-duration-fast) var(--dc-ease);
   pointer-events: none;
 }
+.dc-project-card {
+  cursor: pointer;
+}
 .dc-project-card:hover {
   border-color: rgba(0, 98, 253, 0.75);
 }
@@ -48,6 +51,7 @@
 
 /* ---- Photo ---- */
 .dc-project-card__photo {
+  position: relative;
   flex: none;
   width: 145px;
   height: 145px;
@@ -158,11 +162,10 @@
 }
 .dc-project-card__donors {
   color: var(--dc-black);
-  font-size: var(--dc-font-size-button); /* 1.125rem */
+  font-size: var(--dc-font-size-body); /* 1rem — the figure alone steps up */
   line-height: 1.3;
 }
 .dc-project-card__donors strong {
-  font-family: var(--dc-font-headline);
   font-weight: 900;
   font-size: var(--dc-font-size-large); /* 1.25rem */
 }
@@ -171,7 +174,6 @@
   margin-top: 0.35rem;
 }
 .dc-project-card--matched .dc-project-card__cost strong {
-  font-family: var(--dc-font-headline);
   font-size: var(--dc-font-size-xlarge); /* 1.5rem */
 }
 
@@ -179,20 +181,20 @@
    "Double your impact!" callout above it (outside the card). Ported from
    `.matched` in _projectCard.scss (::after gradient + .match-offer-section). */
 .dc-pc-matched {
+  /* Height of the gradient band above the card. The callout is centred in it,
+     and the frame and top margin are both derived from it. */
+  --dc-match-band: 2.5rem;
+
   position: relative;
   z-index: 0;
   max-width: 726px;
-  margin-top: 3rem; /* room for the callout that sits above the card */
+  margin-top: calc(var(--dc-match-band) + 0.25rem);
 }
+/* The vertical card is narrow enough that the callout stacks onto two lines,
+   so its band is taller. */
 .dc-pc-matched--vertical {
+  --dc-match-band: 3.25rem;
   max-width: none;
-  margin-top: 3.5rem;
-}
-.dc-pc-matched--vertical::after {
-  height: calc(100% + 3.75rem);
-}
-.dc-pc-matched--vertical .dc-pc-matched__callout {
-  top: -2.7rem;
 }
 .dc-pc-matched::after {
   content: '';
@@ -201,7 +203,7 @@
   left: -0.5rem;
   bottom: -0.5rem;
   width: calc(100% + 1rem);
-  height: calc(100% + 3.25rem);
+  height: calc(100% + var(--dc-match-band) + 0.5rem);
   border-radius: 24px;
   background: conic-gradient(
     from 180deg at 50% 50%,
@@ -229,10 +231,12 @@
 }
 
 /* Callout above the card. */
+/* Sits in the band above the card, vertically centred in it. */
 .dc-pc-matched__callout {
   position: absolute;
-  top: -2.2rem;
+  top: calc(var(--dc-match-band) * -1);
   left: 1rem;
+  height: var(--dc-match-band);
   z-index: 2;
   display: flex;
   align-items: center;
@@ -261,7 +265,7 @@
   font-family: var(--dc-font-body);
   font-size: var(--dc-font-size-discreet);
   font-weight: 400;
-  color: var(--dc-blue-link);
+  color: var(--dc-blue);
   white-space: nowrap;
 }
 .dc-pc-matched--vertical .dc-pc-matched__lines {
@@ -274,8 +278,8 @@
 .dc-pc-match__seal {
   position: relative;
   flex: none;
-  width: 52px;
-  height: 52px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -295,6 +299,46 @@
   font-size: var(--dc-font-size-body);
 }
 
+/* ---- Expiring soon ----
+   Yellow seal on the card's top-right corner, tilted so it reads as a stamp
+   rather than part of the layout. */
+.dc-pc-days {
+  position: absolute;
+  top: -18px;
+  right: -14px;
+  z-index: 3;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--dc-yellow);
+  color: var(--dc-black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  transform: rotate(-8deg);
+  font-family: var(--dc-font-headline);
+  text-align: center;
+  pointer-events: none;
+}
+.dc-pc-days__n {
+  font-weight: 900;
+  font-size: var(--dc-font-size-xlarge);
+  line-height: 1;
+}
+.dc-pc-days__label {
+  font-weight: 900;
+  font-size: 0.6rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+/* The seal hangs off the corner, so the card must not clip it. */
+.dc-project-card--expiring {
+  overflow: visible;
+}
+
 /* funded → green fill */
 .dc-project-card--funded .dc-project-card__progress-fill {
   background: var(--dc-green);
@@ -305,12 +349,14 @@
   padding: 0;
   margin: 0 0 0.75rem;
   color: var(--dc-grey);
-  font-size: var(--dc-font-size-discreet);
+  font-size: var(--dc-font-size-body);
 }
+/* Bold is reserved for the figure itself; "still needed" / "for now" stay at
+   normal weight (the <strong> below carries the emphasis). */
 .dc-project-card__cost {
-  font-weight: 700;
+  font-weight: 400;
   color: var(--dc-black);
-  font-size: var(--dc-font-size-button);
+  font-size: var(--dc-font-size-body); /* 1rem — the figure alone steps up */
   line-height: 1.6;
 }
 .dc-project-card__cost strong {
@@ -319,7 +365,7 @@
 }
 .dc-project-card__completed {
   color: var(--dc-green);
-  font-size: var(--dc-font-size-button);
+  font-size: var(--dc-font-size-body);
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -369,22 +415,6 @@
   inset: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0) 55%);
 }
-.dc-pc-v__bookmark {
-  position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  z-index: 2;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.95);
-  color: var(--dc-black);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
 .dc-pc-v__title {
   position: relative;
   z-index: 1;
@@ -411,10 +441,13 @@
   display: block;
 }
 .dc-pc-v__need {
-  font-family: var(--dc-font-headline);
-  font-weight: 700;
-  font-size: var(--dc-font-size-button);
+  font-weight: 400;
+  font-size: var(--dc-font-size-body);
   margin: 0.85rem 0 0.5rem;
+}
+.dc-pc-v__need strong {
+  font-weight: 900;
+  font-size: var(--dc-font-size-large);
 }
 .dc-project-card--vertical .dc-project-card__progress {
   height: 8px;
@@ -427,11 +460,10 @@
 }
 .dc-pc-v__donors {
   color: var(--dc-black);
-  font-size: var(--dc-font-size-button);
+  font-size: var(--dc-font-size-body);
   line-height: 1.3;
 }
 .dc-pc-v__donors strong {
-  font-family: var(--dc-font-headline);
   font-weight: 900;
   font-size: var(--dc-font-size-large);
 }

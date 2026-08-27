@@ -12,11 +12,12 @@
   padding: 3rem 1.5rem;
 }
 .dc-tp__hero-inner {
-  max-width: 980px;
+  max-width: var(--dc-container-width);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 460px;
-  gap: 2.5rem;
+  /* col6 + col6. */
+  grid-template-columns: 6fr 6fr;
+  gap: var(--dc-gutter);
   align-items: center;
 }
 .dc-tp__profile {
@@ -97,10 +98,11 @@
 }
 
 /* About: text + photo */
+/* col8 + col4. */
 .dc-tp__about-grid {
   display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 2.5rem;
+  grid-template-columns: 8fr 4fr;
+  gap: var(--dc-gutter);
   align-items: start;
 }
 .dc-tp__about-grid p {

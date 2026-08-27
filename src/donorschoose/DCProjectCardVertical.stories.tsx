@@ -32,9 +32,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Active: Story = {};
-export const AlmostFunded: Story = { args: byStatus('almost') };
 export const Funded: Story = { args: byStatus('funded') };
 export const Matched: Story = { args: byStatus('matched') };
+
+/** Expiring soon — the yellow countdown seal on the card's corner. */
+export const ExpiringSoon: Story = { args: { ...byStatus('active'), daysLeft: 4 } };
 
 /** Shimmering skeleton shown while the card's data loads. */
 export const Loading: Story = { args: { loading: true } };

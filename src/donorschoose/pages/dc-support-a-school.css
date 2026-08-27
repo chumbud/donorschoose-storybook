@@ -95,7 +95,7 @@
 /* --- Schools grid --- */
 .dc-sas__schools {
   width: 100%;
-  max-width: 980px;
+  max-width: var(--dc-container-width);
   margin: 4rem auto 0;
 }
 .dc-sas__schools-title {
@@ -107,7 +107,7 @@
 .dc-sas__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
+  gap: var(--dc-gutter);
   text-align: left;
 }
 .dc-sas__more { margin-top: 2rem; }
@@ -115,7 +115,7 @@
 /* --- Fully funded section --- */
 .dc-sas__funded {
   width: 100%;
-  max-width: 980px;
+  max-width: var(--dc-container-width);
   margin: 4.5rem auto 0;
 }
 .dc-sas__funded-title {
@@ -125,13 +125,14 @@
   line-height: 1.15;
   margin: 0 0 2.5rem;
 }
+/* Three col4s. */
 .dc-sas__funded-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
+  gap: var(--dc-gutter);
 }
 
-@media (max-width: 640px) {
+@media screen and (max-width: 46em) {
   .dc-sas__title { font-size: var(--dc-font-size-xxlarge); }
   .dc-sas__subheader { font-size: var(--dc-font-size-large); }
 }

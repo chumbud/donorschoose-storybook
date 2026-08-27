@@ -1,0 +1,120 @@
+/*
+ * Follow (favourite) button — the circular outlined bookmark that sits on a
+ * project photo.
+ *
+ * NOTE: donorschoose-web styles this with `.favorite-marker` / `.add-favorite`,
+ * which aren't vendored into this sandbox, so the sizing and the pop animation
+ * below are built from this repo's own motion tokens rather than ported.
+ * Reconcile with those classes before treating this as canonical.
+ */
+
+.dc-follow {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  cursor: pointer;
+
+  /* .favorite-link (search.scss). Height is ours — the SCSS inherits it from
+     .button-secondary — and is set so the resting state is a circle; the pill
+     grows sideways when the hover label appears. */
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--dc-grey-stroke);
+  border-radius: 50px;
+  background-color: var(--dc-white);
+  color: var(--dc-black);
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-font-size-discreet);
+  font-weight: 700;
+  white-space: nowrap;
+  transition: all var(--dc-duration-fast) var(--dc-ease); /* @include DCtransition */
+}
+/* White-filled glyph with a black outline — CSS wins over the SVG's own
+   presentation attributes, so the shared BookmarkOutline stays generic. */
+.dc-follow svg {
+  fill: var(--dc-white);
+  stroke: var(--dc-black);
+  stroke-width: 2px;
+  padding: 0;
+}
+
+/* The label is a ::after that only exists on hover, so the resting button is
+   just the marker. No `content` here means the pseudo-element isn't generated
+   at all — matching `&::after { opacity: 0 }` in the source. */
+.dc-follow::after {
+  opacity: 0;
+}
+.dc-follow:hover::after {
+  content: 'Follow';
+  opacity: 1;
+}
+/* Faithful to the source, which sets this literal string on the saved state. */
+.dc-follow.is-followed:hover::after {
+  content: ' - Unfollow';
+  opacity: 1;
+}
+/* No label on mobile — the source blanks the content below the breakpoint. */
+@media screen and (max-width: 46em) {
+  .dc-follow:hover::after,
+  .dc-follow.is-followed:hover::after {
+    content: '';
+  }
+}
+
+.dc-follow:hover {
+  color: var(--dc-fav-orange);
+  background-color: var(--dc-white);
+  transform: scale(1.05);
+}
+.dc-follow:hover svg {
+  fill: var(--dc-white);
+  stroke: var(--dc-fav-orange);
+}
+
+.dc-follow:focus-visible {
+  outline: 3px solid var(--dc-purple);
+  outline-offset: 2px;
+}
+
+/* .favorite-link.saved — the marker fills orange once followed. */
+.dc-follow.is-followed svg {
+  fill: var(--dc-fav-orange);
+  stroke: var(--dc-fav-orange);
+}
+
+/* The glyph pops as it fills, so following reads as a change of state rather
+   than just a colour shift. */
+.dc-follow__glyph {
+  display: inline-flex;
+}
+.dc-follow.is-followed .dc-follow__glyph {
+  animation: dc-follow-pop var(--dc-duration-med) var(--dc-ease);
+}
+
+@keyframes dc-follow-pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dc-follow,
+  .dc-follow:hover {
+    transition: none;
+    transform: none;
+  }
+  .dc-follow.is-followed .dc-follow__glyph {
+    animation: none;
+  }
+}

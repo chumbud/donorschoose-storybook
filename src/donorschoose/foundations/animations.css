@@ -153,9 +153,9 @@
   filter: brightness(0.94);
   transform: translate(-50%, -100%) scale(1.08);
 }
-.dc-sp__row.is-demo-hover {
+.dc-project-card.is-demo-hover {
   border-color: rgba(0, 98, 253, 0.75);
 }
-.dc-sp__row.is-demo-hover .dc-sp__row-title {
+.dc-project-card.is-demo-hover .dc-project-card__title {
   color: var(--dc-blue-link);
 }

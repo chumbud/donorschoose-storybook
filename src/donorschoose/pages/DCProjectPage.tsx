@@ -11,6 +11,7 @@ import { DCInput } from '../DCInput';
 import { DCModal } from '../DCModal';
 import { DCText } from '../DCText';
 import { DCShareTools } from '../DCShareTools';
+import { BookmarkOutline } from '../DCFollowButton';
 import { DCProgressBar } from '../DCProgressBar';
 import type { DCProjectCardProps } from '../DCProjectCard';
 import { byStatus } from '../mockProjects';
@@ -27,28 +28,6 @@ const MATERIALS = [
 ];
 
 const TAGS = ['Austin, TX', 'Grades 6-8', 'Social Sciences', 'Traditional School', 'Art Supplies', 'More than half of students from low-income households'];
-
-/**
- * Outlined bookmark glyph for the "Follow" button — stroke-only at 2px, unlike
- * the filled `DCIcon` sprite version.
- */
-function BookmarkOutline({ size = 20 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1Z" />
-    </svg>
-  );
-}
 
 export interface DCProjectPageProps {
   /** The project supplying the funding state. Defaults to an active project. */
@@ -124,7 +103,7 @@ export function DCProjectPage({ project = byStatus('active') }: DCProjectPagePro
             {project.teacher}
           </a>
           <div className="dc-pp__teacher-sub">
-            <a href="#" className="dc-subtle-link">
+            <a href="#" className="dc-link-discreet">
               {project.school}
             </a>
             <br />

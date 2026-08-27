@@ -12,6 +12,8 @@
   --dc-blue-link-hover: #0058e3; /* darken($blue-link, 5%) */
   --dc-blue-lighter: #3da9f3; /* progress fill, input focus border */
   --dc-blue-highlighter: #77eeef; /* aqua accent ($blue-highlighter) */
+  --dc-lblue: #e9fcfc; /* $lblue — lighten($blue-highlighter, 25%) */
+  --dc-fav-orange: #ff5500; /* $favOrange — follow/favourite marker */
   --dc-magenta: #d020b8; /* professional-development accent ($color-pd) */
   --dc-beige: #ede7df; /* warm neutral background ($darker-beige) */
   --dc-purple: #8152ff; /* focus outline ($purple) */
@@ -45,9 +47,9 @@
   --dc-font-size-gigantic: 3rem; /* 48px */
 
   /* ---- Layout grid ---- */
-  --dc-container-width: 980px; /* the site container width */
+  --dc-container-width: 980px; /* $defaultPageWidth */
   --dc-container-padding: 1.5rem; /* container side padding */
-  --dc-gutter: 1.5rem; /* space between grid columns */
+  --dc-gutter: 28px; /* grid gutter — 14px either side of each .col */
 
   /* ---- Radii (rem @ 16px root) ---- */
   --dc-radius-static: 0; /* square corners — DC form inputs */

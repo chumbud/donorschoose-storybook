@@ -1,8 +1,12 @@
 /* Link primitives — ported from donorschoose-web:
  *   .text-link      → base/form-elements/_buttons.scss
  *   a.link-discreet → general.scss
- *   .subtle-link    → base/form-elements/_buttons.scss
  *   a (base)        → general.scss
+ *
+ * NOTE: `.subtle-link` (base/form-elements/_buttons.scss) has been merged into
+ * `.link-discreet`. They shared the whole underline treatment and differed only
+ * in resting colour ($grey vs #212121) and hover ($black underline vs turning
+ * blue); `.link-discreet`'s behaviour is the one kept.
  * Prefixed `dc-` to avoid colliding with Storybook's own manager styles. */
 
 /* Base anchor: blue, no underline, underline + darken on hover. */
@@ -53,20 +57,4 @@
 .dc-link-discreet:hover {
   text-decoration-style: solid;
   text-decoration-color: var(--dc-black);
-}
-
-/* .subtle-link — near-black dotted underline that turns blue on hover. */
-.dc-subtle-link {
-  color: var(--dc-black);
-  text-underline-position: from-font;
-  text-underline-offset: 2px;
-  text-decoration-line: underline;
-  text-decoration-style: dotted;
-  text-decoration-color: rgba(65, 65, 66, 0.5);
-  cursor: pointer;
-}
-.dc-subtle-link:hover {
-  color: var(--dc-blue-link);
-  text-decoration-style: solid;
-  text-decoration-color: var(--dc-blue-link);
 }
